@@ -14,6 +14,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+
 import becapp.mirar;
 import becapp.menus.gestionBecas.GestionBecas;
 import becapp.menus.gestionBecas.ListadoBecas;
@@ -121,7 +124,7 @@ public class FormularioAdministrador extends JFrame {
 		fecha_nacC.setOpaque(false);
 		
 		JTextField fecha_nac = new JTextField();
-		fecha_nac.setBounds(100, 230, 100, 19);
+		fecha_nac.setBounds(450, 170, 250, 19);
 		getContentPane().add(fecha_nac);
 		fecha_nac.setColumns(10);
 		fecha_nac.setEditable(false);
@@ -164,8 +167,6 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(descripcion_puesto);
 		descripcion_puesto.setColumns(10);
 		
-		
-
 		JButton salir = new JButton("ATRAS");
 		salir.setBounds(100, 550, 100, 30);
 		getContentPane().add(salir);
@@ -181,7 +182,7 @@ public class FormularioAdministrador extends JFrame {
 				dispose();
 				GestionAdministradores ga = new GestionAdministradores();
 				ga.setVisible(true);
-
+			
 			}
 
 		});
@@ -190,7 +191,14 @@ public class FormularioAdministrador extends JFrame {
 		listado.setBounds(250, 550, 100, 30);
 		getContentPane().add(listado);
 		listado.setSelectedIcon(new ImageIcon(getClass().getResource("/imagenes/tabla.jpg")));
-
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("d/MM/y");
+		dateChooser.setBounds(107, 377, 224, 19);
+		fondo.add(dateChooser);
+		
+		
+	
 		listado.addActionListener(new ActionListener() {
 
 			@Override
@@ -202,5 +210,4 @@ public class FormularioAdministrador extends JFrame {
 			}
 		});
 	}
-
 }
