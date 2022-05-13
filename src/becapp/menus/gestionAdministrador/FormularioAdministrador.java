@@ -6,19 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
-import becapp.mirar;
-import becapp.menus.gestionBecas.GestionBecas;
 import becapp.menus.gestionBecas.ListadoBecas;
 import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.MetodosMenus;
@@ -110,37 +105,37 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(telfC);
 		telfC.setEditable(false);
 		telfC.setOpaque(false);
-		
+
 		JTextField telf = new JTextField();
 		telf.setBounds(450, 170, 250, 19);
 		getContentPane().add(telf);
 		telf.setColumns(10);
-		
+
 		JTextPane fecha_nacC = new JTextPane();
 		fecha_nacC.setText("Fecha de nacimiento");
 		fecha_nacC.setBounds(100, 200, 150, 19);
 		getContentPane().add(fecha_nacC);
 		fecha_nacC.setEditable(false);
 		fecha_nacC.setOpaque(false);
-		
+
 		JTextField fecha_nac = new JTextField();
 		fecha_nac.setBounds(450, 170, 250, 19);
 		getContentPane().add(fecha_nac);
 		fecha_nac.setColumns(10);
 		fecha_nac.setEditable(false);
-		
+
 		JTextPane claveC = new JTextPane();
 		claveC.setText("Clave");
 		claveC.setBounds(450, 200, 150, 19);
 		getContentPane().add(claveC);
 		claveC.setEditable(false);
 		claveC.setOpaque(false);
-		
+
 		JTextField clave = new JTextField();
 		clave.setBounds(450, 230, 100, 19);
 		getContentPane().add(clave);
 		clave.setColumns(10);
-		
+
 		JTextPane estadoC = new JTextPane();
 		estadoC.setText("Estado");
 		estadoC.setBounds(100, 260, 150, 19);
@@ -148,12 +143,12 @@ public class FormularioAdministrador extends JFrame {
 		estadoC.setEditable(false);
 		estadoC.setOpaque(false);
 		estadoC.setForeground(Color.white);
-		
+
 		JTextField estado = new JTextField();
 		estado.setBounds(100, 290, 100, 19);
 		getContentPane().add(estado);
 		estado.setColumns(10);
-		
+
 		JTextPane descipcion_puestoC = new JTextPane();
 		descipcion_puestoC.setText("Descripcion puesto");
 		descipcion_puestoC.setBounds(450, 260, 150, 19);
@@ -161,17 +156,15 @@ public class FormularioAdministrador extends JFrame {
 		descipcion_puestoC.setEditable(false);
 		descipcion_puestoC.setOpaque(false);
 		descipcion_puestoC.setForeground(Color.white);
-		
+
 		JTextField descripcion_puesto = new JTextField();
 		descripcion_puesto.setBounds(450, 290, 250, 19);
 		getContentPane().add(descripcion_puesto);
 		descripcion_puesto.setColumns(10);
-		
+
 		JButton salir = new JButton("ATRAS");
 		salir.setBounds(100, 550, 100, 30);
 		getContentPane().add(salir);
-		
-		
 
 		salir.addActionListener(new ActionListener() {
 
@@ -182,7 +175,7 @@ public class FormularioAdministrador extends JFrame {
 				dispose();
 				GestionAdministradores ga = new GestionAdministradores();
 				ga.setVisible(true);
-			
+
 			}
 
 		});
@@ -191,14 +184,12 @@ public class FormularioAdministrador extends JFrame {
 		listado.setBounds(250, 550, 100, 30);
 		getContentPane().add(listado);
 		listado.setSelectedIcon(new ImageIcon(getClass().getResource("/imagenes/tabla.jpg")));
-		
+
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("d/MM/y");
 		dateChooser.setBounds(107, 377, 224, 19);
 		fondo.add(dateChooser);
-		
-		
-	
+
 		listado.addActionListener(new ActionListener() {
 
 			@Override
