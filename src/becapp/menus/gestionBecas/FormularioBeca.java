@@ -224,9 +224,9 @@ public class FormularioBeca extends JFrame {
 						Date fecha_hora = gc.getTime();
 
 						try {
-							String detalle = beca.toString();
+							
 							Log metodos = new Log();
-							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_BECA, fecha_hora, detalle);
+							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_BECA, fecha_hora);
 						} catch (IOException elog) {
 							elog.getStackTrace();
 						}

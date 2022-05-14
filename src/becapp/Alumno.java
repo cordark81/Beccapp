@@ -19,7 +19,7 @@ public class Alumno extends Usuario {
   
 
   public Alumno( String dni, String nombre, String apellido, String nacionalidad, String email,
-			int telf, Date fecha_nac, Integer numero_familiares, double ingreso_anual, Integer telf2,
+			int telf, String fecha_nac, Integer numero_familiares, double ingreso_anual, Integer telf2,
 			List<Beca> becasFavoritas, becapp.estudios_requisitos estudios_requisitos,
 			becapp.umbral_ingresos umbral_ingresos) {
 		super( dni, nombre, apellido, nacionalidad, email, telf, fecha_nac);

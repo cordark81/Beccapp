@@ -177,7 +177,7 @@ public class BorradoBecas extends JFrame {
 					JOptionPane.showMessageDialog(null, "Seleccion de beca/s borrado con exito");
 					Log metodos = new Log();
 					try {
-						metodos.escribirLog(Tipo_movimiento.BORRAR_BECA, fecha_hora, informacion.getText());
+						metodos.escribirLog(Tipo_movimiento.BORRAR_BECA, fecha_hora);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}

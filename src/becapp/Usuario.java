@@ -1,6 +1,5 @@
 package becapp;
 
-import java.util.Date;
 
 public class Usuario {
 
@@ -18,13 +17,23 @@ public class Usuario {
 
 	private int telf;
 
-	private Date fecha_nac;
+	private String fecha_nac;
 	
-	
-
 	public Usuario(String dni, String nombre, String apellido, String nacionalidad, String email,
-			int telf, Date fecha_nac) {
+			int telf, String fecha_nac) {
 		super();
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.nacionalidad = nacionalidad;
+		this.email = email;
+		this.telf = telf;
+		this.fecha_nac = fecha_nac;
+	}
+	public Usuario(int id_usuario,String dni, String nombre, String apellido, String nacionalidad, String email,
+			int telf, String fecha_nac) {
+		super();
+		this.id_usuario=id_usuario;
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -62,8 +71,14 @@ public class Usuario {
 		return telf;
 	}
 
-	public Date getFecha_nac() {
+	public String getFecha_nac() {
 		return fecha_nac;
+	}
+	@Override
+	public String toString() {
+		return "Usuario [id_usuario=" + id_usuario + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", nacionalidad=" + nacionalidad + ", email=" + email + ", telf=" + telf + ", fecha_nac=" + fecha_nac
+				+ "]";
 	}
 
 }

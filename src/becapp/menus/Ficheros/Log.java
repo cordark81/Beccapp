@@ -53,7 +53,7 @@ public class Log {
 	 * @param detalle aqui se pasa un string con todos los datos de la beca
 	 * @throws IOException subimos la excepcion para tratala mas tarde
 	 */
-	public void escribirLog(Tipo_movimiento tipo, Date fecha_hora, String detalle) throws IOException {
+	public void escribirLog(Tipo_movimiento tipo, Date fecha_hora) throws IOException {
 
 		File log = new File("log.txt");
 		FileWriter fw = new FileWriter(log, true);
@@ -62,8 +62,6 @@ public class Log {
 		bw.write(tipo.toString());
 		bw.write(" ");
 		bw.write(fecha_hora.toString());
-		bw.write(" ");
-		bw.write(detalle);
 		bw.newLine();
 
 		bw.close();

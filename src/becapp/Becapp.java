@@ -25,12 +25,9 @@ public class Becapp {
 		Date d = new Date(100, 5, 2);
 		new SimpleDateFormat("dd-MM-yyyy").format(d);
 		Date fecha_nac=d;
-		Administrador administrador1 = new Administrador("45454545L", "luis", "miguel", "española", "luis@gmail.com",65465466, fecha_nac,"1234", "activo", "administrador jefe");
-		conexion.darAltaAdmin(administrador1);
 		
 		conexion.darBajaAdmin(3);
 		
-		System.out.println(conexion.mostrarAdmin());
 		
 		
 		

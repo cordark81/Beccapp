@@ -3,6 +3,8 @@ package becapp.menus;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import becapp.Conexion_BBDD;
+
 public class prueba {
 
 	public static void main(String[] args) {
@@ -24,10 +26,8 @@ public class prueba {
 		}
 		
 		MenuGestion aplicacion = new MenuGestion();
-
-		
-		
 		aplicacion.setVisible(true);
+		
 	}
 
 }

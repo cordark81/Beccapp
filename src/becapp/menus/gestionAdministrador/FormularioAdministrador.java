@@ -5,17 +5,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
-import javax.swing.ImageIcon;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import com.toedter.calendar.JDateChooser;
 
+import becapp.Administrador;
+import becapp.Conexion_BBDD;
+import becapp.menus.Ficheros.Log;
+import becapp.menus.Ficheros.Tipo_movimiento;
 import becapp.menus.gestionBecas.ListadoBecas;
 import becapp.menus.metodos.ImagenFondo;
+import becapp.menus.metodos.Limpiar;
 import becapp.menus.metodos.MetodosMenus;
 
 public class FormularioAdministrador extends JFrame {
@@ -25,7 +38,7 @@ public class FormularioAdministrador extends JFrame {
 		setTitle("FORMULARIO ADMINISTRADOR");
 		ImagenFondo fondo = new ImagenFondo();
 		setContentPane(fondo);
-		setBounds(500, 300, 1000, 650);
+		setBounds(500, 300, 800, 650);
 		getContentPane().setLayout(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -55,6 +68,7 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(nombreC);
 		nombreC.setEditable(false);
 		nombreC.setOpaque(false);
+		nombreC.setForeground(Color.white);
 
 		JTextField nombre = new JTextField();
 		nombre.setBounds(100, 110, 250, 19);
@@ -75,7 +89,7 @@ public class FormularioAdministrador extends JFrame {
 		apellido.setColumns(10);
 
 		JTextPane nacionalidadC = new JTextPane();
-		nacionalidadC.setText("Nacioalidad");
+		nacionalidadC.setText("Nacionalidad");
 		nacionalidadC.setBounds(450, 20, 150, 19);
 		getContentPane().add(nacionalidadC);
 		nacionalidadC.setEditable(false);
@@ -98,6 +112,7 @@ public class FormularioAdministrador extends JFrame {
 		email.setBounds(450, 110, 250, 19);
 		getContentPane().add(email);
 		email.setColumns(10);
+		emailC.setForeground(Color.BLACK);
 
 		JTextPane telfC = new JTextPane();
 		telfC.setText("Telefono");
@@ -113,16 +128,11 @@ public class FormularioAdministrador extends JFrame {
 
 		JTextPane fecha_nacC = new JTextPane();
 		fecha_nacC.setText("Fecha de nacimiento");
-		fecha_nacC.setBounds(100, 200, 150, 19);
+		fecha_nacC.setBounds(100, 200, 250, 19);
 		getContentPane().add(fecha_nacC);
 		fecha_nacC.setEditable(false);
 		fecha_nacC.setOpaque(false);
-
-		JTextField fecha_nac = new JTextField();
-		fecha_nac.setBounds(450, 170, 250, 19);
-		getContentPane().add(fecha_nac);
-		fecha_nac.setColumns(10);
-		fecha_nac.setEditable(false);
+		fecha_nacC.setForeground(Color.white);
 
 		JTextPane claveC = new JTextPane();
 		claveC.setText("Clave");
@@ -144,10 +154,11 @@ public class FormularioAdministrador extends JFrame {
 		estadoC.setOpaque(false);
 		estadoC.setForeground(Color.white);
 
-		JTextField estado = new JTextField();
+		String[] optionsToChoose = { "Activo", "No activo" };
+
+		JComboBox<String> estado = new JComboBox<>(optionsToChoose);
 		estado.setBounds(100, 290, 100, 19);
 		getContentPane().add(estado);
-		estado.setColumns(10);
 
 		JTextPane descipcion_puestoC = new JTextPane();
 		descipcion_puestoC.setText("Descripcion puesto");
@@ -155,16 +166,54 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(descipcion_puestoC);
 		descipcion_puestoC.setEditable(false);
 		descipcion_puestoC.setOpaque(false);
-		descipcion_puestoC.setForeground(Color.white);
 
 		JTextField descripcion_puesto = new JTextField();
 		descripcion_puesto.setBounds(450, 290, 250, 19);
 		getContentPane().add(descripcion_puesto);
 		descripcion_puesto.setColumns(10);
 
+		JTextPane ultimoAdminitradorC = new JTextPane();
+		ultimoAdminitradorC.setText("Ultimo Administrador añadido");
+		ultimoAdminitradorC.setBounds(100, 350, 300, 19);
+		getContentPane().add(ultimoAdminitradorC);
+		ultimoAdminitradorC.setEditable(false);
+		ultimoAdminitradorC.setOpaque(false);
+		ultimoAdminitradorC.setForeground(Color.white);
+
+		JTextField ultimoAdministrador = new JTextField();
+		ultimoAdministrador.setBounds(100, 380, 600, 38);
+		getContentPane().add(ultimoAdministrador);
+		ultimoAdministrador.setColumns(10);
+		ultimoAdministrador.setEditable(false);
+
+		JDateChooser jdc = new JDateChooser();
+		jdc.setDateFormatString("d/MM/y");
+		jdc.setBounds(100, 230, 224, 19);
+		fondo.add(jdc);
+
 		JButton salir = new JButton("ATRAS");
 		salir.setBounds(100, 550, 100, 30);
 		getContentPane().add(salir);
+
+		JButton limpiar = new JButton("LIMPIAR");
+		limpiar.setBounds(450, 550, 100, 30);
+		getContentPane().add(limpiar);
+
+		limpiar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dni.setText("");
+				nombre.setText("");
+				apellido.setText("");
+				jdc.setCalendar(null);
+				nacionalidad.setText("");
+				email.setText("");
+				telf.setText("");
+				clave.setText("");
+				descripcion_puesto.setText("");
+			}
+		});
 
 		salir.addActionListener(new ActionListener() {
 
@@ -180,25 +229,89 @@ public class FormularioAdministrador extends JFrame {
 
 		});
 
+		JButton aceptar = new JButton("ACEPTAR");
+		aceptar.setBounds(600, 550, 100, 30);
+		getContentPane().add(aceptar);
+
+		aceptar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				Conexion_BBDD conexion = new Conexion_BBDD();
+				conexion.conectar();
+				try {
+
+					if (dni.getText().isBlank() || nombre.getText().isBlank() || apellido.getText().isBlank()
+							|| nacionalidad.getText().isBlank() || email.getText().isBlank() || telf.getText().isBlank()
+							|| clave.getText().isBlank() || descripcion_puesto.getText().isBlank()) {
+						throw new Exception();
+					}
+
+					Date fechaCalendario = jdc.getDate();
+					DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+					String fecha = f.format(fechaCalendario);
+
+					int telefono = Integer.parseInt(telf.getText());
+
+					Administrador admin = new Administrador(dni.getText().toUpperCase(), nombre.getText().toUpperCase(), apellido.getText().toUpperCase(),
+							nacionalidad.getText().toUpperCase(), email.getText().toUpperCase(), telefono, fecha, clave.getText().toUpperCase(),
+							estado.getSelectedItem().toString().toUpperCase(), descripcion_puesto.getText().toUpperCase());
+
+					if (conexion.darAltaAdmin(admin)) {
+
+						JOptionPane.showMessageDialog(null, "Administrador añadido con exito");
+						ultimoAdministrador.setText(admin.toString());
+						dni.setText("");
+						nombre.setText("");
+						apellido.setText("");
+						jdc.setCalendar(null);
+						nacionalidad.setText("");
+						email.setText("");
+						telf.setText("");
+						clave.setText("");
+						descripcion_puesto.setText("");
+
+						GregorianCalendar gc = new GregorianCalendar();
+						Date fecha_hora = gc.getTime();
+
+						try {
+						
+							Log metodos = new Log();
+							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_ADMINISTRADOR, fecha_hora);
+						} catch (IOException elog) {
+							elog.getStackTrace();
+						}
+
+					} else {
+
+						JOptionPane.showMessageDialog(null, "Error: la Beca no se ha podido añadir");
+
+					}
+
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Atenccion: algun campo vacio");
+				}
+			}
+		});
+
 		JButton listado = new JButton("Ver BBDD");
 		listado.setBounds(250, 550, 100, 30);
 		getContentPane().add(listado);
-		listado.setSelectedIcon(new ImageIcon(getClass().getResource("/imagenes/tabla.jpg")));
-
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("d/MM/y");
-		dateChooser.setBounds(107, 377, 224, 19);
-		fondo.add(dateChooser);
+		// intento de poner un icono en boton no fuciona probar con otra foto
+		// listado.setSelectedIcon(new
+		// ImageIcon(getClass().getResource("/imagenes/tabla.jpg")));
 
 		listado.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ListadoBecas lb = new ListadoBecas();
-				lb.setTitle("Datos Administradores");
-				lb.pack();
-				lb.setVisible(true);
+				ListadoAdministrador la =new ListadoAdministrador();
+				la.setTitle("Datos Administradores");
+				la.pack();
+				la.setVisible(true);
 			}
 		});
+
 	}
 }

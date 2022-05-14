@@ -66,7 +66,7 @@ public class conexion_BBDDTest {
 		String nacionalidad = "Española";
 		String email = "angel@gmail.com";
 		int telf = 654654654;
-		Date fecha_nac = d;// pendiente de preguntar como hacerlo;
+		String fecha_nac = null;// pendiente de preguntar como hacerlo;
 		String clave = "clave";
 		String estado = "activo";
 		String descripcion_puesto = "Administrador jefe";
@@ -92,7 +92,7 @@ public class conexion_BBDDTest {
 	@Test
 	public void testMostrarAdmin() {
 		Conexion_BBDD c = new Conexion_BBDD();
-		String resultado = c.mostrarAdmin();
+		//String resultado = c.mostrarAdmin();
 		//Se puede testear este metodo?
 	}
 

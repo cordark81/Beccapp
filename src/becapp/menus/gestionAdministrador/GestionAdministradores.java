@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import becapp.menus.MenuGestion;
 import becapp.menus.gestionBecas.BorradoBecas;
 import becapp.menus.gestionBecas.FormularioBeca;
+import becapp.menus.gestionBecas.ListadoBecas;
 import becapp.menus.gestionBecas.ModificarBeca;
 import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.MetodosMenus;
@@ -71,9 +72,11 @@ public class GestionAdministradores extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				ModificarBeca mb = new ModificarBeca();
-				mb.setVisible(true);
-				dispose();
+				ListadoAdministrador la=new ListadoAdministrador();
+				la.setVisible(true);
+				la.setTitle("Datos administradores");
+				la.pack();
+				
 
 			}
 		});

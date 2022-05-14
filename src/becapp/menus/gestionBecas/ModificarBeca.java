@@ -199,7 +199,7 @@ public class ModificarBeca extends JFrame {
 							Log metodos = new Log();
 
 							despuesModi.setText(conexion.informacionActualizacion(numeroCod));
-							metodos.escribirLog(Tipo_movimiento.MODIFICAR_BECA, fecha_hora, despuesModi.getText());
+							metodos.escribirLog(Tipo_movimiento.MODIFICAR_BECA, fecha_hora);
 
 						} else {
 							JOptionPane.showMessageDialog(null, "Error: al realizar la actualización");
