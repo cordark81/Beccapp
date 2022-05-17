@@ -1,4 +1,4 @@
-package becapp.menus.gestionBecas;
+package becapp.menus.gestionAdministrador;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -14,31 +14,32 @@ import java.util.GregorianCalendar;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import becapp.Conexion_BBDD;
 import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
+import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.MetodosMenus;
 
-public class BorradoBecas extends JFrame {
+public class BorradoAdministrador extends JFrame {
 
 	private JTextArea informacion;
 	private String name;
 	private int condicion;
 
-	public BorradoBecas() {
+	public BorradoAdministrador() {
 
-		setTitle("GESTION: BORRAR BECAS");
+		setTitle("GESTION: BORRAR ADMINISTRADORES");
+		ImagenFondo fondo = new ImagenFondo();
+		setContentPane(fondo);
 		setBounds(500, 300, 600, 450);
 		getContentPane().setLayout(null);
-		
+
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
@@ -49,61 +50,68 @@ public class BorradoBecas extends JFrame {
 		});
 
 		JTextPane campoC = new JTextPane();
-		campoC.setText("Seleccionar campo para el borrado de la beca:");
-		campoC.setBounds(100, 40, 350, 19);
+		campoC.setText("Seleccionar campo para el borrado:");
+		campoC.setBounds(100, 40, 450, 19);
 		getContentPane().add(campoC);
 		campoC.setEditable(false);
 		campoC.setOpaque(false);
+		campoC.setForeground(Color.white);
 
 		JRadioButton id = new JRadioButton("ID");
 		id.setBounds(100, 70, 50, 23);
 		getContentPane().add(id);
+		id.setOpaque(false);
 
-		JRadioButton nombre = new JRadioButton("Nombre Beca");
-		nombre.setBounds(175, 70, 150, 23);
-		getContentPane().add(nombre);
+		JRadioButton dni = new JRadioButton("DNI");
+		dni.setBounds(175, 70, 150, 23);
+		getContentPane().add(dni);
+		dni.setOpaque(false);
 
-		JRadioButton nombreProveedor = new JRadioButton("Nombre Proveedor");
-		nombreProveedor.setBounds(350, 70, 175, 23);
-		getContentPane().add(nombreProveedor);
+		JRadioButton listado = new JRadioButton("Listado");
+		listado.setBounds(350, 70, 175, 23);
+		getContentPane().add(listado);
+		listado.setOpaque(false);
 
 		ButtonGroup grupo1 = new ButtonGroup();
 		grupo1.add(id);
-		grupo1.add(nombreProveedor);
-		grupo1.add(nombre);
+		grupo1.add(listado);
+		grupo1.add(dni);
 
 		id.addActionListener(new ActionListener() {
-
-			
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
 				conexion.conectar();
-				name = JOptionPane.showInputDialog("Introduzca ID de la beca");
+				name = JOptionPane.showInputDialog("Introduzca ID del administrador");
 				grupo1.clearSelection();
 				condicion = 1;
-				informacion.setText(conexion.buscarDatos(name, condicion,"becas",true));
+				informacion.setText(conexion.buscarDatos(name, condicion, "administradores", true));
+				if (informacion.getText().isBlank()||informacion.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Ninguna administrador encontrado");					
+				}
 				try {
 					conexion.cerrar();
 				} catch (SQLException e1) {
-					e1.printStackTrace();
 				}
 
 			}
 		});
-		nombre.addActionListener(new ActionListener() {
+		dni.addActionListener(new ActionListener() {
 
 			private Conexion_BBDD conexion;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				conexion = new Conexion_BBDD();
 				conexion.conectar();
-				name = JOptionPane.showInputDialog("Introduzca nombre de la beca");
+				name = JOptionPane.showInputDialog("Introduzca Dni del adminitrador");
 				grupo1.clearSelection();
 				condicion = 2;
-				informacion.setText(conexion.buscarDatosBeca(name, condicion));
-
+				informacion.setText(conexion.buscarDatos(name, condicion,"administradores",true));
+				if (informacion.getText().isBlank()||informacion.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Ninguna administrador encontrado");					
+				}
 				try {
 					conexion.cerrar();
 				} catch (SQLException e1) {
@@ -112,16 +120,14 @@ public class BorradoBecas extends JFrame {
 
 			}
 		});
-		
 
-		nombreProveedor.addActionListener(new ActionListener() {
-			
+		listado.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
 				conexion.conectar();
-				name = JOptionPane.showInputDialog("Introduzca nombre del proveedor");
+				name = JOptionPane.showInputDialog("Listado");
 				grupo1.clearSelection();
 				condicion = 3;
 				informacion.setText(conexion.buscarDatosBeca(name, condicion));
@@ -134,7 +140,7 @@ public class BorradoBecas extends JFrame {
 
 			}
 		});
-		
+
 		informacion = new JTextArea();
 		informacion.setBounds(new Rectangle(100, 100, 400, 200));
 		informacion.setEditable(false);
@@ -152,13 +158,13 @@ public class BorradoBecas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				dispose();
-				GestionBecas gb = new GestionBecas();
+				GestionAdministradores gb = new GestionAdministradores();
 				gb.setVisible(true);
 
 			}
 		});
 
-		JButton aceptar = new JButton("BORRAR BECAS");
+		JButton aceptar = new JButton("BORRAR");
 		aceptar.setBounds(300, 350, 200, 30);
 		getContentPane().add(aceptar);
 
@@ -168,22 +174,21 @@ public class BorradoBecas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
 				conexion.conectar();
-				
+
 				GregorianCalendar gc = new GregorianCalendar();
 				Date fecha_hora = gc.getTime();
 
-
-				if (conexion.borrarBeca(name, condicion)) {
-					JOptionPane.showMessageDialog(null, "Seleccion de beca/s borrado con exito");
+				if (conexion.darBajaAdmin(name, condicion)) {
+					JOptionPane.showMessageDialog(null, "administrador borrado con exito");
 					Log metodos = new Log();
 					try {
-						metodos.escribirLog(Tipo_movimiento.BORRAR_BECA, fecha_hora);
+						metodos.escribirLog(Tipo_movimiento.BORRAR_ADMINITRADOR, fecha_hora);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-					
+
 				} else {
-					System.out.println("Error:problema en el borrado de beca");
+					System.out.println("Error:problema en el borrado del administrador");
 				}
 
 			}

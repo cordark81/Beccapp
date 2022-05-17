@@ -202,7 +202,7 @@ public class ModificarBeca extends JFrame {
 							metodos.escribirLog(Tipo_movimiento.MODIFICAR_BECA, fecha_hora);
 
 						} else {
-							JOptionPane.showMessageDialog(null, "Error: al realizar la actualización");
+							JOptionPane.showMessageDialog(null, "No se ha encontrado ninguna Beca");
 						}
 						conexion.cerrar();
 					}

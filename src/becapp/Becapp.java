@@ -26,7 +26,6 @@ public class Becapp {
 		new SimpleDateFormat("dd-MM-yyyy").format(d);
 		Date fecha_nac=d;
 		
-		conexion.darBajaAdmin(3);
 		
 		
 		

@@ -289,7 +289,11 @@ public class FormularioAdministrador extends JFrame {
 
 					}
 
-				} catch (Exception e1) {
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(null, "Atenccion: letras en el numero de telefono");
+				}
+				
+				catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "Atenccion: algun campo vacio");
 				}
 			}

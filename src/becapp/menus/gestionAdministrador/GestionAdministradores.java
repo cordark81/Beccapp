@@ -57,8 +57,8 @@ public class GestionAdministradores extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BorradoBecas bb = new BorradoBecas();
-				bb.setVisible(true);
+				BorradoAdministrador ba = new BorradoAdministrador();
+				ba.setVisible(true);
 				dispose();
 
 			}

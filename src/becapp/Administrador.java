@@ -45,8 +45,7 @@ public class Administrador extends Usuario {
 	}
 	@Override
 	public String toString() {
-		return "Administrador [clave=" + clave + ", estado=" + estado + ", descripcion_puesto=" + descripcion_puesto
-				+ ", fecha_inc=" + fecha_inc + ", toString()=" + super.toString() + "]";
+		return "Administrador ["+ super.getNombre() + " " + super.getApellido() + " DNI: " + super.getDni() + "]";
 	}
 	
 

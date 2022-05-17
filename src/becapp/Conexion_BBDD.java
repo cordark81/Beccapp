@@ -186,33 +186,36 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Este metodo nos saca de la base de datos toda
-	 * la informacion relativa a nuestras becas
+	 * Este metodo nos saca de la base de datos toda la informacion relativa a
+	 * nuestras becas
 	 * 
 	 * @return devuelve un string con la informacion solicita o un mensaje de error
 	 *         en caso de fallo
 	 */
-	
-	  public String listarBecas() {
-	  
-	  PreparedStatement ps; String lista = "";
-	  
-	  try { ps = connection.prepareStatement("select * from becas order by 1"); rs
-	  = ps.executeQuery(); while (rs.next()) {
-	  
-	  lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2)
-	  + " condiciones= " + rs.getString(3) + " descripcion= " + rs.getString(4) +
-	  " contacto= " + rs.getString(5) + " nombre proveedor= " + rs.getString(6) +
-	  " tipo de beca= " + rs.getString(7) + "\n";
-	  
-	  }
-	  
-	  } catch (SQLException e) {
-	  
-	  return "La lista no se ha podido cargar"; }
-	  
-	  return lista; }
-	 
+
+	public String listarBecas() {
+
+		PreparedStatement ps;
+		String lista = "";
+
+		try {
+			ps = connection.prepareStatement("select * from becas order by 1");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+
+				lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2) + " condiciones= "
+						+ rs.getString(3) + " descripcion= " + rs.getString(4) + " contacto= " + rs.getString(5)
+						+ " nombre proveedor= " + rs.getString(6) + " tipo de beca= " + rs.getString(7) + "\n";
+
+			}
+
+		} catch (SQLException e) {
+
+			return "La lista no se ha podido cargar";
+		}
+
+		return lista;
+	}
 
 	public ArrayList<Beca> listarBecasArray() {
 
@@ -266,7 +269,7 @@ public class Conexion_BBDD {
 						rs.getString(5), rs.getString(6), rs.getInt(7), fecha_cumple, rs.getString(9), rs.getString(10),
 						rs.getString(11), fecha_ini);
 				datos.add(a);
-				
+
 			}
 
 		} catch (SQLException e) {
@@ -361,6 +364,107 @@ public class Conexion_BBDD {
 		return filtro;
 	}
 
+	public String buscarDatos(String dato, int condicion, String tabla, boolean buscar) {
+
+		String lista = "";
+		String filtro;
+
+		PreparedStatement ps;
+
+		try {
+
+			if (tabla.equals("becas")) {
+
+				switch (condicion) {
+				case 1:
+
+					filtro = "cod";
+
+					ps = connection.prepareStatement("select * from " + tabla + " where " + filtro + " = " + dato);
+					// pendiente de evaluar ps.setString(1, filtro);
+					// ps.setString(2, dato);
+					rs = ps.executeQuery();
+					break;
+
+				case 2:
+					filtro = "nombre";
+					ps = connection
+							.prepareStatement("select * from becas where " + filtro + " like upper('%" + dato + "%')");
+					rs = ps.executeQuery();
+
+					break;
+				case 3:
+					filtro = "nombreproveedor";
+					ps = connection
+							.prepareStatement("select * from becas where " + filtro + " like upper('%" + dato + "%')");
+					rs = ps.executeQuery();
+
+					break;
+
+				default:
+					break;
+
+				}
+
+				while (rs.next()) {
+
+					lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2) + " descripcion= "
+							+ rs.getString(4) + " contacto= " + rs.getString(5) + " nombre proveedor= "
+							+ rs.getString(6) + " tipo de beca= " + rs.getString(7);
+
+				}
+
+			} else if (tabla.equals("administradores")) {
+
+				switch (condicion) {
+				case 1:
+
+					filtro = "id_usuario";
+
+					if (buscar) {
+						ps = connection.prepareStatement("select * from " + tabla + " where " + filtro + " = " + dato);
+						// pendiente de evaluar ps.setString(1, filtro);
+						// ps.setString(2, dato);
+						rs = ps.executeQuery();
+
+					} else {
+						lista = filtro;
+					}
+					break;
+
+				case 2:
+					filtro = "dni";
+					if (buscar) {
+						ps = connection.prepareStatement(
+								"select * from " + tabla + " where " + filtro + " like upper('%" + dato + "%')");
+						rs = ps.executeQuery();
+
+					} else {
+						lista = filtro;
+					}
+
+					break;
+
+				default:
+					break;
+
+				}
+				if (buscar) {
+					while (rs.next()) {
+
+						lista += "Administrador [" + rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " "
+								+ rs.getString(4) + "]" + "\n";
+					}
+				}
+
+			}
+
+		} catch (Exception e) {
+		}
+		return lista;
+
+	}
+
 	public String informacionActualizacion(int cod) throws SQLException {
 
 		PreparedStatement ps;
@@ -437,21 +541,24 @@ public class Conexion_BBDD {
 	 * @return true en caso de exito, false en caso contrario
 	 */
 
-	public boolean darBajaAdmin(int id_usuario) {
+	public boolean darBajaAdmin(String dato, int condicion) {
 
 		boolean borrado = false;
+		String filtro = "";
 
 		PreparedStatement ps;
 
 		try {
-			ps = connection.prepareStatement("delete from administradores where id_usuario= " + id_usuario);
+			filtro = buscarDatos(dato, condicion, "administradores", false);
+			ps = connection
+					.prepareStatement("delete from administradores where " + filtro + " like upper('%" + dato + "%')");
 			ps.executeQuery();
 
 			borrado = true;
 
 		} catch (SQLException e) {
-			System.out.println("No se a podido realizar el borrado del administrador");
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Atencion: Introduzca algun criterio");
+
 			borrado = false;
 			return borrado;
 		}
@@ -460,9 +567,8 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * En proceso de eliminacion!!! 
-	 * Metodo que devuelve una lista completa de todo los
-	 * administradores que tenemos en la tabla administradores
+	 * En proceso de eliminacion!!! Metodo que devuelve una lista completa de todo
+	 * los administradores que tenemos en la tabla administradores
 	 * 
 	 * @return variable String con toda la informacion
 	 */
