@@ -131,7 +131,7 @@ public class Conexion_BBDD {
 				throw new Exception();
 			}
 
-			String filtro = menuFiltro(dato, condicion, false);
+			String filtro = buscarDatos(dato, condicion, "becas", false);
 
 			ps = connection.prepareStatement("delete from becas where " + filtro + " like upper('%" + dato + "%')");
 			ps.executeQuery();
@@ -143,7 +143,7 @@ public class Conexion_BBDD {
 			borrado = false;
 			return borrado;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Atecion: el campo esta vacio");
+			JOptionPane.showMessageDialog(null, "Atecion: seleccione un campo");
 		}
 
 		return borrado;
@@ -290,182 +290,96 @@ public class Conexion_BBDD {
 	 * @return String con la informacion encontrada
 	 */
 
-	public String buscarDatosBeca(String dato, int condicion) {
-
-		String lista = "";
-		String filtro;
-
-		try {
-
-			filtro = menuFiltro(dato, condicion, true);
-
-			while (rs.next()) {
-
-				lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2) + " descripcion= "
-						+ rs.getString(4) + " contacto= " + rs.getString(5) + " nombre proveedor= " + rs.getString(6)
-						+ " tipo de beca= " + rs.getString(7);
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return lista;
-	}
-
-	/**
-	 * metodo que recoge dato y condicion de de busqueda
-	 * 
-	 * @param dato      es la informacion que buscamos
-	 * @param condicion es el filtro por el cual queremos buscar esta informacion
-	 * 
-	 * @throws SQLException subimos la excepcion de funcionamiento SQL
-	 */
-
-	public String menuFiltro(String dato, int condicion, boolean buscar) throws SQLException {
-
-		String filtro = null;
-
-		PreparedStatement ps;
-
-		switch (condicion) {
-		case 1:
-
-			filtro = "cod";
-			if (buscar) {
-				ps = connection.prepareStatement("select * from becas where " + filtro + "=" + dato);
-				rs = ps.executeQuery();
-			}
-			break;
-
-		case 2:
-			filtro = "nombre";
-			if (buscar) {
-				ps = connection
-						.prepareStatement("select * from becas where " + filtro + " like upper('%" + dato + "%')");
-				rs = ps.executeQuery();
-			}
-
-			break;
-		case 3:
-			filtro = "nombreproveedor";
-			if (buscar) {
-				ps = connection
-						.prepareStatement("select * from becas where " + filtro + " like upper('%" + dato + "%')");
-				rs = ps.executeQuery();
-
-			}
-			break;
-
-		default:
-			break;
-
-		}
-		return filtro;
-	}
-
 	public String buscarDatos(String dato, int condicion, String tabla, boolean buscar) {
 
 		String lista = "";
-		String filtro;
+		String filtro = "";
 
 		PreparedStatement ps;
 
 		try {
 
-			if (tabla.equals("becas")) {
+			switch (condicion) {
+			case 1:
 
-				switch (condicion) {
-				case 1:
+				filtro = "cod";
 
-					filtro = "cod";
-
-					ps = connection.prepareStatement("select * from " + tabla + " where " + filtro + " = " + dato);
+				if (buscar) {
+					ps = connection.prepareStatement("select * from becas where " + filtro + " = " + dato);
 					// pendiente de evaluar ps.setString(1, filtro);
 					// ps.setString(2, dato);
 					rs = ps.executeQuery();
-					break;
+				}
 
-				case 2:
-					filtro = "nombre";
+				break;
+
+			case 2:
+				filtro = "nombreProveedor";
+				
+				if (buscar) {
+
 					ps = connection
 							.prepareStatement("select * from becas where " + filtro + " like upper('%" + dato + "%')");
 					rs = ps.executeQuery();
+				}
+				break;
+			case 3:
 
-					break;
-				case 3:
-					filtro = "nombreproveedor";
-					ps = connection
-							.prepareStatement("select * from becas where " + filtro + " like upper('%" + dato + "%')");
+				filtro = "id_usuario";
+
+				if (buscar) {
+					ps = connection.prepareStatement(
+							"select * from administradores " + tabla + " where " + filtro + " = " + dato);
+					// pendiente de evaluar ps.setString(1, filtro);
+					// ps.setString(2, dato);
 					rs = ps.executeQuery();
 
-					break;
-
-				default:
-					break;
+				}
+				break;
+			case 4:
+				filtro = "dni";
+				if (buscar) {
+					ps = connection.prepareStatement(
+							"select * from administradores where " + filtro + " like upper('%" + dato + "%')");
+					rs = ps.executeQuery();
 
 				}
 
+				break;
+
+			default:
+				break;
+
+			}
+
+			if (buscar && tabla.equals("becas")) {
 				while (rs.next()) {
 
-					lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2) + " descripcion= "
-							+ rs.getString(4) + " contacto= " + rs.getString(5) + " nombre proveedor= "
-							+ rs.getString(6) + " tipo de beca= " + rs.getString(7);
+					lista += "Beca [codigo = " + rs.getInt(1) + " Nombre Proveedor = " + rs.getString(6) + "]" + "\n";
 
 				}
 
-			} else if (tabla.equals("administradores")) {
+			} else if (buscar && tabla.equals("administradores")) {
+				while (rs.next()) {
 
-				switch (condicion) {
-				case 1:
-
-					filtro = "id_usuario";
-
-					if (buscar) {
-						ps = connection.prepareStatement("select * from " + tabla + " where " + filtro + " = " + dato);
-						// pendiente de evaluar ps.setString(1, filtro);
-						// ps.setString(2, dato);
-						rs = ps.executeQuery();
-
-					} else {
-						lista = filtro;
-					}
-					break;
-
-				case 2:
-					filtro = "dni";
-					if (buscar) {
-						ps = connection.prepareStatement(
-								"select * from " + tabla + " where " + filtro + " like upper('%" + dato + "%')");
-						rs = ps.executeQuery();
-
-					} else {
-						lista = filtro;
-					}
-
-					break;
-
-				default:
-					break;
-
-				}
-				if (buscar) {
-					while (rs.next()) {
-
-						lista += "Administrador [" + rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " "
-								+ rs.getString(4) + "]" + "\n";
-					}
+					lista += "Administrador [" + rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " "
+							+ rs.getString(4) + "]" + "\n";
 				}
 
 			}
 
+			else {
+				lista = filtro;
+			}
+
 		} catch (Exception e) {
+
 		}
 		return lista;
 
 	}
 
-	public String informacionActualizacion(int cod) throws SQLException {
+	public String informacionActualizacion(int cod,String columna) throws SQLException {
 
 		PreparedStatement ps;
 		String lista = "";
@@ -474,11 +388,30 @@ public class Conexion_BBDD {
 		rs = ps.executeQuery();
 
 		while (rs.next()) {
-
-			lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2) + " descripcion= "
-					+ rs.getString(4) + " contacto= " + rs.getString(5) + " nombre proveedor= " + rs.getString(6)
-					+ " tipo de beca= " + rs.getString(7) + "\n";
-
+			
+			switch (columna) {
+			case "nombre":
+				lista+="Codigo beca: " + rs.getInt(1) + " Beca: " + rs.getString(2);
+				break;
+			case "condiciones":
+				lista+="Codigo beca: " + rs.getInt(1) + " Condiciones: " + rs.getString(3);
+				break;
+			case "descripcion":
+				lista+="Codigo beca: " + rs.getInt(1) + " Descripcion: " + rs.getString(4);
+				break;	
+			case "contacto":
+				lista+="Codigo beca: " + rs.getInt(1) + " Contacto: " + rs.getString(5);
+				break;	
+			case "nombreProveedor":
+				lista+="Codigo beca: " + rs.getInt(1) + " Proveedor: " + rs.getString(6);
+				break;	
+			case "tipoBeca":
+				lista+="Codigo beca: " + rs.getInt(1) + " Tipo: " + rs.getString(7);
+				break;	
+			default:
+				break;
+			}
+												
 		}
 
 		return lista;

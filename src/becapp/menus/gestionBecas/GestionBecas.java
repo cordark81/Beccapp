@@ -6,12 +6,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import becapp.Beca;
 import becapp.Conexion_BBDD;
 import becapp.menus.MenuGestion;
+import becapp.menus.metodos.ImagenFondo;
+import becapp.menus.metodos.Listado;
 import becapp.menus.metodos.MetodosMenus;
 
 public class GestionBecas extends JFrame {
@@ -19,6 +22,9 @@ public class GestionBecas extends JFrame {
 	public GestionBecas() {
 
 		setTitle("GESTION BECAS");
+		setResizable(false);
+		ImagenFondo fondo = new ImagenFondo();
+		setContentPane(fondo);
 		setBounds(600, 300, 600, 450);
 		getContentPane().setLayout(null);
 		
@@ -34,6 +40,8 @@ public class GestionBecas extends JFrame {
 		JButton añadirBeca = new JButton("Añadir Beca");
 		añadirBeca.setBounds(100, 50, 400, 30);
 		getContentPane().add(añadirBeca);
+		añadirBeca.setBackground(Color.orange);
+		
 		añadirBeca.addActionListener(new ActionListener() {
 
 			@Override
@@ -47,6 +55,8 @@ public class GestionBecas extends JFrame {
 		JButton borrarBeca = new JButton("Borrar Beca");
 		borrarBeca.setBounds(100, 125, 400, 30);
 		getContentPane().add(borrarBeca);
+		borrarBeca.setBackground(Color.orange);
+		
 		borrarBeca.addActionListener(new ActionListener() {
 
 			@Override
@@ -61,6 +71,8 @@ public class GestionBecas extends JFrame {
 		JButton modificarBeca = new JButton("Modificar Beca");
 		modificarBeca.setBounds(100, 200, 400, 30);
 		getContentPane().add(modificarBeca);
+		modificarBeca.setBackground(Color.orange);
+		
 		modificarBeca.addActionListener(new ActionListener() {
 
 			@Override
@@ -76,16 +88,19 @@ public class GestionBecas extends JFrame {
 		JButton listaBeca = new JButton("Listar Becas");
 		listaBeca.setBounds(100, 275, 400, 30);
 		getContentPane().add(listaBeca);
+		listaBeca.setBackground(Color.orange);
 		
 		listaBeca.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				ListadoBecas lb = new ListadoBecas();
-				lb.setTitle("Datos Becas");
-				lb.pack();
-				lb.setVisible(true);
+				String[] columnas = { "Codigo", "Nombre", "Condiciones", "Descripcion", "Proveedor", "Contacto",
+						"Tipo de Beca"};
+				
+				Listado listado = new Listado(false,columnas,"beca");
+				listado.setTitle("Datos Becas");
+				listado.pack();
+				listado.setVisible(true);
 				
 			}
 		});
@@ -93,7 +108,8 @@ public class GestionBecas extends JFrame {
 		JButton atras = new JButton("ATRAS");
 		atras.setBounds(100, 350, 100, 30);
 		getContentPane().add(atras);
-
+		atras.setBackground(Color.orange);
+		
 		atras.addActionListener(new ActionListener() {
 
 			@Override

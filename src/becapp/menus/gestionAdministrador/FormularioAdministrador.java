@@ -8,11 +8,10 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.swing.ButtonGroup;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -26,9 +25,8 @@ import becapp.Administrador;
 import becapp.Conexion_BBDD;
 import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
-import becapp.menus.gestionBecas.ListadoBecas;
 import becapp.menus.metodos.ImagenFondo;
-import becapp.menus.metodos.Limpiar;
+import becapp.menus.metodos.Listado;
 import becapp.menus.metodos.MetodosMenus;
 
 public class FormularioAdministrador extends JFrame {
@@ -55,12 +53,12 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(dniC);
 		dniC.setEditable(false);
 		dniC.setOpaque(false);
-		dniC.setForeground(Color.white);
 
 		JTextField dni = new JTextField();
 		dni.setBounds(100, 50, 150, 19);
 		getContentPane().add(dni);
 		dni.setColumns(10);
+		dni.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane nombreC = new JTextPane();
 		nombreC.setText("Nombre");
@@ -68,12 +66,12 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(nombreC);
 		nombreC.setEditable(false);
 		nombreC.setOpaque(false);
-		nombreC.setForeground(Color.white);
 
 		JTextField nombre = new JTextField();
 		nombre.setBounds(100, 110, 250, 19);
 		getContentPane().add(nombre);
 		nombre.setColumns(10);
+		nombre.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane apellidoC = new JTextPane();
 		apellidoC.setText("Apellido");
@@ -81,12 +79,12 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(apellidoC);
 		apellidoC.setEditable(false);
 		apellidoC.setOpaque(false);
-		apellidoC.setForeground(Color.white);
 
 		JTextField apellido = new JTextField();
 		apellido.setBounds(100, 170, 250, 19);
 		getContentPane().add(apellido);
 		apellido.setColumns(10);
+		apellido.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane nacionalidadC = new JTextPane();
 		nacionalidadC.setText("Nacionalidad");
@@ -99,6 +97,7 @@ public class FormularioAdministrador extends JFrame {
 		nacionalidad.setBounds(450, 50, 250, 19);
 		getContentPane().add(nacionalidad);
 		nacionalidad.setColumns(10);
+		nacionalidad.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane emailC = new JTextPane();
 		emailC.setText("Email");
@@ -106,13 +105,12 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(emailC);
 		emailC.setEditable(false);
 		emailC.setOpaque(false);
-		emailC.setForeground(Color.white);
 
 		JTextField email = new JTextField();
 		email.setBounds(450, 110, 250, 19);
 		getContentPane().add(email);
 		email.setColumns(10);
-		emailC.setForeground(Color.BLACK);
+		email.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane telfC = new JTextPane();
 		telfC.setText("Telefono");
@@ -125,6 +123,7 @@ public class FormularioAdministrador extends JFrame {
 		telf.setBounds(450, 170, 250, 19);
 		getContentPane().add(telf);
 		telf.setColumns(10);
+		telf.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane fecha_nacC = new JTextPane();
 		fecha_nacC.setText("Fecha de nacimiento");
@@ -132,7 +131,6 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(fecha_nacC);
 		fecha_nacC.setEditable(false);
 		fecha_nacC.setOpaque(false);
-		fecha_nacC.setForeground(Color.white);
 
 		JTextPane claveC = new JTextPane();
 		claveC.setText("Clave");
@@ -145,6 +143,7 @@ public class FormularioAdministrador extends JFrame {
 		clave.setBounds(450, 230, 100, 19);
 		getContentPane().add(clave);
 		clave.setColumns(10);
+		clave.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane estadoC = new JTextPane();
 		estadoC.setText("Estado");
@@ -152,13 +151,13 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(estadoC);
 		estadoC.setEditable(false);
 		estadoC.setOpaque(false);
-		estadoC.setForeground(Color.white);
 
 		String[] optionsToChoose = { "Activo", "No activo" };
 
 		JComboBox<String> estado = new JComboBox<>(optionsToChoose);
 		estado.setBounds(100, 290, 100, 19);
 		getContentPane().add(estado);
+		estado.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane descipcion_puestoC = new JTextPane();
 		descipcion_puestoC.setText("Descripcion puesto");
@@ -171,6 +170,7 @@ public class FormularioAdministrador extends JFrame {
 		descripcion_puesto.setBounds(450, 290, 250, 19);
 		getContentPane().add(descripcion_puesto);
 		descripcion_puesto.setColumns(10);
+		descripcion_puesto.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane ultimoAdminitradorC = new JTextPane();
 		ultimoAdminitradorC.setText("Ultimo Administrador añadido");
@@ -178,26 +178,30 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(ultimoAdminitradorC);
 		ultimoAdminitradorC.setEditable(false);
 		ultimoAdminitradorC.setOpaque(false);
-		ultimoAdminitradorC.setForeground(Color.white);
 
 		JTextField ultimoAdministrador = new JTextField();
 		ultimoAdministrador.setBounds(100, 380, 600, 38);
 		getContentPane().add(ultimoAdministrador);
 		ultimoAdministrador.setColumns(10);
 		ultimoAdministrador.setEditable(false);
+		ultimoAdministrador.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JDateChooser jdc = new JDateChooser();
 		jdc.setDateFormatString("d/MM/y");
 		jdc.setBounds(100, 230, 224, 19);
 		fondo.add(jdc);
+		jdc.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		
 
 		JButton salir = new JButton("ATRAS");
 		salir.setBounds(100, 550, 100, 30);
 		getContentPane().add(salir);
+		salir.setBackground(Color.orange);
 
 		JButton limpiar = new JButton("LIMPIAR");
 		limpiar.setBounds(450, 550, 100, 30);
 		getContentPane().add(limpiar);
+		limpiar.setBackground(Color.orange);
 
 		limpiar.addActionListener(new ActionListener() {
 
@@ -232,6 +236,7 @@ public class FormularioAdministrador extends JFrame {
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.setBounds(600, 550, 100, 30);
 		getContentPane().add(aceptar);
+		aceptar.setBackground(Color.orange);
 
 		aceptar.addActionListener(new ActionListener() {
 
@@ -254,9 +259,11 @@ public class FormularioAdministrador extends JFrame {
 
 					int telefono = Integer.parseInt(telf.getText());
 
-					Administrador admin = new Administrador(dni.getText().toUpperCase(), nombre.getText().toUpperCase(), apellido.getText().toUpperCase(),
-							nacionalidad.getText().toUpperCase(), email.getText().toUpperCase(), telefono, fecha, clave.getText().toUpperCase(),
-							estado.getSelectedItem().toString().toUpperCase(), descripcion_puesto.getText().toUpperCase());
+					Administrador admin = new Administrador(dni.getText().toUpperCase(), nombre.getText().toUpperCase(),
+							apellido.getText().toUpperCase(), nacionalidad.getText().toUpperCase(),
+							email.getText().toUpperCase(), telefono, fecha, clave.getText().toUpperCase(),
+							estado.getSelectedItem().toString().toUpperCase(),
+							descripcion_puesto.getText().toUpperCase());
 
 					if (conexion.darAltaAdmin(admin)) {
 
@@ -276,7 +283,7 @@ public class FormularioAdministrador extends JFrame {
 						Date fecha_hora = gc.getTime();
 
 						try {
-						
+
 							Log metodos = new Log();
 							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_ADMINISTRADOR, fecha_hora);
 						} catch (IOException elog) {
@@ -292,7 +299,7 @@ public class FormularioAdministrador extends JFrame {
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(null, "Atenccion: letras en el numero de telefono");
 				}
-				
+
 				catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "Atenccion: algun campo vacio");
 				}
@@ -302,6 +309,7 @@ public class FormularioAdministrador extends JFrame {
 		JButton listado = new JButton("Ver BBDD");
 		listado.setBounds(250, 550, 100, 30);
 		getContentPane().add(listado);
+		listado.setBackground(Color.orange);
 		// intento de poner un icono en boton no fuciona probar con otra foto
 		// listado.setSelectedIcon(new
 		// ImageIcon(getClass().getResource("/imagenes/tabla.jpg")));
@@ -310,10 +318,15 @@ public class FormularioAdministrador extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ListadoAdministrador la =new ListadoAdministrador();
-				la.setTitle("Datos Administradores");
-				la.pack();
-				la.setVisible(true);
+
+				String[] columnas = { "ID", "DNI", "Nombre", "Apellido", "Nacionalidad", "Email", "Telefono",
+						"Fecha  nacimientos", "Clave", "Estado", "Descripcion puesto", "Fecha alta" };
+
+				Listado listado = new Listado(false, columnas, "administrador");
+				listado.setVisible(true);
+				listado.setTitle("Datos administradores");
+				listado.pack();
+
 			}
 		});
 

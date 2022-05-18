@@ -24,6 +24,7 @@ import becapp.Conexion_BBDD;
 import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
 import becapp.menus.metodos.ImagenFondo;
+import becapp.menus.metodos.Listado;
 import becapp.menus.metodos.MetodosMenus;
 
 public class BorradoAdministrador extends JFrame {
@@ -38,6 +39,7 @@ public class BorradoAdministrador extends JFrame {
 		ImagenFondo fondo = new ImagenFondo();
 		setContentPane(fondo);
 		setBounds(500, 300, 600, 450);
+		setResizable(false);
 		getContentPane().setLayout(null);
 
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -55,7 +57,6 @@ public class BorradoAdministrador extends JFrame {
 		getContentPane().add(campoC);
 		campoC.setEditable(false);
 		campoC.setOpaque(false);
-		campoC.setForeground(Color.white);
 
 		JRadioButton id = new JRadioButton("ID");
 		id.setBounds(100, 70, 50, 23);
@@ -63,12 +64,12 @@ public class BorradoAdministrador extends JFrame {
 		id.setOpaque(false);
 
 		JRadioButton dni = new JRadioButton("DNI");
-		dni.setBounds(175, 70, 150, 23);
+		dni.setBounds(250, 70, 150, 23);
 		getContentPane().add(dni);
 		dni.setOpaque(false);
 
 		JRadioButton listado = new JRadioButton("Listado");
-		listado.setBounds(350, 70, 175, 23);
+		listado.setBounds(400, 70, 175, 23);
 		getContentPane().add(listado);
 		listado.setOpaque(false);
 
@@ -85,10 +86,12 @@ public class BorradoAdministrador extends JFrame {
 				conexion.conectar();
 				name = JOptionPane.showInputDialog("Introduzca ID del administrador");
 				grupo1.clearSelection();
-				condicion = 1;
+				condicion = 3;
 				informacion.setText(conexion.buscarDatos(name, condicion, "administradores", true));
-				if (informacion.getText().isBlank()||informacion.getText().isEmpty()){
-					JOptionPane.showMessageDialog(null, "Ninguna administrador encontrado");					
+				informacion.setVisible(true);
+				if (informacion.getText().isBlank() || informacion.getText().isEmpty()) {
+					informacion.setVisible(false);
+					JOptionPane.showMessageDialog(null, "Ninguna administrador encontrado");
 				}
 				try {
 					conexion.cerrar();
@@ -107,10 +110,12 @@ public class BorradoAdministrador extends JFrame {
 				conexion.conectar();
 				name = JOptionPane.showInputDialog("Introduzca Dni del adminitrador");
 				grupo1.clearSelection();
-				condicion = 2;
-				informacion.setText(conexion.buscarDatos(name, condicion,"administradores",true));
-				if (informacion.getText().isBlank()||informacion.getText().isEmpty()){
-					JOptionPane.showMessageDialog(null, "Ninguna administrador encontrado");					
+				condicion = 4;
+				informacion.setText(conexion.buscarDatos(name, condicion, "administradores", true));
+				informacion.setVisible(true);
+				if (informacion.getText().isBlank() || informacion.getText().isEmpty()) {
+					informacion.setVisible(false);
+					JOptionPane.showMessageDialog(null, "Ninguna administrador encontrado");
 				}
 				try {
 					conexion.cerrar();
@@ -127,10 +132,15 @@ public class BorradoAdministrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
 				conexion.conectar();
-				name = JOptionPane.showInputDialog("Listado");
 				grupo1.clearSelection();
-				condicion = 3;
-				informacion.setText(conexion.buscarDatosBeca(name, condicion));
+
+				String[] columnas = { "ID", "DNI", "Nombre", "Apellido", "Nacionalidad", "Email", "Telefono",
+						"Fecha  nacimientos", "Clave", "Estado", "Descripcion puesto", "Fecha alta", "" };
+
+				Listado listado = new Listado(true, columnas, "administrador");
+				listado.setVisible(true);
+				listado.setTitle("Datos administradores");
+				listado.pack();
 
 				try {
 					conexion.cerrar();
@@ -144,13 +154,14 @@ public class BorradoAdministrador extends JFrame {
 		informacion = new JTextArea();
 		informacion.setBounds(new Rectangle(100, 100, 400, 200));
 		informacion.setEditable(false);
-		informacion.setVisible(true);
-		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red));
+		informacion.setVisible(false);
+		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 		getContentPane().add(informacion);
 
 		JButton atras = new JButton("ATRAS");
 		atras.setBounds(100, 350, 100, 30);
 		getContentPane().add(atras);
+		atras.setBackground(Color.orange);
 
 		atras.addActionListener(new ActionListener() {
 
@@ -167,6 +178,7 @@ public class BorradoAdministrador extends JFrame {
 		JButton aceptar = new JButton("BORRAR");
 		aceptar.setBounds(300, 350, 200, 30);
 		getContentPane().add(aceptar);
+		aceptar.setBackground(Color.orange);
 
 		aceptar.addActionListener(new ActionListener() {
 

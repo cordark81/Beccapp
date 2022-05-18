@@ -2,6 +2,7 @@ package becapp.menus.metodos;
 
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -38,7 +39,7 @@ public class MetodosMenus extends JFrame {
 		if (tipoTabla.equals("beca")) {
 
 			ArrayList<Beca> d = conexion.listarBecasArray();
-			datos = new Object[d.size()][7];
+			datos = new Object[d.size()][8];
 
 			array = d.toArray();
 
@@ -86,7 +87,7 @@ public class MetodosMenus extends JFrame {
 		} else if (tipoTabla.equals("administrador")) {
 			
 			ArrayList<Administrador> d = conexion.listarAdminitradoresArray();
-			datos = new Object[d.size()][12];
+			datos = new Object[d.size()][13];
 			array = d.toArray();
 			
 			for (int i = 0; i < d.size(); i++) {
@@ -142,6 +143,11 @@ public class MetodosMenus extends JFrame {
 						String fechaAlta = ((Administrador) array[i]).getFecha_inc();
 						datos[i][j] = fechaAlta;
 						break;
+					case 12:
+						JButton eliminar = new JButton("Eliminar");
+						datos[i][j] = eliminar;
+						break;
+								
 
 					default:
 						break;

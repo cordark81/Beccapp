@@ -14,7 +14,7 @@ public class ImagenFondo extends JPanel{
 	@Override
 	public void paint(Graphics g) {
 		
-		ImageIcon imagen = new ImageIcon(getClass().getResource("/imagenes/fondo.jpg"));
+		ImageIcon imagen = new ImageIcon(getClass().getResource("/imagenes/tabla.jpg"));
 		g.drawImage(imagen.getImage(), 0, 0, getWidth(), getHeight(), this);
 		setOpaque(false);
 		super.paint(g);

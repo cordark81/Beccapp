@@ -23,6 +23,8 @@ import javax.swing.JTextPane;
 import becapp.tipo_beca;
 import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
+import becapp.menus.metodos.ImagenFondo;
+import becapp.menus.metodos.Listado;
 import becapp.menus.metodos.MetodosMenus;
 import becapp.Beca;
 import becapp.Conexion_BBDD;
@@ -42,7 +44,10 @@ public class FormularioBeca extends JFrame {
 	public FormularioBeca() {
 
 		setTitle("FORMULARIO BECA");
-		setBounds(500, 300, 1000, 650);
+		ImagenFondo fondo = new ImagenFondo();
+		setContentPane(fondo);
+		setBounds(500, 300, 800, 500);
+		setResizable(false);
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -64,6 +69,7 @@ public class FormularioBeca extends JFrame {
 		nombre.setBounds(100, 50, 150, 19);
 		getContentPane().add(nombre);
 		nombre.setColumns(10);
+		nombre.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 
 		JTextPane condicionesC = new JTextPane();
 		condicionesC.setText("Condiciones");
@@ -76,6 +82,7 @@ public class FormularioBeca extends JFrame {
 		condiciones.setBounds(100, 110, 250, 19);
 		getContentPane().add(condiciones);
 		condiciones.setColumns(10);
+		condiciones.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 
 		JTextPane descripcionC = new JTextPane();
 		descripcionC.setText("Descripcion");
@@ -88,10 +95,11 @@ public class FormularioBeca extends JFrame {
 		descripcion.setBounds(100, 170, 250, 19);
 		getContentPane().add(descripcion);
 		descripcion.setColumns(10);
+		descripcion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 
 		JTextPane nombreProveedorC = new JTextPane();
 		nombreProveedorC.setText("Nombre proveedor");
-		nombreProveedorC.setBounds(450, 20, 150, 19);
+		nombreProveedorC.setBounds(450, 20, 250, 19);
 		getContentPane().add(nombreProveedorC);
 		nombreProveedorC.setEditable(false);
 		nombreProveedorC.setOpaque(false);
@@ -100,6 +108,7 @@ public class FormularioBeca extends JFrame {
 		nombreProveedor.setBounds(450, 50, 250, 19);
 		getContentPane().add(nombreProveedor);
 		nombreProveedor.setColumns(10);
+		nombreProveedor.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 
 		JTextPane contactoC = new JTextPane();
 		contactoC.setText("Contacto");
@@ -112,6 +121,7 @@ public class FormularioBeca extends JFrame {
 		contacto.setBounds(450, 110, 250, 19);
 		getContentPane().add(contacto);
 		contacto.setColumns(10);
+		contacto.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 
 		JTextPane tipoBecaC = new JTextPane();
 		tipoBecaC.setText("Tipo de beca");
@@ -123,18 +133,21 @@ public class FormularioBeca extends JFrame {
 		privada = new JRadioButton("Privada");
 		privada.setBounds(450, 170, 149, 23);
 		getContentPane().add(privada);
+		privada.setOpaque(false);
 
 		publica = new JRadioButton("Publica");
 		publica.setBounds(600, 170, 149, 23);
 		getContentPane().add(publica);
+		publica.setOpaque(false);
 
 		ButtonGroup grupo1 = new ButtonGroup();
 		grupo1.add(privada);
 		grupo1.add(publica);
 
 		JButton salir = new JButton("ATRAS");
-		salir.setBounds(100, 550, 100, 30);
+		salir.setBounds(100, 400, 100, 30);
 		getContentPane().add(salir);
+		salir.setBackground(Color.ORANGE);
 
 		salir.addActionListener(new ActionListener() {
 
@@ -152,35 +165,44 @@ public class FormularioBeca extends JFrame {
 
 		JTextPane informacionC = new JTextPane();
 		informacionC.setText("Ultima beca añadida");
-		informacionC.setBounds(100, 210, 150, 30);
+		informacionC.setBounds(100, 240, 250, 30);
 		getContentPane().add(informacionC);
 		informacionC.setEditable(false);
 		informacionC.setOpaque(false);
 
 		JTextArea informacion = new JTextArea();
-		informacion.setBounds(new Rectangle(100, 240, 800, 30));
+		informacion.setBounds(new Rectangle(100, 270, 600, 30));
 		informacion.setEditable(false);
 		informacion.setVisible(true);
-		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.blue));
+		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 		getContentPane().add(informacion);
 
-		JTextPane informacionBecaC = new JTextPane();
-		informacionBecaC.setText("Lista de becas de la BBDD");
-		informacionBecaC.setBounds(100, 300, 200, 30);
-		getContentPane().add(informacionBecaC);
-		informacionBecaC.setEditable(false);
-		informacionBecaC.setOpaque(false);
+		JButton BBDD = new JButton("BBDD");
+		BBDD.setBounds(450, 400, 100, 30);
+		getContentPane().add(BBDD);
+		BBDD.setBackground(Color.ORANGE);
 
-		JTextArea informacionBeca = new JTextArea();
-		informacionBeca.setBounds(new Rectangle(100, 330, 800, 180));
-		informacionBeca.setEditable(false);
-		informacionBeca.setVisible(true);
-		informacionBeca.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.blue));
-		getContentPane().add(informacionBeca);
+		BBDD.addActionListener(new ActionListener() {
 
-		JButton aceptar = new JButton("ACEPTAR DATOS");
-		aceptar.setBounds(500, 550, 200, 30);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				String[] columnas = { "Codigo", "Nombre", "Condiciones", "Descripcion", "Proveedor", "Contacto",
+						"Tipo de Beca"};
+				Listado listado = new Listado(false,columnas,"beca");
+				
+				listado.setTitle("Datos Becas");
+				listado.pack();
+				listado.setVisible(true);
+
+			}
+
+		});
+
+		JButton aceptar = new JButton("ACEPTAR");
+		aceptar.setBounds(600, 400, 100, 30);
 		getContentPane().add(aceptar);
+		aceptar.setBackground(Color.ORANGE);
 		// accion de aceptar la entrada de datos
 
 		aceptar.addActionListener(new ActionListener() {
@@ -190,23 +212,30 @@ public class FormularioBeca extends JFrame {
 
 				tipo_beca tipo = null;
 
-				conexion= new Conexion_BBDD();
-				
+				conexion = new Conexion_BBDD();
+
 				// comprueba que este seleccionado alguno de nuestros radio buttons
 				try {
-					if (privada.isSelected() || publica.isSelected()) {
-						if (privada.isSelected()) {
-							tipo = tipo_beca.PRIVADA;
+					if (nombre.getText().isBlank() || nombre.getText().isBlank() || nombre.getText().isBlank()
+							|| nombre.getText().isBlank() || nombre.getText().isBlank()) {
+						JOptionPane.showMessageDialog(null, "Atencion: Algun campo en blanco");
+						throw new Exception();
+					}
+
+						if (privada.isSelected() || publica.isSelected()) {
+							if (privada.isSelected()) {
+								tipo = tipo_beca.PRIVADA;
+							} else {
+								tipo = tipo_beca.PUBLICA;
+
+							}
+
 						} else {
-							tipo = tipo_beca.PUBLICA;
+							// en caso contrario levanto una expcecion y controlo la ejecucion del metodo
+							JOptionPane.showMessageDialog(null, "Atencion: obligatorio elegir beca publica o privada");
+							throw new Exception();
 
 						}
-
-					} else {
-						// en caso contrario levanto una expcecion y controlo la ejecucion del metodo
-						throw new Exception();
-
-					}
 
 					beca = new Beca(nombre.getText().toUpperCase(), condiciones.getText().toUpperCase(),
 							descripcion.getText().toUpperCase(), contacto.getText().toUpperCase(),
@@ -224,7 +253,7 @@ public class FormularioBeca extends JFrame {
 						Date fecha_hora = gc.getTime();
 
 						try {
-							
+
 							Log metodos = new Log();
 							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_BECA, fecha_hora);
 						} catch (IOException elog) {
@@ -241,10 +270,8 @@ public class FormularioBeca extends JFrame {
 					contacto.setText("");
 					nombreProveedor.setText("");
 
-					informacionBeca.setText(conexion.listarBecas());
 					grupo1.clearSelection();
-					
-					
+
 					try {
 						conexion.cerrar();
 					} catch (SQLException e1) {
@@ -253,17 +280,17 @@ public class FormularioBeca extends JFrame {
 
 				} catch (Exception e1) {
 					// en la excepcion abrimos un cuadro de diaglo indicando el problema
-					JOptionPane.showMessageDialog(null, "Atencion: obligatorio elegir beca publica o privada");
+				
 
 				}
-			
 
 			}
 		});
 
-		JButton limpiar = new JButton("LIMPIAR DATOS");
-		limpiar.setBounds(250, 550, 150, 30);
+		JButton limpiar = new JButton("LIMPIAR");
+		limpiar.setBounds(250, 400, 100, 30);
 		getContentPane().add(limpiar);
+		limpiar.setBackground(Color.ORANGE);
 
 		limpiar.addActionListener(new ActionListener() {
 

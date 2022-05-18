@@ -6,11 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 
 import becapp.menus.Ficheros.Log;
 import becapp.menus.gestionAdministrador.GestionAdministradores;
@@ -40,8 +42,7 @@ public class MenuGestion extends JFrame {
 		JButton gestionAdministrador = new JButton("Gestión de Administradores");
 		gestionAdministrador.setBounds(100, 150, 400, 30);
 		getContentPane().add(gestionAdministrador);
-		gestionAdministrador.setForeground(Color.BLACK);
-		gestionAdministrador.setBackground(Color.RED);
+		gestionAdministrador.setBackground(Color.orange);
 
 		gestionAdministrador.addActionListener(new ActionListener() {
 
@@ -54,16 +55,14 @@ public class MenuGestion extends JFrame {
 		});
 
 		JButton salir = new JButton("ATRAS");
-		salir.setBounds(100, 250, 100, 30);
+		salir.setBounds(100, 300, 100, 30);
 		getContentPane().add(salir);
-		salir.setForeground(Color.WHITE);
-		salir.setBackground(Color.DARK_GRAY);
+		salir.setBackground(Color.orange);
 
 		JButton Becas = new JButton("Gestión de becas");
 		Becas.setBounds(100, 50, 400, 30);
 		getContentPane().add(Becas);
-		Becas.setForeground(Color.WHITE);
-		Becas.setBackground(Color.DARK_GRAY);
+		Becas.setBackground(Color.orange);
 
 		Becas.addActionListener(new ActionListener() {
 
@@ -78,10 +77,30 @@ public class MenuGestion extends JFrame {
 		});
 
 		JButton log = new JButton("VER LOG");
-		log.setBounds(400, 250, 100, 30);
+		log.setBounds(400, 300, 100, 30);
 		getContentPane().add(log);
-		log.setForeground(Color.WHITE);
-		log.setBackground(Color.DARK_GRAY);
+		log.setBackground(Color.orange);
+		
+
+		JButton bLog = new JButton("DEL LOG");
+		bLog.setBounds(250, 300, 100, 30);
+		getContentPane().add(bLog);
+		bLog.setBackground(Color.orange);
+		
+		bLog.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				File f = new File("log.txt");
+				if(f.delete()) {
+					JOptionPane.showMessageDialog(null, "Registro borrado con exito");
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"Atencion: problema en el borrado");
+				}
+				
+			}
+		});
 
 		log.addActionListener(new ActionListener() {
 
@@ -94,7 +113,7 @@ public class MenuGestion extends JFrame {
 				} catch (HeadlessException e1) {
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "No existen regristros");
 				}
 
 			}

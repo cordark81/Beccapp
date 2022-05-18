@@ -1,5 +1,6 @@
 package becapp.menus.gestionAdministrador;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -9,18 +10,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import becapp.menus.MenuGestion;
-import becapp.menus.gestionBecas.BorradoBecas;
-import becapp.menus.gestionBecas.FormularioBeca;
-import becapp.menus.gestionBecas.ListadoBecas;
-import becapp.menus.gestionBecas.ModificarBeca;
 import becapp.menus.metodos.ImagenFondo;
+import becapp.menus.metodos.Listado;
 import becapp.menus.metodos.MetodosMenus;
 
 public class GestionAdministradores extends JFrame {
 
 	public GestionAdministradores() {
 
-		setTitle("AÑADIR ADMINISTRADOR");
+		setTitle("GESTION ADMINISTRADOR");
 		ImagenFondo fondo = new ImagenFondo();
 		setContentPane(fondo);
 		setBounds(600, 300, 600, 450);
@@ -34,25 +32,28 @@ public class GestionAdministradores extends JFrame {
 				mm.confirmarSalida();
 			}
 		});
-		
+
 		JButton añadirAdministrador = new JButton("Añadir Administrador");
 		añadirAdministrador.setBounds(100, 50, 400, 30);
 		getContentPane().add(añadirAdministrador);
-		
+		añadirAdministrador.setBackground(Color.orange);
+
 		añadirAdministrador.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				FormularioAdministrador fa=new FormularioAdministrador();
-				
+				FormularioAdministrador fa = new FormularioAdministrador();
+
 				fa.setVisible(true);
 				dispose();
 			}
 		});
-		
+
 		JButton borrarAdminitrador = new JButton("Borrar Administrador");
 		borrarAdminitrador.setBounds(100, 125, 400, 30);
 		getContentPane().add(borrarAdminitrador);
+		borrarAdminitrador.setBackground(Color.orange);
+
 		borrarAdminitrador.addActionListener(new ActionListener() {
 
 			@Override
@@ -63,27 +64,32 @@ public class GestionAdministradores extends JFrame {
 
 			}
 		});
-		
+
 		JButton mostrarAdministrador = new JButton("Mostrar Administradores");
 		mostrarAdministrador.setBounds(100, 200, 400, 30);
 		getContentPane().add(mostrarAdministrador);
+		mostrarAdministrador.setBackground(Color.orange);
+
 		mostrarAdministrador.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				ListadoAdministrador la=new ListadoAdministrador();
-				la.setVisible(true);
-				la.setTitle("Datos administradores");
-				la.pack();
-				
+
+				String[] columnas = { "ID", "DNI", "Nombre", "Apellido", "Nacionalidad", "Email", "Telefono",
+						"Fecha  nacimientos", "Clave", "Estado", "Descripcion puesto", "Fecha alta"};
+
+				Listado listado = new Listado(false, columnas,"administrador");
+				listado.setVisible(true);
+				listado.setTitle("Datos administradores");
+				listado.pack();
 
 			}
 		});
-		
+
 		JButton atras = new JButton("ATRAS");
 		atras.setBounds(100, 350, 100, 30);
 		getContentPane().add(atras);
+		atras.setBackground(Color.orange);
 
 		atras.addActionListener(new ActionListener() {
 
@@ -96,7 +102,6 @@ public class GestionAdministradores extends JFrame {
 
 			}
 		});
-		
 
 	}
 
