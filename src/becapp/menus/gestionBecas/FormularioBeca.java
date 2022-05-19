@@ -169,13 +169,14 @@ public class FormularioBeca extends JFrame {
 		getContentPane().add(informacionC);
 		informacionC.setEditable(false);
 		informacionC.setOpaque(false);
-
+		
 		JTextArea informacion = new JTextArea();
 		informacion.setBounds(new Rectangle(100, 270, 600, 30));
 		informacion.setEditable(false);
 		informacion.setVisible(true);
 		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 		getContentPane().add(informacion);
+		informacion.setEditable(false);
 
 		JButton BBDD = new JButton("BBDD");
 		BBDD.setBounds(450, 400, 100, 30);
@@ -187,14 +188,13 @@ public class FormularioBeca extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				String[] columnas = { "Codigo", "Nombre", "Condiciones", "Descripcion", "Proveedor", "Contacto",
-						"Tipo de Beca"};
+				String[] columnas = { "Codigo", "Proveedor", "Contacto", "Descripcion", "Nombre", "Condiciones",
+				"Tipo de Beca"};
 				Listado listado = new Listado(false,columnas,"beca");
 				
 				listado.setTitle("Datos Becas");
 				listado.pack();
 				listado.setVisible(true);
-
 			}
 
 		});

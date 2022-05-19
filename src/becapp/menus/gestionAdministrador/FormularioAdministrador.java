@@ -185,6 +185,7 @@ public class FormularioAdministrador extends JFrame {
 		ultimoAdministrador.setColumns(10);
 		ultimoAdministrador.setEditable(false);
 		ultimoAdministrador.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		ultimoAdministrador.setEditable(false);
 
 		JDateChooser jdc = new JDateChooser();
 		jdc.setDateFormatString("d/MM/y");

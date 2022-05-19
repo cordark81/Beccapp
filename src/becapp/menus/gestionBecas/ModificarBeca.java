@@ -37,7 +37,6 @@ public class ModificarBeca extends JFrame {
 		setResizable(false);
 		ImagenFondo fondo = new ImagenFondo();
 		setContentPane(fondo);
-		
 
 		getContentPane().setLayout(null);
 
@@ -92,6 +91,7 @@ public class ModificarBeca extends JFrame {
 		getContentPane().add(antesModi);
 		antesModi.setColumns(10);
 		antesModi.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		antesModi.setEditable(false);
 
 		JTextPane despuesModiC = new JTextPane();
 		despuesModiC.setText("Despues de modificaciones: ");
@@ -105,6 +105,7 @@ public class ModificarBeca extends JFrame {
 		getContentPane().add(despuesModi);
 		despuesModi.setColumns(10);
 		despuesModi.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		despuesModi.setEditable(false);
 
 		JTextPane actualizacionC = new JTextPane();
 		actualizacionC.setText("Actualizacion");
@@ -153,13 +154,13 @@ public class ModificarBeca extends JFrame {
 		JRadioButton nombreProveedor = new JRadioButton("proveedor");
 		nombreProveedor.setBounds(225, 160, 120, 23);
 		getContentPane().add(nombreProveedor);
-		nombreProveedor.setActionCommand("nombreProveedor");
+		nombreProveedor.setActionCommand("nombre_proveedor");
 		nombreProveedor.setOpaque(false);
 
 		JRadioButton tipoBeca = new JRadioButton("tipo beca");
 		tipoBeca.setBounds(425, 160, 120, 23);
 		getContentPane().add(tipoBeca);
-		tipoBeca.setActionCommand("tipoBeca");
+		tipoBeca.setActionCommand("tipo");
 		tipoBeca.setOpaque(false);
 
 		ButtonGroup grupo1 = new ButtonGroup();
@@ -182,7 +183,7 @@ public class ModificarBeca extends JFrame {
 
 				conexion = new Conexion_BBDD();
 				conexion.conectar();
-				String mensaje = null;
+				String mensaje = "Atencion: solo son validos los numeros en ID";
 
 				String columna;
 
@@ -207,7 +208,9 @@ public class ModificarBeca extends JFrame {
 
 						ButtonModel bm = grupo1.getSelection();
 						columna = bm.getActionCommand();
+
 						grupo1.clearSelection();
+
 						int numeroCod = Integer.parseInt(cod.getText());
 
 						if (conexion.modificarBeca(columna, numeroCod, actualizacion.getText().toUpperCase())) {
@@ -219,7 +222,7 @@ public class ModificarBeca extends JFrame {
 							Date fecha_hora = gc.getTime();
 							Log metodos = new Log();
 
-							despuesModi.setText(conexion.informacionActualizacion(numeroCod,columna));
+							despuesModi.setText(conexion.informacionActualizacion(numeroCod, columna));
 							metodos.escribirLog(Tipo_movimiento.MODIFICAR_BECA, fecha_hora);
 
 						} else {
@@ -228,6 +231,7 @@ public class ModificarBeca extends JFrame {
 						conexion.cerrar();
 					}
 				} catch (Exception e1) {
+					
 					JOptionPane.showMessageDialog(null, mensaje);
 				}
 
@@ -247,14 +251,14 @@ public class ModificarBeca extends JFrame {
 				conexion = new Conexion_BBDD();
 				conexion.conectar();
 				int codigo = 0;
-				String mensaje = "";
+				String mensaje = "Atencion: solo son validos los numeros en ID";
 				try {
 					if (cod.getText().isBlank() || cod.getText().isEmpty()) {
 						mensaje = "Atencion: Es necesario introducir el numero de codigo para la comprobacion";
 						throw new Exception();
 					} else if (!(nombre.isSelected() || condiciones.isSelected() || descripcion.isSelected()
 							|| contacto.isSelected() || nombreProveedor.isSelected() || tipoBeca.isSelected())) {
-						mensaje  = "Atencion: Seleccione una columna para ver contenido";
+						mensaje = "Atencion: Seleccione una columna para ver contenido";
 						throw new Exception();
 					}
 
@@ -270,7 +274,7 @@ public class ModificarBeca extends JFrame {
 					conexion.cerrar();
 
 				} catch (SQLException e1) {
-					e1.printStackTrace();
+					
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, mensaje);
 				}

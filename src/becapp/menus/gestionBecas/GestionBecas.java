@@ -94,8 +94,8 @@ public class GestionBecas extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String[] columnas = { "Codigo", "Nombre", "Condiciones", "Descripcion", "Proveedor", "Contacto",
-						"Tipo de Beca"};
+				String[] columnas = { "Codigo", "Proveedor", "Contacto", "Descripcion", "Nombre", "Condiciones",
+				"Tipo de Beca"};
 				
 				Listado listado = new Listado(false,columnas,"beca");
 				listado.setTitle("Datos Becas");

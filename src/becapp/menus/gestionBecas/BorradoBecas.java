@@ -91,6 +91,8 @@ public class BorradoBecas extends JFrame {
 				condicion = 1;
 				informacion.setText(conexion.buscarDatos(name, condicion, "becas", true));
 				informacion.setVisible(true);
+				informacion.setEditable(false);
+				
 				if (informacion.getText().isBlank() || informacion.getText().isEmpty()) {
 					informacion.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Ninguna beca encontrada");

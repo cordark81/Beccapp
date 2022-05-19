@@ -13,12 +13,10 @@ public class Conexion_BBDD {
 	// datos pendientes de cambiar a la base de datos valida
 
 	private String bd = "XE";
-	private String login = "ADMINISTRADOR";
-	private String password = "ADMINISTRADOR";
+	private String login = "BANCO";
+	private String password = "BANCO";
 	private String url = "jdbc:oracle:thin:@localhost:1521:" + bd;
-	java.sql.Statement st = null;
 	java.sql.ResultSet rs = null;
-
 	Connection connection = null;
 
 	// CONECTAR CON LA BASE DE DATOS
@@ -42,8 +40,6 @@ public class Conexion_BBDD {
 
 		if (rs != null)
 			rs.close();
-		if (st != null)
-			st.close();
 		if (connection != null)
 			connection.close();
 
@@ -80,7 +76,7 @@ public class Conexion_BBDD {
 		// nombreProveedor, tipo_beca);
 
 		try {
-			PreparedStatement ps = connection.prepareStatement("select max(cod) from becas");
+			PreparedStatement ps = connection.prepareStatement("select max(codigo) from becas");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -89,18 +85,18 @@ public class Conexion_BBDD {
 
 			ps = connection.prepareStatement("insert into becas values(?,?,?,?,?,?,?)");
 			ps.setInt(1, cod);
-			ps.setString(2, b.getNombre());
-			ps.setString(3, b.getCondiciones());
+			ps.setString(2, b.getNombreProveedor());
+			ps.setString(3, b.getContacto());
 			ps.setString(4, b.getDescripcion());
-			ps.setString(5, b.getContacto());
-			ps.setString(6, b.getNombreProveedor());
+			ps.setString(5, b.getCondiciones());
+			ps.setString(6, b.getNombre());
 			ps.setString(7, tBeca);
 			ps.executeUpdate();
 
 			alta = true;
 
 		} catch (SQLException e) {
-			System.out.println("no se encuantan los datos en la base de datos");
+			System.out.println("no se encuantran los datos en la base de datos");
 			e.printStackTrace();
 			alta = false;
 			return alta;
@@ -167,7 +163,7 @@ public class Conexion_BBDD {
 		try {
 
 			ps = connection
-					.prepareStatement("update becas set " + columna + " = '" + actualizacion + "' where cod= " + cod);
+					.prepareStatement("update becas set " + columna + " = '" + actualizacion + "' where codigo= " + cod);
 			int up = ps.executeUpdate();
 
 			if (up == 2) {
@@ -178,6 +174,7 @@ public class Conexion_BBDD {
 
 		} catch (SQLException e) {
 			System.out.println("No se a podido realizar la actualizacion de la beca");
+			e.printStackTrace();
 			modificado = false;
 			return modificado;
 		}
@@ -302,7 +299,7 @@ public class Conexion_BBDD {
 			switch (condicion) {
 			case 1:
 
-				filtro = "cod";
+				filtro = "codigo";
 
 				if (buscar) {
 					ps = connection.prepareStatement("select * from becas where " + filtro + " = " + dato);
@@ -314,7 +311,7 @@ public class Conexion_BBDD {
 				break;
 
 			case 2:
-				filtro = "nombreProveedor";
+				filtro = "nombre_proveedor";
 				
 				if (buscar) {
 
@@ -355,7 +352,7 @@ public class Conexion_BBDD {
 			if (buscar && tabla.equals("becas")) {
 				while (rs.next()) {
 
-					lista += "Beca [codigo = " + rs.getInt(1) + " Nombre Proveedor = " + rs.getString(6) + "]" + "\n";
+					lista += "Beca [codigo = " + rs.getInt(1) + " Nombre Proveedor = " + rs.getString(2) + "]" + "\n";
 
 				}
 
@@ -384,28 +381,28 @@ public class Conexion_BBDD {
 		PreparedStatement ps;
 		String lista = "";
 
-		ps = connection.prepareStatement("select * from becas where cod=" + cod);
+		ps = connection.prepareStatement("select * from becas where codigo=" + cod);
 		rs = ps.executeQuery();
 
 		while (rs.next()) {
 			
 			switch (columna) {
 			case "nombre":
-				lista+="Codigo beca: " + rs.getInt(1) + " Beca: " + rs.getString(2);
+				lista+="Codigo beca: " + rs.getInt(1) + " Beca: " + rs.getString(6);
 				break;
 			case "condiciones":
-				lista+="Codigo beca: " + rs.getInt(1) + " Condiciones: " + rs.getString(3);
+				lista+="Codigo beca: " + rs.getInt(1) + " Condiciones: " + rs.getString(5);
 				break;
 			case "descripcion":
 				lista+="Codigo beca: " + rs.getInt(1) + " Descripcion: " + rs.getString(4);
 				break;	
 			case "contacto":
-				lista+="Codigo beca: " + rs.getInt(1) + " Contacto: " + rs.getString(5);
+				lista+="Codigo beca: " + rs.getInt(1) + " Contacto: " + rs.getString(3);
 				break;	
-			case "nombreProveedor":
-				lista+="Codigo beca: " + rs.getInt(1) + " Proveedor: " + rs.getString(6);
+			case "nombre_proveedor":
+				lista+="Codigo beca: " + rs.getInt(1) + " Proveedor: " + rs.getString(2);
 				break;	
-			case "tipoBeca":
+			case "tipo":
 				lista+="Codigo beca: " + rs.getInt(1) + " Tipo: " + rs.getString(7);
 				break;	
 			default:
