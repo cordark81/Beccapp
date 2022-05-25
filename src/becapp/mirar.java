@@ -14,6 +14,8 @@ public class mirar extends JFrame {
 	private JPanel contentPane;
 
 	/**
+	 * CREO QUE ES PARA BORRAR
+	 * 
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {

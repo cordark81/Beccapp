@@ -10,8 +10,6 @@ import javax.swing.JOptionPane;
 
 public class Conexion_BBDD {
 
-	// datos pendientes de cambiar a la base de datos valida
-
 	private String bd = "XE";
 	private String login = "BANCO";
 	private String password = "BANCO";
@@ -19,7 +17,9 @@ public class Conexion_BBDD {
 	java.sql.ResultSet rs = null;
 	Connection connection = null;
 
-	// CONECTAR CON LA BASE DE DATOS
+	/**
+	 * Método de conexión a la Base de Datos
+	 */
 	public void conectar() {
 
 		try {
@@ -35,7 +35,11 @@ public class Conexion_BBDD {
 
 	}
 
-	// CIERRA CONEXION
+	/**
+	 * Método de desconexión de Base de Datos
+	 * 
+	 * @throws SQLException
+	 */
 	public void cerrar() throws SQLException {
 
 		if (rs != null)
@@ -50,19 +54,19 @@ public class Conexion_BBDD {
 	 */
 
 	/**
-	 * En este metodo recibimos los datos correspondiente a la beca que queremos dar
-	 * de alta en un objeto beca, a excepción del numero de beca, que conseguimos en
-	 * la primera parte del metodo de la tabla beca.cod y le sumamos +1 para que
-	 * siga el orden correlativo. En la segunda parte del metodo hacemos un insert
-	 * con todo los datos recopilados con el metodo consulta preparada.
+	 * En este método recibimos los datos correspondientes a la beca que queremos
+	 * dar de alta en un objeto beca, a excepción del número de beca, que
+	 * conseguimos en la primera parte del método de la tabla beca.cod y le sumamos
+	 * +1 para que siga el orden correlativo. En la segunda parte del método hacemos
+	 * un insert con todos los datos recopilados con el método consulta preparada.
 	 * 
 	 * @param nombre          datos beca
 	 * @param condiciones     datos beca
-	 * @param descripcion     datos beca
+	 * @param descripción     datos beca
 	 * @param contacto        datos beca
 	 * @param nombreProveedor datos beca
 	 * @param tipo_beca       datos beca
-	 * @return true en caso de exito, false en caso contrario
+	 * @return true en caso de éxito, false en caso contrario
 	 */
 	public boolean aniadirBeca(Beca b) {
 
@@ -70,10 +74,6 @@ public class Conexion_BBDD {
 		// convertimos el enum a String
 		String tBeca = b.getTipo_beca().toString();
 		int cod = 0;
-
-		// En proceos de evaluacion
-		// Beca beca = new Beca(nombre, condiciones, descripcion, contacto,
-		// nombreProveedor, tipo_beca);
 
 		try {
 			PreparedStatement ps = connection.prepareStatement("select max(codigo) from becas");
@@ -96,7 +96,7 @@ public class Conexion_BBDD {
 			alta = true;
 
 		} catch (SQLException e) {
-			System.out.println("no se encuantran los datos en la base de datos");
+			System.out.println("No se encuentran los datos");
 			e.printStackTrace();
 			alta = false;
 			return alta;
@@ -106,25 +106,33 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Este metodo a partir del codigo de beca recibido, borrara la beca
-	 * correspondiente.
+	 * @author edu
 	 * 
-	 * @param cod numero de beca referencia para el borrado
-	 * @return true en caso de exito, false en caso contrario
-	 * @throws SQLException
+	 *         Método destinado a borrar becas. Empieza comprobando si el dato está
+	 *         en blanco o vacío en cuyo caso lanza una excepción preparada con un
+	 *         mensaje de diálogo. A continuación utiliza el método buscar datos
+	 *         para sacar el filtro de la consulta. Finalmente añadimos toda la
+	 *         información recogida a una variable String
+	 * 
+	 * @param dato         la información de referencia para el borrado
+	 * @param condicion    numeración interna que nos da la culumna de filtro
+	 * @param borradoTabla utilizaremos false para este método ya que no queremos
+	 *                     ejecutar la consulta que está dentro del método
+	 * @return true si es correcto, false en caso contrario
 	 */
-	public boolean borrarBeca(String dato, int condicion) {
+	public boolean borrarBeca(String dato, int condicion, boolean borradoTabla) {
 
 		boolean borrado = false;
 
 		PreparedStatement ps;
 
 		try {
-			// como solventar los capos vacios para el borrado?????
 
-			if (dato.isBlank() || dato.isEmpty()) {
+			if (borradoTabla) {
+				if (dato.isBlank() || dato.isEmpty()) {
 
-				throw new Exception();
+					throw new Exception();
+				}
 			}
 
 			String filtro = buscarDatos(dato, condicion, "becas", false);
@@ -139,20 +147,23 @@ public class Conexion_BBDD {
 			borrado = false;
 			return borrado;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Atecion: seleccione un campo");
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Atención: seleccione un campo");
 		}
 
 		return borrado;
 	}
 
 	/**
-	 * Con este metodo podremos actualizar determinados datos de las distintaas
-	 * becas de nuestra BBDD
+	 * @author edu
 	 * 
-	 * @param columna       campo del que queremos hacer la actualizacion
-	 * @param cod           codigo del cliente al que se le hace el cambio
+	 *         Con este método podremos actualizar determinados datos de las
+	 *         distintas becas de nuestra BBDD
+	 * 
+	 * @param columna       campo del que queremos hacer la actualización
+	 * @param cod           código del cliente al que se le hace el cambio
 	 * @param actualizacion dato que se cambia en la columna
-	 * @return true en caso de exito, false en caso contrario
+	 * @return true en caso de éxito, false en caso contrario
 	 */
 	public boolean modificarBeca(String columna, int cod, String actualizacion) {
 
@@ -162,8 +173,8 @@ public class Conexion_BBDD {
 
 		try {
 
-			ps = connection
-					.prepareStatement("update becas set " + columna + " = '" + actualizacion + "' where codigo= " + cod);
+			ps = connection.prepareStatement(
+					"update becas set " + columna + " = '" + actualizacion + "' where codigo= " + cod);
 			int up = ps.executeUpdate();
 
 			if (up == 2) {
@@ -173,7 +184,7 @@ public class Conexion_BBDD {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("No se a podido realizar la actualizacion de la beca");
+			System.out.println("No se ha podido realizar la actualizaciónn de la beca");
 			e.printStackTrace();
 			modificado = false;
 			return modificado;
@@ -181,38 +192,45 @@ public class Conexion_BBDD {
 
 		return modificado;
 	}
-
-	/**
-	 * Este metodo nos saca de la base de datos toda la informacion relativa a
+	/*
+	 * pendiente de borrar
+	 * 
+	 * /** Este método nos saca de la base de datos toda la información relativa a
 	 * nuestras becas
 	 * 
 	 * @return devuelve un string con la informacion solicita o un mensaje de error
-	 *         en caso de fallo
+	 * en caso de fallo
+	 *//*
+		 * 
+		 * public String listarBecas() {
+		 * 
+		 * PreparedStatement ps; String lista = "";
+		 * 
+		 * try { ps = connection.prepareStatement("select * from becas order by 1"); rs
+		 * = ps.executeQuery(); while (rs.next()) {
+		 * 
+		 * lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2)
+		 * + " condiciones= " + rs.getString(3) + " descripcion= " + rs.getString(4) +
+		 * " contacto= " + rs.getString(5) + " nombre proveedor= " + rs.getString(6) +
+		 * " tipo de beca= " + rs.getString(7) + "\n";
+		 * 
+		 * }
+		 * 
+		 * } catch (SQLException e) {
+		 * 
+		 * return "La lista no se ha podido cargar"; }
+		 * 
+		 * return lista; }
+		 */
+
+	/**
+	 * @author edu
+	 * 
+	 *         Método con el cual rescatamos la información necesaria para crear y
+	 *         rellenar un arraylist de becas
+	 * 
+	 * @return arraylist de becas
 	 */
-
-	public String listarBecas() {
-
-		PreparedStatement ps;
-		String lista = "";
-
-		try {
-			ps = connection.prepareStatement("select * from becas order by 1");
-			rs = ps.executeQuery();
-			while (rs.next()) {
-
-				lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2) + " condiciones= "
-						+ rs.getString(3) + " descripcion= " + rs.getString(4) + " contacto= " + rs.getString(5)
-						+ " nombre proveedor= " + rs.getString(6) + " tipo de beca= " + rs.getString(7) + "\n";
-
-			}
-
-		} catch (SQLException e) {
-
-			return "La lista no se ha podido cargar";
-		}
-
-		return lista;
-	}
 
 	public ArrayList<Beca> listarBecasArray() {
 
@@ -248,6 +266,14 @@ public class Conexion_BBDD {
 		return datos;
 	}
 
+	/**
+	 * @author edu
+	 * 
+	 *         Método con el cual rescatamos la información necesaria para crear y
+	 *         rellenar un arraylist de administradores
+	 * 
+	 * @return arraylist de administradores
+	 */
 	public ArrayList<Administrador> listarAdminitradoresArray() {
 
 		ArrayList<Administrador> datos = new ArrayList<Administrador>();
@@ -278,13 +304,19 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Metodo destinado a buscar informacion en la base de datos basado en una
-	 * palabra y con una condicion que define el tipo de busqueda que se va a hacer
+	 * @author edu
 	 * 
-	 * @param dato      palabra que hace de filtro en el campo
-	 * @param condicion 1 2 o 3 segun si queremos buscar por id, nombre de beca o
-	 *                  nombre de proveedor
-	 * @return String con la informacion encontrada
+	 *         Método diseñado para obtener información de la base de datos. Tiene
+	 *         varias opciones, una de ellas es según la condición nos dará el
+	 *         filtro del where y hará la búsqueda que devolverá en un Stream y otra
+	 *         opción es simplemente que nos devuelva el filtro
+	 * 
+	 * @param dato      información de igualado del where
+	 * @param condicion numeración interna del filtro
+	 * @param tabla     en la que queremos hacer la búsqueda (becas y
+	 *                  administradores)
+	 * @param buscar    true o false según si queremos o no hacer uso de la consulta
+	 * @return String con la información recogida
 	 */
 
 	public String buscarDatos(String dato, int condicion, String tabla, boolean buscar) {
@@ -312,7 +344,7 @@ public class Conexion_BBDD {
 
 			case 2:
 				filtro = "nombre_proveedor";
-				
+
 				if (buscar) {
 
 					ps = connection
@@ -376,7 +408,17 @@ public class Conexion_BBDD {
 
 	}
 
-	public String informacionActualizacion(int cod,String columna) throws SQLException {
+	/**
+	 * @author edu
+	 * 
+	 * Método para comprobar la información que se quiere actualizar antes de realizar la actualización 
+	 *
+	 * @param cod número de código para la búsqueda de información
+	 * @param columna dato del que queremos saber qué contiene
+	 * @return String con la información recogida
+	 * @throws SQLException
+	 */
+	public String informacionActualizacion(int cod, String columna) throws SQLException {
 
 		PreparedStatement ps;
 		String lista = "";
@@ -385,40 +427,42 @@ public class Conexion_BBDD {
 		rs = ps.executeQuery();
 
 		while (rs.next()) {
-			
+
 			switch (columna) {
 			case "nombre":
-				lista+="Codigo beca: " + rs.getInt(1) + " Beca: " + rs.getString(6);
+				lista += "Codigo beca: " + rs.getInt(1) + " Beca: " + rs.getString(6);
 				break;
 			case "condiciones":
-				lista+="Codigo beca: " + rs.getInt(1) + " Condiciones: " + rs.getString(5);
+				lista += "Codigo beca: " + rs.getInt(1) + " Condiciones: " + rs.getString(5);
 				break;
 			case "descripcion":
-				lista+="Codigo beca: " + rs.getInt(1) + " Descripcion: " + rs.getString(4);
-				break;	
+				lista += "Codigo beca: " + rs.getInt(1) + " Descripcion: " + rs.getString(4);
+				break;
 			case "contacto":
-				lista+="Codigo beca: " + rs.getInt(1) + " Contacto: " + rs.getString(3);
-				break;	
+				lista += "Codigo beca: " + rs.getInt(1) + " Contacto: " + rs.getString(3);
+				break;
 			case "nombre_proveedor":
-				lista+="Codigo beca: " + rs.getInt(1) + " Proveedor: " + rs.getString(2);
-				break;	
+				lista += "Codigo beca: " + rs.getInt(1) + " Proveedor: " + rs.getString(2);
+				break;
 			case "tipo":
-				lista+="Codigo beca: " + rs.getInt(1) + " Tipo: " + rs.getString(7);
-				break;	
+				lista += "Codigo beca: " + rs.getInt(1) + " Tipo: " + rs.getString(7);
+				break;
 			default:
 				break;
 			}
-												
+
 		}
 
 		return lista;
 	}
 
 	/**
-	 * Con este metodos daremos de alta administradores en la tabla de
-	 * administradores, a partir de un objeto administrador que herreda de usuario
+	 * @author edu
 	 * 
-	 * @param a Objeto de la calse administrador con todos los datos
+	 * Con este método daremos de alta administradores en la tabla de
+	 * administradores, a partir de un objeto administrador que hereda de usuario
+	 * 
+	 * @param a Objeto de la clase administrador con todos los datos
 	 * @return true en caso de exito, false en caso contrario
 	 */
 
@@ -454,7 +498,7 @@ public class Conexion_BBDD {
 			alta = true;
 
 		} catch (SQLException e) {
-			System.out.println("no se han insertar los datos");
+			System.out.println("No se han insertado datos");
 			e.printStackTrace();
 			alta = false;
 			return alta;
@@ -464,12 +508,16 @@ public class Conexion_BBDD {
 
 	}
 
-	/**
-	 * Metodo que borra un admin de la tabla admin a partir de una id de usuario
-	 * 
-	 * @param id_usuario dato que filtra el borrado del administrador
-	 * @return true en caso de exito, false en caso contrario
-	 */
+	
+/**
+ * @author edu
+ * 
+ * Método para dar de baja a un administrador. Recurriremos al método buscar datos para obtener el filtro del borrado en caso de excepción lanzará una ventana de diálogo
+ * 
+ * @param dato criterio para dar de baja al administrador
+ * @param condicion número interno para obtener el where
+ * @return true en caso de éxito, false en caso contrario
+ */
 
 	public boolean darBajaAdmin(String dato, int condicion) {
 
@@ -487,7 +535,7 @@ public class Conexion_BBDD {
 			borrado = true;
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Atencion: Introduzca algun criterio");
+			JOptionPane.showMessageDialog(null, "Atención: Introduzca algún criterio");
 
 			borrado = false;
 			return borrado;

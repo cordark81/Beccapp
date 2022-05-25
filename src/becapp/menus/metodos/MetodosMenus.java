@@ -10,8 +10,17 @@ import becapp.Administrador;
 import becapp.Beca;
 import becapp.Conexion_BBDD;
 
-public class MetodosMenus extends JFrame {
+/**
+ * 
+ * @author edu
+ *
+ */
 
+public class MetodosMenus extends JFrame {
+	
+	/**
+	 * con este metodo conseguimos una confirmacion si queremos salir del programa, esta seguro?? si o no.
+	 */
 	public void confirmarSalida() {
 		int valor = JOptionPane.showConfirmDialog(this, "Esta seguro de cerrar la aplicacion", "Advertencia",
 				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);

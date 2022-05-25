@@ -21,12 +21,18 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 import becapp.Conexion_BBDD;
+import becapp.menus.PrincipalGestion;
 import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
 import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.Listado;
 import becapp.menus.metodos.MetodosMenus;
 
+/**
+ * 
+ * @author edu
+ *
+ */
 public class BorradoAdministrador extends JFrame {
 
 	private JTextArea informacion;
@@ -36,20 +42,12 @@ public class BorradoAdministrador extends JFrame {
 	public BorradoAdministrador() {
 
 		setTitle("GESTION: BORRAR ADMINISTRADORES");
-		ImagenFondo fondo = new ImagenFondo();
+		ImagenFondo fondo = new ImagenFondo("/imagenes/tabla.jpg");
 		setContentPane(fondo);
 		setBounds(500, 300, 600, 450);
 		setResizable(false);
 		getContentPane().setLayout(null);
-
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				MetodosMenus mm = new MetodosMenus();
-				mm.confirmarSalida();
-			}
-		});
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		JTextPane campoC = new JTextPane();
 		campoC.setText("Seleccionar campo para el borrado:");
@@ -73,10 +71,29 @@ public class BorradoAdministrador extends JFrame {
 		getContentPane().add(listado);
 		listado.setOpaque(false);
 
+		// grupo de JRadioButton para un unica seleccion
 		ButtonGroup grupo1 = new ButtonGroup();
 		grupo1.add(id);
 		grupo1.add(listado);
 		grupo1.add(dni);
+
+		informacion = new JTextArea();
+		informacion.setBounds(new Rectangle(100, 100, 400, 200));
+		informacion.setEditable(false);
+		informacion.setVisible(false);
+		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		getContentPane().add(informacion);
+
+		JButton aceptar = new JButton("BORRAR");
+		aceptar.setBounds(400, 350, 100, 30);
+		getContentPane().add(aceptar);
+		aceptar.setBackground(Color.orange);
+
+		/**
+		 * Funcionalidad del Radio Button id, pide la id para hacer la busqueda la hace
+		 * y si encuentra muestra la informacion pero todavia no borra. Si no encuentra
+		 * nada lazara un panel de diagolo con la inforamcion pertinente
+		 */
 
 		id.addActionListener(new ActionListener() {
 
@@ -87,8 +104,11 @@ public class BorradoAdministrador extends JFrame {
 				name = JOptionPane.showInputDialog("Introduzca ID del administrador");
 				grupo1.clearSelection();
 				condicion = 3;
+				// busca la informacion
 				informacion.setText(conexion.buscarDatos(name, condicion, "administradores", true));
 				informacion.setVisible(true);
+				informacion.setEditable(false);
+				// verifica si esta vacio o en blanco el campo
 				if (informacion.getText().isBlank() || informacion.getText().isEmpty()) {
 					informacion.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Ninguna administrador encontrado");
@@ -100,6 +120,11 @@ public class BorradoAdministrador extends JFrame {
 
 			}
 		});
+		/**
+		 * Funcionalidad del Radio Button dni, pide el dni para hacer la busqueda la
+		 * hace y si encuentra muestra la informacion pero todavia no borra, Si no
+		 * encuentra nada lazara un panel de diagolo con la inforamcion pertinente
+		 */
 		dni.addActionListener(new ActionListener() {
 
 			private Conexion_BBDD conexion;
@@ -111,8 +136,11 @@ public class BorradoAdministrador extends JFrame {
 				name = JOptionPane.showInputDialog("Introduzca Dni del adminitrador");
 				grupo1.clearSelection();
 				condicion = 4;
+				// busca la informacion
 				informacion.setText(conexion.buscarDatos(name, condicion, "administradores", true));
 				informacion.setVisible(true);
+				informacion.setEditable(false);
+				// verifica si esta vacio o en blanco el campo
 				if (informacion.getText().isBlank() || informacion.getText().isEmpty()) {
 					informacion.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Ninguna administrador encontrado");
@@ -125,6 +153,12 @@ public class BorradoAdministrador extends JFrame {
 
 			}
 		});
+		
+		/**
+		 * Funcionalidad del Radio Button listado, este es un poco distinto por que lo
+		 * genera es una tabla con toda la informacion de la base de datos y lo muestra
+		 * en una tabla con un boton de borrado por fila
+		 */
 
 		listado.addActionListener(new ActionListener() {
 
@@ -133,10 +167,10 @@ public class BorradoAdministrador extends JFrame {
 				Conexion_BBDD conexion = new Conexion_BBDD();
 				conexion.conectar();
 				grupo1.clearSelection();
-
+				// columnas de la tabla
 				String[] columnas = { "ID", "DNI", "Nombre", "Apellido", "Nacionalidad", "Email", "Telefono",
 						"Fecha  nacimientos", "Clave", "Estado", "Descripcion puesto", "Fecha alta", "" };
-
+				// constructor que monta la tabla
 				Listado listado = new Listado(true, columnas, "administrador");
 				listado.setVisible(true);
 				listado.setTitle("Datos administradores");
@@ -150,43 +184,20 @@ public class BorradoAdministrador extends JFrame {
 
 			}
 		});
-
-		informacion = new JTextArea();
-		informacion.setBounds(new Rectangle(100, 100, 400, 200));
-		informacion.setEditable(false);
-		informacion.setVisible(false);
-		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
-		getContentPane().add(informacion);
-
-		JButton atras = new JButton("ATRAS");
-		atras.setBounds(100, 350, 100, 30);
-		getContentPane().add(atras);
-		atras.setBackground(Color.orange);
-
-		atras.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				dispose();
-				GestionAdministradores gb = new GestionAdministradores();
-				gb.setVisible(true);
-
-			}
-		});
-
-		JButton aceptar = new JButton("BORRAR");
-		aceptar.setBounds(300, 350, 200, 30);
-		getContentPane().add(aceptar);
-		aceptar.setBackground(Color.orange);
-
+		/**
+		 * Despues de hacer las seleccion con lo botones de opciones(Radio Button), si
+		 * la informacion mostrada es la que queremos borras esta accion lo borra de la
+		 * base de datos y hace un registro en nuestros archivo log con el tipo de
+		 * movimiento
+		 */
+		
 		aceptar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
 				conexion.conectar();
-
+				// generamos fecha de la accion a registrar en el log
 				GregorianCalendar gc = new GregorianCalendar();
 				Date fecha_hora = gc.getTime();
 
@@ -194,6 +205,7 @@ public class BorradoAdministrador extends JFrame {
 					JOptionPane.showMessageDialog(null, "administrador borrado con exito");
 					Log metodos = new Log();
 					try {
+						// metodo de escritura en el archivo log con la hora y el tipo de movimiento
 						metodos.escribirLog(Tipo_movimiento.BORRAR_ADMINITRADOR, fecha_hora);
 					} catch (IOException e1) {
 						e1.printStackTrace();

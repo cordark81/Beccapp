@@ -36,7 +36,9 @@ public class ButtonColumn extends AbstractCellEditor
 	private Object editorValue;
 	private boolean isButtonColumnEditor;
 	
+	private Icon icono;
 	private String texto;
+	
 
 	/**
 	 *  Create the ButtonColumn to be used as a renderer and editor. The
@@ -111,7 +113,7 @@ public class ButtonColumn extends AbstractCellEditor
 		if (value == null)
 		{
 			editButton.setText( texto );
-			editButton.setIcon( null );
+			editButton.setIcon( icono );
 		}
 		else if (value instanceof Icon)
 		{
@@ -130,6 +132,10 @@ public class ButtonColumn extends AbstractCellEditor
 	
 	public void setText(String text) {
 		texto = text;
+	}
+	
+	public void setIcon(Icon icon) {
+		icono = icon;
 	}
 
 	@Override
@@ -168,7 +174,7 @@ public class ButtonColumn extends AbstractCellEditor
 		if (value == null)
 		{
 			renderButton.setText( texto );
-			renderButton.setIcon( null );
+			renderButton.setIcon( icono );
 		}
 		else if (value instanceof Icon)
 		{

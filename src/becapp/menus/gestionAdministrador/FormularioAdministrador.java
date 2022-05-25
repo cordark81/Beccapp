@@ -29,24 +29,24 @@ import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.Listado;
 import becapp.menus.metodos.MetodosMenus;
 
+/**
+ * 
+ * @author edu
+ *
+ */
+
 public class FormularioAdministrador extends JFrame {
 
 	public FormularioAdministrador() {
 
 		setTitle("FORMULARIO ADMINISTRADOR");
-		ImagenFondo fondo = new ImagenFondo();
+		ImagenFondo fondo = new ImagenFondo("/imagenes/tabla.jpg");
 		setContentPane(fondo);
 		setBounds(500, 300, 800, 650);
 		getContentPane().setLayout(null);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				MetodosMenus mm = new MetodosMenus();
-				mm.confirmarSalida();
-			}
-		});
 		JTextPane dniC = new JTextPane();
 		dniC.setText("Dni");
 		dniC.setBounds(100, 20, 114, 19);
@@ -187,22 +187,31 @@ public class FormularioAdministrador extends JFrame {
 		ultimoAdministrador.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 		ultimoAdministrador.setEditable(false);
 
+		// boton estrella con funcinaliidad de calendario, fuentes importadas
 		JDateChooser jdc = new JDateChooser();
 		jdc.setDateFormatString("d/MM/y");
 		jdc.setBounds(100, 230, 224, 19);
 		fondo.add(jdc);
 		jdc.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
-		
-
-		JButton salir = new JButton("ATRAS");
-		salir.setBounds(100, 550, 100, 30);
-		getContentPane().add(salir);
-		salir.setBackground(Color.orange);
 
 		JButton limpiar = new JButton("LIMPIAR");
-		limpiar.setBounds(450, 550, 100, 30);
+		limpiar.setBounds(350, 550, 100, 30);
 		getContentPane().add(limpiar);
 		limpiar.setBackground(Color.orange);
+
+		JButton listado = new JButton("Ver BBDD");
+		listado.setBounds(100, 550, 100, 30);
+		getContentPane().add(listado);
+		listado.setBackground(Color.orange);
+
+		JButton aceptar = new JButton("ACEPTAR");
+		aceptar.setBounds(600, 550, 100, 30);
+		getContentPane().add(aceptar);
+		aceptar.setBackground(Color.orange);
+
+		/**
+		 * Accion del boton limpiar para resetear la entrada de datos
+		 */
 
 		limpiar.addActionListener(new ActionListener() {
 
@@ -220,24 +229,10 @@ public class FormularioAdministrador extends JFrame {
 			}
 		});
 
-		salir.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// con dispose cerramos el constructor en ejecucion ventana y como hemos pulsado
-				// el boton se abra la siguiente ventana
-				dispose();
-				GestionAdministradores ga = new GestionAdministradores();
-				ga.setVisible(true);
-
-			}
-
-		});
-
-		JButton aceptar = new JButton("ACEPTAR");
-		aceptar.setBounds(600, 550, 100, 30);
-		getContentPane().add(aceptar);
-		aceptar.setBackground(Color.orange);
+		/**
+		 * Accion del boton aceptar en cual validamos la entrada de los datos
+		 * introducidos en los correspondientes campos
+		 */
 
 		aceptar.addActionListener(new ActionListener() {
 
@@ -247,19 +242,20 @@ public class FormularioAdministrador extends JFrame {
 				Conexion_BBDD conexion = new Conexion_BBDD();
 				conexion.conectar();
 				try {
-
+					// comprobramos que no hay campos en blanco
 					if (dni.getText().isBlank() || nombre.getText().isBlank() || apellido.getText().isBlank()
 							|| nacionalidad.getText().isBlank() || email.getText().isBlank() || telf.getText().isBlank()
 							|| clave.getText().isBlank() || descripcion_puesto.getText().isBlank()) {
+						// mostramos mensaje y cortamos la ejecucion del codigo
 						throw new Exception();
 					}
-
+					// cogemos el dato de la fecha y lo formateamos para darselo al constructor
 					Date fechaCalendario = jdc.getDate();
 					DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
 					String fecha = f.format(fechaCalendario);
 
 					int telefono = Integer.parseInt(telf.getText());
-
+					// completamos el objeto beca con los datos recogidos
 					Administrador admin = new Administrador(dni.getText().toUpperCase(), nombre.getText().toUpperCase(),
 							apellido.getText().toUpperCase(), nacionalidad.getText().toUpperCase(),
 							email.getText().toUpperCase(), telefono, fecha, clave.getText().toUpperCase(),
@@ -270,6 +266,7 @@ public class FormularioAdministrador extends JFrame {
 
 						JOptionPane.showMessageDialog(null, "Administrador añadido con exito");
 						ultimoAdministrador.setText(admin.toString());
+						// limpeza automatica
 						dni.setText("");
 						nombre.setText("");
 						apellido.setText("");
@@ -279,13 +276,14 @@ public class FormularioAdministrador extends JFrame {
 						telf.setText("");
 						clave.setText("");
 						descripcion_puesto.setText("");
-
+						// Registramos el tipo de moviemiento en nuestro log
 						GregorianCalendar gc = new GregorianCalendar();
 						Date fecha_hora = gc.getTime();
 
 						try {
 
 							Log metodos = new Log();
+							// metodo de escritura en el fichero log
 							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_ADMINISTRADOR, fecha_hora);
 						} catch (IOException elog) {
 							elog.getStackTrace();
@@ -293,10 +291,10 @@ public class FormularioAdministrador extends JFrame {
 
 					} else {
 
-						JOptionPane.showMessageDialog(null, "Error: la Beca no se ha podido añadir");
+						JOptionPane.showMessageDialog(null, "Error: el administrador no se ha podido añadir");
 
 					}
-
+					// excepction para el numero de teleno
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(null, "Atenccion: letras en el numero de telefono");
 				}
@@ -307,22 +305,19 @@ public class FormularioAdministrador extends JFrame {
 			}
 		});
 
-		JButton listado = new JButton("Ver BBDD");
-		listado.setBounds(250, 550, 100, 30);
-		getContentPane().add(listado);
-		listado.setBackground(Color.orange);
-		// intento de poner un icono en boton no fuciona probar con otra foto
-		// listado.setSelectedIcon(new
-		// ImageIcon(getClass().getResource("/imagenes/tabla.jpg")));
+		/**
+		 * Accion del boton de consulta a la base de datos, genera una tabla con la
+		 * informacion de la tabla
+		 */
 
 		listado.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				// columnas de la tabla
 				String[] columnas = { "ID", "DNI", "Nombre", "Apellido", "Nacionalidad", "Email", "Telefono",
 						"Fecha  nacimientos", "Clave", "Estado", "Descripcion puesto", "Fecha alta" };
-
+				// constructor que genera la tabla
 				Listado listado = new Listado(false, columnas, "administrador");
 				listado.setVisible(true);
 				listado.setTitle("Datos administradores");

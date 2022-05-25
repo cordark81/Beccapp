@@ -1,15 +1,13 @@
 package becapp.menus.gestionBecas;
 
 import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -24,7 +22,12 @@ import becapp.Conexion_BBDD;
 import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
 import becapp.menus.metodos.ImagenFondo;
-import becapp.menus.metodos.MetodosMenus;
+
+/**
+ * 
+ * @author edu
+ *
+ */
 
 public class ModificarBeca extends JFrame {
 
@@ -35,36 +38,10 @@ public class ModificarBeca extends JFrame {
 		setTitle("MODIFICACION BECA");
 		setBounds(500, 300, 600, 600);
 		setResizable(false);
-		ImagenFondo fondo = new ImagenFondo();
+		ImagenFondo fondo = new ImagenFondo("/imagenes/tabla.jpg");
 		setContentPane(fondo);
-
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		getContentPane().setLayout(null);
-
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				MetodosMenus mm = new MetodosMenus();
-				mm.confirmarSalida();
-			}
-		});
-
-		JButton atras = new JButton("ATRAS");
-		atras.setBounds(50, 450, 100, 30);
-		atras.setBackground(Color.orange);
-		getContentPane().add(atras);
-
-		atras.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				dispose();
-				GestionBecas gb = new GestionBecas();
-				gb.setVisible(true);
-
-			}
-		});
 
 		JTextPane codC = new JTextPane();
 		codC.setText("ID");
@@ -163,6 +140,7 @@ public class ModificarBeca extends JFrame {
 		tipoBeca.setActionCommand("tipo");
 		tipoBeca.setOpaque(false);
 
+		// agrupamiento de los JRadioButton para que sea unica la seleccion
 		ButtonGroup grupo1 = new ButtonGroup();
 		grupo1.add(nombre);
 		grupo1.add(condiciones);
@@ -176,6 +154,16 @@ public class ModificarBeca extends JFrame {
 		aceptar.setBackground(Color.orange);
 		getContentPane().add(aceptar);
 
+		JButton comprobar = new JButton("COMPROBAR ");
+		comprobar.setBounds(50, 450, 150, 30);
+		comprobar.setBackground(Color.orange);
+		getContentPane().add(comprobar);
+
+		/**
+		 * Accion del boton aceptar en el cual se comprueba la correcta entrada de datos
+		 * para que se pueda validar el cambio
+		 */
+
 		aceptar.addActionListener(new ActionListener() {
 
 			@Override
@@ -183,6 +171,7 @@ public class ModificarBeca extends JFrame {
 
 				conexion = new Conexion_BBDD();
 				conexion.conectar();
+				// mensaje de la excepcion
 				String mensaje = "Atencion: solo son validos los numeros en ID";
 
 				String columna;
@@ -203,7 +192,8 @@ public class ModificarBeca extends JFrame {
 						mensaje = "Atencion: falta poner contenido de la actualizacion";
 						throw new Exception();
 					}
-
+					// si no hay nada mal en el apartado de introducir los datos, pasamos a realizar
+					// el cambio
 					else {
 
 						ButtonModel bm = grupo1.getSelection();
@@ -217,12 +207,14 @@ public class ModificarBeca extends JFrame {
 							JOptionPane.showMessageDialog(null, "Actualizacion realizada con exito");
 							cod.setText("");
 							actualizacion.setText("");
-
+							// generamos hora y fecha del registro
 							GregorianCalendar gc = new GregorianCalendar();
 							Date fecha_hora = gc.getTime();
-							Log metodos = new Log();
 
+							Log metodos = new Log();
+							// muestra la informacion en el jtext de como ha quedado despues del cambio
 							despuesModi.setText(conexion.informacionActualizacion(numeroCod, columna));
+							// escribimos en el log el movimiento
 							metodos.escribirLog(Tipo_movimiento.MODIFICAR_BECA, fecha_hora);
 
 						} else {
@@ -231,7 +223,7 @@ public class ModificarBeca extends JFrame {
 						conexion.cerrar();
 					}
 				} catch (Exception e1) {
-					
+
 					JOptionPane.showMessageDialog(null, mensaje);
 				}
 
@@ -239,10 +231,12 @@ public class ModificarBeca extends JFrame {
 
 		});
 
-		JButton comprobar = new JButton("COMPROBAR ");
-		comprobar.setBounds(225, 450, 150, 30);
-		comprobar.setBackground(Color.orange);
-		getContentPane().add(comprobar);
+		/**
+		 * Accion del boton comprobar nuevamente validamos que estan lo datos y
+		 * selecciones necesarias para la busqueda y acontinuacion si esta todo en orden
+		 * mostraremos la informacion que tiene el campo seleccionado para su posterior
+		 * eliminacion con el boton aceptar
+		 */
 		comprobar.addActionListener(new ActionListener() {
 
 			@Override
@@ -266,7 +260,7 @@ public class ModificarBeca extends JFrame {
 
 					ButtonModel aux = grupo1.getSelection();
 					String columna = aux.getActionCommand();
-
+					//mostramos los datos del campo que se quiere sondear para cambiar
 					antesModi.setText(conexion.informacionActualizacion(codigo, columna));
 					if (antesModi.getText().isBlank()) {
 						JOptionPane.showMessageDialog(null, "Atencion: no existe beca con esa ID");
@@ -274,7 +268,7 @@ public class ModificarBeca extends JFrame {
 					conexion.cerrar();
 
 				} catch (SQLException e1) {
-					
+
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, mensaje);
 				}

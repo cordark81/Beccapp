@@ -15,7 +15,16 @@ public class Beca {
 	private String nombreProveedor;
 
 	public tipo_beca tipo_beca;
-
+	/**
+	 * Contructor sin cod para luego generalo de menera correlativa al darlo de alta
+	 * 
+	 * @param nombre
+	 * @param condiciones
+	 * @param descripcion
+	 * @param contacto
+	 * @param nombreProveedor
+	 * @param tipo_beca
+	 */
 	public Beca(String nombre, String condiciones, String descripcion, String contacto, String nombreProveedor,
 			becapp.tipo_beca tipo_beca) {
 		super();

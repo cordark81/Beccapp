@@ -11,7 +11,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
-
+/**
+ * 
+ * @author edu
+ *
+ */
 public class Log {
 
 	Tipo_movimiento tipo;
@@ -26,22 +30,6 @@ public class Log {
 	public Log() {
 
 	}
-
-	/*
-	 * SIN USAR public void escribirObjetos(File f,Tipo_movimiento tipo, Date
-	 * fecha_hora) throws IOException {
-	 * 
-	 * FileOutputStream fo = null; ObjectOutputStream datos = null;
-	 * 
-	 * if (!f.exists()) { fo = new FileOutputStream(f); datos = new
-	 * ObjectOutputStream(fo); }
-	 * 
-	 * else { fo = new FileOutputStream(f, true); datos = new MiObjeto(fo); }
-	 * 
-	 * Log log = new Log(tipo,fecha_hora);
-	 * 
-	 * datos.writeObject(log); datos.close(); }
-	 */
 
 	/**
 	 * Con este metodo escribimos nuestro fichero log.txt en que vamos dejando
@@ -68,7 +56,12 @@ public class Log {
 		fw.close();
 
 	}
-	
+	/**
+	 * Metodo para lectura del archivo log.txt donde tenemos almacenado la informacion de los movimientos
+	 * 
+	 * @return String con los datos sacados del fichero para su sup
+	 * @throws IOException
+	 */
 	public String leerLog () throws IOException {
 		
 		File log = new File("log.txt");
