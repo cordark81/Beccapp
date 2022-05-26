@@ -1,6 +1,7 @@
 package becapp.menus.gestionBecas;
 
 import java.awt.Color;
+
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,9 +24,18 @@ import javax.swing.JTextPane;
 import becapp.tipo_beca;
 import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
+import becapp.menus.metodos.ImagenFondo;
+import becapp.menus.metodos.Listado;
 import becapp.menus.metodos.MetodosMenus;
+import junit.extensions.TestSetup;
 import becapp.Beca;
 import becapp.Conexion_BBDD;
+
+/**
+ * 
+ * @author edu
+ *
+ */
 
 public class FormularioBeca extends JFrame {
 
@@ -42,16 +52,12 @@ public class FormularioBeca extends JFrame {
 	public FormularioBeca() {
 
 		setTitle("FORMULARIO BECA");
-		setBounds(500, 300, 1000, 650);
+		ImagenFondo fondo = new ImagenFondo("/imagenes/tabla.jpg");
+		setContentPane(fondo);
+		setBounds(500, 300, 800, 500);
+		setResizable(false);
 		getContentPane().setLayout(null);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				MetodosMenus mm = new MetodosMenus();
-				mm.confirmarSalida();
-			}
-		});
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		JTextPane nombreC = new JTextPane();
 		nombreC.setText("Nombre");
@@ -64,6 +70,7 @@ public class FormularioBeca extends JFrame {
 		nombre.setBounds(100, 50, 150, 19);
 		getContentPane().add(nombre);
 		nombre.setColumns(10);
+		nombre.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 
 		JTextPane condicionesC = new JTextPane();
 		condicionesC.setText("Condiciones");
@@ -76,6 +83,7 @@ public class FormularioBeca extends JFrame {
 		condiciones.setBounds(100, 110, 250, 19);
 		getContentPane().add(condiciones);
 		condiciones.setColumns(10);
+		condiciones.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 
 		JTextPane descripcionC = new JTextPane();
 		descripcionC.setText("Descripcion");
@@ -88,10 +96,11 @@ public class FormularioBeca extends JFrame {
 		descripcion.setBounds(100, 170, 250, 19);
 		getContentPane().add(descripcion);
 		descripcion.setColumns(10);
+		descripcion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 
 		JTextPane nombreProveedorC = new JTextPane();
 		nombreProveedorC.setText("Nombre proveedor");
-		nombreProveedorC.setBounds(450, 20, 150, 19);
+		nombreProveedorC.setBounds(450, 20, 250, 19);
 		getContentPane().add(nombreProveedorC);
 		nombreProveedorC.setEditable(false);
 		nombreProveedorC.setOpaque(false);
@@ -100,6 +109,7 @@ public class FormularioBeca extends JFrame {
 		nombreProveedor.setBounds(450, 50, 250, 19);
 		getContentPane().add(nombreProveedor);
 		nombreProveedor.setColumns(10);
+		nombreProveedor.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 
 		JTextPane contactoC = new JTextPane();
 		contactoC.setText("Contacto");
@@ -112,6 +122,7 @@ public class FormularioBeca extends JFrame {
 		contacto.setBounds(450, 110, 250, 19);
 		getContentPane().add(contacto);
 		contacto.setColumns(10);
+		contacto.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 
 		JTextPane tipoBecaC = new JTextPane();
 		tipoBecaC.setText("Tipo de beca");
@@ -123,65 +134,93 @@ public class FormularioBeca extends JFrame {
 		privada = new JRadioButton("Privada");
 		privada.setBounds(450, 170, 149, 23);
 		getContentPane().add(privada);
+		privada.setOpaque(false);
 
 		publica = new JRadioButton("Publica");
 		publica.setBounds(600, 170, 149, 23);
 		getContentPane().add(publica);
+		publica.setOpaque(false);
 
 		ButtonGroup grupo1 = new ButtonGroup();
 		grupo1.add(privada);
 		grupo1.add(publica);
 
-		JButton salir = new JButton("ATRAS");
-		salir.setBounds(100, 550, 100, 30);
-		getContentPane().add(salir);
-
-		salir.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// con dispose cerramos el constructor en ejecucion ventana y como hemos pulsado
-				// el boton se abra la siguiente ventana
-				dispose();
-				GestionBecas becas = new GestionBecas();
-				becas.setVisible(true);
-
-			}
-
-		});
-
 		JTextPane informacionC = new JTextPane();
 		informacionC.setText("Ultima beca añadida");
-		informacionC.setBounds(100, 210, 150, 30);
+		informacionC.setBounds(100, 240, 250, 30);
 		getContentPane().add(informacionC);
 		informacionC.setEditable(false);
 		informacionC.setOpaque(false);
 
 		JTextArea informacion = new JTextArea();
-		informacion.setBounds(new Rectangle(100, 240, 800, 30));
+		informacion.setBounds(new Rectangle(100, 270, 600, 30));
 		informacion.setEditable(false);
 		informacion.setVisible(true);
-		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.blue));
+		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 		getContentPane().add(informacion);
+		informacion.setEditable(false);
 
-		JTextPane informacionBecaC = new JTextPane();
-		informacionBecaC.setText("Lista de becas de la BBDD");
-		informacionBecaC.setBounds(100, 300, 200, 30);
-		getContentPane().add(informacionBecaC);
-		informacionBecaC.setEditable(false);
-		informacionBecaC.setOpaque(false);
+		JButton BBDD = new JButton("BBDD");
+		BBDD.setBounds(350, 400, 100, 30);
+		getContentPane().add(BBDD);
+		BBDD.setBackground(Color.ORANGE);
 
-		JTextArea informacionBeca = new JTextArea();
-		informacionBeca.setBounds(new Rectangle(100, 330, 800, 180));
-		informacionBeca.setEditable(false);
-		informacionBeca.setVisible(true);
-		informacionBeca.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.blue));
-		getContentPane().add(informacionBeca);
+		JButton limpiar = new JButton("LIMPIAR");
+		limpiar.setBounds(100, 400, 100, 30);
+		getContentPane().add(limpiar);
+		limpiar.setBackground(Color.ORANGE);
 
-		JButton aceptar = new JButton("ACEPTAR DATOS");
-		aceptar.setBounds(500, 550, 200, 30);
+		JButton aceptar = new JButton("ACEPTAR");
+		aceptar.setBounds(600, 400, 100, 30);
 		getContentPane().add(aceptar);
-		// accion de aceptar la entrada de datos
+		aceptar.setBackground(Color.ORANGE);
+
+		/**
+		 * Accion del boton limpiar para resetear la entrada de datos
+		 */
+
+		limpiar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// reseteo de los campos
+				nombre.setText("");
+				condiciones.setText("");
+				descripcion.setText("");
+				contacto.setText("");
+				nombreProveedor.setText("");
+				grupo1.clearSelection();
+
+			}
+
+		});
+
+		/**
+		 * Accion del boton de consulta a la base de datos, genera una tabla con la
+		 * informacion de la tabla
+		 */
+
+		BBDD.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// columnas de la tabla
+				String[] columnas = { "Codigo", "Proveedor", "Contacto", "Descripcion", "Nombre", "Condiciones",
+						"Tipo de Beca" };
+				// constructor que genera la tabla
+				Listado listado = new Listado(false, columnas, "beca");
+
+				listado.setTitle("Datos Becas");
+				listado.pack();
+				listado.setVisible(true);
+			}
+
+		});
+
+		/**
+		 * Accion del boton aceptar en cual validamos la entrada de los datos
+		 * introducidos en lo correspondientes campos
+		 */
 
 		aceptar.addActionListener(new ActionListener() {
 
@@ -190,10 +229,20 @@ public class FormularioBeca extends JFrame {
 
 				tipo_beca tipo = null;
 
-				conexion= new Conexion_BBDD();
+				conexion = new Conexion_BBDD();
+				//con esta variable cambiamos el mensaje de salida para las excepciones;
+				String mensaje="";
+
 				
-				// comprueba que este seleccionado alguno de nuestros radio buttons
 				try {
+					// comprobramos que no hay campos en blanco
+					if (nombre.getText().isBlank() || condiciones.getText().isBlank() || descripcion.getText().isBlank()
+							|| contacto.getText().isBlank() || nombreProveedor.getText().isBlank()) {
+						// mostramos mensaje y cortamos la ejecucion del codigo
+						mensaje="Atencion: Algun campo en blanco";
+						throw new Exception();
+					}
+					// comprobamos que tipo esta seleccionado
 					if (privada.isSelected() || publica.isSelected()) {
 						if (privada.isSelected()) {
 							tipo = tipo_beca.PRIVADA;
@@ -204,10 +253,11 @@ public class FormularioBeca extends JFrame {
 
 					} else {
 						// en caso contrario levanto una expcecion y controlo la ejecucion del metodo
+						mensaje= "Atencion: obligatorio elegir beca publica o privada";
 						throw new Exception();
 
 					}
-
+					// completamos el objeto beca con los datos recogidos
 					beca = new Beca(nombre.getText().toUpperCase(), condiciones.getText().toUpperCase(),
 							descripcion.getText().toUpperCase(), contacto.getText().toUpperCase(),
 							nombreProveedor.getText().toUpperCase(), tipo);
@@ -219,20 +269,22 @@ public class FormularioBeca extends JFrame {
 
 						JOptionPane.showMessageDialog(null, "Beca añadida con exito");
 						informacion.setText(beca.toString());
-
+						// Registramos el tipo de moviemiento en nuestro log
 						GregorianCalendar gc = new GregorianCalendar();
 						Date fecha_hora = gc.getTime();
 
 						try {
-							
+
 							Log metodos = new Log();
+							// metodo de escritura en el fichero log
 							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_BECA, fecha_hora);
 						} catch (IOException elog) {
 							elog.getStackTrace();
 						}
 
 					} else {
-						informacion.setText("Error: Problemas a la hora de cargar la beca");
+						mensaje="Atencion: problemas a la hora de cargar la beca";
+						throw new Exception();
 					}
 
 					nombre.setText("");
@@ -241,10 +293,8 @@ public class FormularioBeca extends JFrame {
 					contacto.setText("");
 					nombreProveedor.setText("");
 
-					informacionBeca.setText(conexion.listarBecas());
 					grupo1.clearSelection();
-					
-					
+
 					try {
 						conexion.cerrar();
 					} catch (SQLException e1) {
@@ -252,33 +302,11 @@ public class FormularioBeca extends JFrame {
 					}
 
 				} catch (Exception e1) {
-					// en la excepcion abrimos un cuadro de diaglo indicando el problema
-					JOptionPane.showMessageDialog(null, "Atencion: obligatorio elegir beca publica o privada");
-
+					JOptionPane.showMessageDialog(null, mensaje);
+					
 				}
-			
 
 			}
-		});
-
-		JButton limpiar = new JButton("LIMPIAR DATOS");
-		limpiar.setBounds(250, 550, 150, 30);
-		getContentPane().add(limpiar);
-
-		limpiar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				nombre.setText("");
-				condiciones.setText("");
-				descripcion.setText("");
-				contacto.setText("");
-				nombreProveedor.setText("");
-				grupo1.clearSelection();
-
-			}
-
 		});
 
 	}

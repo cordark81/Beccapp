@@ -8,11 +8,10 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.swing.ButtonGroup;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -26,41 +25,40 @@ import becapp.Administrador;
 import becapp.Conexion_BBDD;
 import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
-import becapp.menus.gestionBecas.ListadoBecas;
 import becapp.menus.metodos.ImagenFondo;
-import becapp.menus.metodos.Limpiar;
+import becapp.menus.metodos.Listado;
 import becapp.menus.metodos.MetodosMenus;
+
+/**
+ * 
+ * @author edu
+ *
+ */
 
 public class FormularioAdministrador extends JFrame {
 
 	public FormularioAdministrador() {
 
 		setTitle("FORMULARIO ADMINISTRADOR");
-		ImagenFondo fondo = new ImagenFondo("/imagenes/tabla");
+		ImagenFondo fondo = new ImagenFondo("/imagenes/tabla.jpg");
 		setContentPane(fondo);
 		setBounds(500, 300, 800, 650);
 		getContentPane().setLayout(null);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				MetodosMenus mm = new MetodosMenus();
-				mm.confirmarSalida();
-			}
-		});
 		JTextPane dniC = new JTextPane();
 		dniC.setText("Dni");
 		dniC.setBounds(100, 20, 114, 19);
 		getContentPane().add(dniC);
 		dniC.setEditable(false);
 		dniC.setOpaque(false);
-		dniC.setForeground(Color.white);
 
 		JTextField dni = new JTextField();
 		dni.setBounds(100, 50, 150, 19);
 		getContentPane().add(dni);
 		dni.setColumns(10);
+		dni.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane nombreC = new JTextPane();
 		nombreC.setText("Nombre");
@@ -68,12 +66,12 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(nombreC);
 		nombreC.setEditable(false);
 		nombreC.setOpaque(false);
-		nombreC.setForeground(Color.white);
 
 		JTextField nombre = new JTextField();
 		nombre.setBounds(100, 110, 250, 19);
 		getContentPane().add(nombre);
 		nombre.setColumns(10);
+		nombre.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane apellidoC = new JTextPane();
 		apellidoC.setText("Apellido");
@@ -81,12 +79,12 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(apellidoC);
 		apellidoC.setEditable(false);
 		apellidoC.setOpaque(false);
-		apellidoC.setForeground(Color.white);
 
 		JTextField apellido = new JTextField();
 		apellido.setBounds(100, 170, 250, 19);
 		getContentPane().add(apellido);
 		apellido.setColumns(10);
+		apellido.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane nacionalidadC = new JTextPane();
 		nacionalidadC.setText("Nacionalidad");
@@ -99,6 +97,7 @@ public class FormularioAdministrador extends JFrame {
 		nacionalidad.setBounds(450, 50, 250, 19);
 		getContentPane().add(nacionalidad);
 		nacionalidad.setColumns(10);
+		nacionalidad.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane emailC = new JTextPane();
 		emailC.setText("Email");
@@ -106,13 +105,12 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(emailC);
 		emailC.setEditable(false);
 		emailC.setOpaque(false);
-		emailC.setForeground(Color.white);
 
 		JTextField email = new JTextField();
 		email.setBounds(450, 110, 250, 19);
 		getContentPane().add(email);
 		email.setColumns(10);
-		emailC.setForeground(Color.BLACK);
+		email.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane telfC = new JTextPane();
 		telfC.setText("Telefono");
@@ -125,6 +123,7 @@ public class FormularioAdministrador extends JFrame {
 		telf.setBounds(450, 170, 250, 19);
 		getContentPane().add(telf);
 		telf.setColumns(10);
+		telf.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane fecha_nacC = new JTextPane();
 		fecha_nacC.setText("Fecha de nacimiento");
@@ -132,7 +131,6 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(fecha_nacC);
 		fecha_nacC.setEditable(false);
 		fecha_nacC.setOpaque(false);
-		fecha_nacC.setForeground(Color.white);
 
 		JTextPane claveC = new JTextPane();
 		claveC.setText("Clave");
@@ -145,6 +143,7 @@ public class FormularioAdministrador extends JFrame {
 		clave.setBounds(450, 230, 100, 19);
 		getContentPane().add(clave);
 		clave.setColumns(10);
+		clave.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane estadoC = new JTextPane();
 		estadoC.setText("Estado");
@@ -152,13 +151,13 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(estadoC);
 		estadoC.setEditable(false);
 		estadoC.setOpaque(false);
-		estadoC.setForeground(Color.white);
 
 		String[] optionsToChoose = { "Activo", "No activo" };
 
 		JComboBox<String> estado = new JComboBox<>(optionsToChoose);
 		estado.setBounds(100, 290, 100, 19);
 		getContentPane().add(estado);
+		estado.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane descipcion_puestoC = new JTextPane();
 		descipcion_puestoC.setText("Descripcion puesto");
@@ -171,6 +170,7 @@ public class FormularioAdministrador extends JFrame {
 		descripcion_puesto.setBounds(450, 290, 250, 19);
 		getContentPane().add(descripcion_puesto);
 		descripcion_puesto.setColumns(10);
+		descripcion_puesto.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JTextPane ultimoAdminitradorC = new JTextPane();
 		ultimoAdminitradorC.setText("Ultimo Administrador añadido");
@@ -178,26 +178,40 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(ultimoAdminitradorC);
 		ultimoAdminitradorC.setEditable(false);
 		ultimoAdminitradorC.setOpaque(false);
-		ultimoAdminitradorC.setForeground(Color.white);
 
 		JTextField ultimoAdministrador = new JTextField();
 		ultimoAdministrador.setBounds(100, 380, 600, 38);
 		getContentPane().add(ultimoAdministrador);
 		ultimoAdministrador.setColumns(10);
 		ultimoAdministrador.setEditable(false);
+		ultimoAdministrador.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		ultimoAdministrador.setEditable(false);
 
+		// boton estrella con funcinaliidad de calendario, fuentes importadas
 		JDateChooser jdc = new JDateChooser();
 		jdc.setDateFormatString("d/MM/y");
 		jdc.setBounds(100, 230, 224, 19);
 		fondo.add(jdc);
-
-		JButton salir = new JButton("ATRAS");
-		salir.setBounds(100, 550, 100, 30);
-		getContentPane().add(salir);
+		jdc.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		JButton limpiar = new JButton("LIMPIAR");
-		limpiar.setBounds(450, 550, 100, 30);
+		limpiar.setBounds(350, 550, 100, 30);
 		getContentPane().add(limpiar);
+		limpiar.setBackground(Color.orange);
+
+		JButton listado = new JButton("Ver BBDD");
+		listado.setBounds(100, 550, 100, 30);
+		getContentPane().add(listado);
+		listado.setBackground(Color.orange);
+
+		JButton aceptar = new JButton("ACEPTAR");
+		aceptar.setBounds(600, 550, 100, 30);
+		getContentPane().add(aceptar);
+		aceptar.setBackground(Color.orange);
+
+		/**
+		 * Accion del boton limpiar para resetear la entrada de datos
+		 */
 
 		limpiar.addActionListener(new ActionListener() {
 
@@ -215,23 +229,10 @@ public class FormularioAdministrador extends JFrame {
 			}
 		});
 
-		salir.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// con dispose cerramos el constructor en ejecucion ventana y como hemos pulsado
-				// el boton se abra la siguiente ventana
-				dispose();
-				GestionAdministradores ga = new GestionAdministradores();
-				ga.setVisible(true);
-
-			}
-
-		});
-
-		JButton aceptar = new JButton("ACEPTAR");
-		aceptar.setBounds(600, 550, 100, 30);
-		getContentPane().add(aceptar);
+		/**
+		 * Accion del boton aceptar en cual validamos la entrada de los datos
+		 * introducidos en los correspondientes campos
+		 */
 
 		aceptar.addActionListener(new ActionListener() {
 
@@ -241,27 +242,31 @@ public class FormularioAdministrador extends JFrame {
 				Conexion_BBDD conexion = new Conexion_BBDD();
 				conexion.conectar();
 				try {
-
+					// comprobramos que no hay campos en blanco
 					if (dni.getText().isBlank() || nombre.getText().isBlank() || apellido.getText().isBlank()
 							|| nacionalidad.getText().isBlank() || email.getText().isBlank() || telf.getText().isBlank()
 							|| clave.getText().isBlank() || descripcion_puesto.getText().isBlank()) {
+						// mostramos mensaje y cortamos la ejecucion del codigo
 						throw new Exception();
 					}
-
+					// cogemos el dato de la fecha y lo formateamos para darselo al constructor
 					Date fechaCalendario = jdc.getDate();
 					DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
 					String fecha = f.format(fechaCalendario);
 
 					int telefono = Integer.parseInt(telf.getText());
-
-					Administrador admin = new Administrador(dni.getText().toUpperCase(), nombre.getText().toUpperCase(), apellido.getText().toUpperCase(),
-							nacionalidad.getText().toUpperCase(), email.getText().toUpperCase(), telefono, fecha, clave.getText().toUpperCase(),
-							estado.getSelectedItem().toString().toUpperCase(), descripcion_puesto.getText().toUpperCase());
+					// completamos el objeto beca con los datos recogidos
+					Administrador admin = new Administrador(dni.getText().toUpperCase(), nombre.getText().toUpperCase(),
+							apellido.getText().toUpperCase(), nacionalidad.getText().toUpperCase(),
+							email.getText().toUpperCase(), telefono, fecha, clave.getText().toUpperCase(),
+							estado.getSelectedItem().toString().toUpperCase(),
+							descripcion_puesto.getText().toUpperCase());
 
 					if (conexion.darAltaAdmin(admin)) {
 
 						JOptionPane.showMessageDialog(null, "Administrador añadido con exito");
 						ultimoAdministrador.setText(admin.toString());
+						// limpeza automatica
 						dni.setText("");
 						nombre.setText("");
 						apellido.setText("");
@@ -271,13 +276,14 @@ public class FormularioAdministrador extends JFrame {
 						telf.setText("");
 						clave.setText("");
 						descripcion_puesto.setText("");
-
+						// Registramos el tipo de moviemiento en nuestro log
 						GregorianCalendar gc = new GregorianCalendar();
 						Date fecha_hora = gc.getTime();
 
 						try {
-						
+
 							Log metodos = new Log();
+							// metodo de escritura en el fichero log
 							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_ADMINISTRADOR, fecha_hora);
 						} catch (IOException elog) {
 							elog.getStackTrace();
@@ -285,35 +291,38 @@ public class FormularioAdministrador extends JFrame {
 
 					} else {
 
-						JOptionPane.showMessageDialog(null, "Error: la Beca no se ha podido añadir");
+						JOptionPane.showMessageDialog(null, "Error: el administrador no se ha podido añadir");
 
 					}
-
+					// excepction para el numero de teleno
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(null, "Atenccion: letras en el numero de telefono");
 				}
-				
+
 				catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "Atenccion: algun campo vacio");
 				}
 			}
 		});
 
-		JButton listado = new JButton("Ver BBDD");
-		listado.setBounds(250, 550, 100, 30);
-		getContentPane().add(listado);
-		// intento de poner un icono en boton no fuciona probar con otra foto
-		// listado.setSelectedIcon(new
-		// ImageIcon(getClass().getResource("/imagenes/tabla.jpg")));
+		/**
+		 * Accion del boton de consulta a la base de datos, genera una tabla con la
+		 * informacion de la tabla
+		 */
 
 		listado.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ListadoAdministrador la =new ListadoAdministrador(false);
-				la.setTitle("Datos Administradores");
-				la.pack();
-				la.setVisible(true);
+				// columnas de la tabla
+				String[] columnas = { "ID", "Estado", "Descripcion puesto", "Fecha inicio", "Fecha nacimiento", "Clave",
+						"Email", "Nombre", "Apellido", "Dni", "Nacionalidad", "Teléfono" };
+				// constructor que genera la tabla
+				Listado listado = new Listado(false, columnas, "administrador");
+				listado.setVisible(true);
+				listado.setTitle("Datos administradores");
+				listado.pack();
+
 			}
 		});
 

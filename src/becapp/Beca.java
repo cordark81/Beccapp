@@ -23,8 +23,16 @@ public class Beca {
 	private String nombreProveedor;
 
 	public tipo_beca tipo_beca;
-	Connection connection = null;
-
+	/**
+	 * Contructor sin cod para luego generalo de menera correlativa al darlo de alta
+	 * 
+	 * @param nombre
+	 * @param condiciones
+	 * @param descripcion
+	 * @param contacto
+	 * @param nombreProveedor
+	 * @param tipo_beca
+	 */
 	public Beca(String nombre, String condiciones, String descripcion, String contacto, String nombreProveedor,
 			becapp.tipo_beca tipo_beca) {
 		super();
@@ -107,8 +115,7 @@ public class Beca {
 
 	@Override
 	public String toString() {
-		return "Beca [ nombre=" + nombre + ", condiciones=" + condiciones + ", descripcion=" + descripcion
-				+ ", contacto=" + contacto + ", nombreProveedor=" + nombreProveedor + ", tipo_beca=" + tipo_beca + "]";
+		return "Beca [ nombre=" + nombre + ", Nombre Proveedor=" + nombreProveedor + "]";
 	}
 
 	

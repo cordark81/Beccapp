@@ -17,18 +17,16 @@ import becapp.menus.usuarios.Login;
 
 public class Conexion_BBDD {
 
-	// datos pendientes de cambiar a la base de datos valida
-
 	private String bd = "XE";
 	private String login = "ADMINISTRADOR";
 	private String password = "ADMINISTRADOR";
 	private String url = "jdbc:oracle:thin:@localhost:1521:" + bd;
-	java.sql.Statement st = null;
 	java.sql.ResultSet rs = null;
-
 	Connection connection = null;
 
-	// CONECTAR CON LA BASE DE DATOS
+	/**
+	 * Método de conexión a la Base de Datos
+	 */
 	public void conectar() {
 
 		try {
@@ -44,13 +42,15 @@ public class Conexion_BBDD {
 
 	}
 
-	// CIERRA CONEXION
+	/**
+	 * Método de desconexión de Base de Datos
+	 * 
+	 * @throws SQLException
+	 */
 	public void cerrar() throws SQLException {
 
 		if (rs != null)
 			rs.close();
-		if (st != null)
-			st.close();
 		if (connection != null)
 			connection.close();
 
@@ -61,19 +61,19 @@ public class Conexion_BBDD {
 	 */
 
 	/**
-	 * En este metodo recibimos los datos correspondiente a la beca que queremos dar
-	 * de alta en un objeto beca, a excepción del numero de beca, que conseguimos en
-	 * la primera parte del metodo de la tabla beca.cod y le sumamos +1 para que
-	 * siga el orden correlativo. En la segunda parte del metodo hacemos un insert
-	 * con todo los datos recopilados con el metodo consulta preparada.
+	 * En este método recibimos los datos correspondientes a la beca que queremos
+	 * dar de alta en un objeto beca, a excepción del número de beca, que
+	 * conseguimos en la primera parte del método de la tabla beca.cod y le sumamos
+	 * +1 para que siga el orden correlativo. En la segunda parte del método hacemos
+	 * un insert con todos los datos recopilados con el método consulta preparada.
 	 * 
 	 * @param nombre          datos beca
 	 * @param condiciones     datos beca
-	 * @param descripcion     datos beca
+	 * @param descripción     datos beca
 	 * @param contacto        datos beca
 	 * @param nombreProveedor datos beca
 	 * @param tipo_beca       datos beca
-	 * @return true en caso de exito, false en caso contrario
+	 * @return true en caso de éxito, false en caso contrario
 	 */
 	public boolean aniadirBeca(Beca b) {
 
@@ -82,12 +82,8 @@ public class Conexion_BBDD {
 		String tBeca = b.getTipo_beca().toString();
 		int cod = 0;
 
-		// En proceos de evaluacion
-		// Beca beca = new Beca(nombre, condiciones, descripcion, contacto,
-		// nombreProveedor, tipo_beca);
-
 		try {
-			PreparedStatement ps = connection.prepareStatement("select max(cod) from becas");
+			PreparedStatement ps = connection.prepareStatement("select max(codigo) from becas");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -96,18 +92,18 @@ public class Conexion_BBDD {
 
 			ps = connection.prepareStatement("insert into becas values(?,?,?,?,?,?,?)");
 			ps.setInt(1, cod);
-			ps.setString(2, b.getNombre());
-			ps.setString(3, b.getCondiciones());
+			ps.setString(2, b.getNombreProveedor());
+			ps.setString(3, b.getContacto());
 			ps.setString(4, b.getDescripcion());
-			ps.setString(5, b.getContacto());
-			ps.setString(6, b.getNombreProveedor());
+			ps.setString(5, b.getCondiciones());
+			ps.setString(6, b.getNombre());
 			ps.setString(7, tBeca);
 			ps.executeUpdate();
 
 			alta = true;
 
 		} catch (SQLException e) {
-			System.out.println("no se encuantan los datos en la base de datos");
+			System.out.println("No se encuentran los datos");
 			e.printStackTrace();
 			alta = false;
 			return alta;
@@ -117,28 +113,36 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Este metodo a partir del codigo de beca recibido, borrara la beca
-	 * correspondiente.
+	 * @author edu
 	 * 
-	 * @param cod numero de beca referencia para el borrado
-	 * @return true en caso de exito, false en caso contrario
-	 * @throws SQLException
+	 *         Método destinado a borrar becas. Empieza comprobando si el dato está
+	 *         en blanco o vacío en cuyo caso lanza una excepción preparada con un
+	 *         mensaje de diálogo. A continuación utiliza el método buscar datos
+	 *         para sacar el filtro de la consulta. Finalmente añadimos toda la
+	 *         información recogida a una variable String
+	 * 
+	 * @param dato         la información de referencia para el borrado
+	 * @param condicion    numeración interna que nos da la culumna de filtro
+	 * @param borradoTabla utilizaremos false para este método ya que no queremos
+	 *                     ejecutar la consulta que está dentro del método
+	 * @return true si es correcto, false en caso contrario
 	 */
-	public boolean borrarBeca(String dato, int condicion) {
+	public boolean borrarBeca(String dato, int condicion, boolean borradoTabla) {
 
 		boolean borrado = false;
 
 		PreparedStatement ps;
 
 		try {
-			// como solventar los capos vacios para el borrado?????
 
-			if (dato.isBlank() || dato.isEmpty()) {
+			if (borradoTabla) {
+				if (dato.isBlank() || dato.isEmpty()) {
 
-				throw new Exception();
+					throw new Exception();
+				}
 			}
 
-			String filtro = menuFiltro(dato, condicion, false);
+			String filtro = buscarDatos(dato, condicion, "becas", false);
 
 			ps = connection.prepareStatement("delete from becas where " + filtro + " like upper('%" + dato + "%')");
 			ps.executeQuery();
@@ -150,20 +154,23 @@ public class Conexion_BBDD {
 			borrado = false;
 			return borrado;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Atecion: el campo esta vacio");
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Atención: seleccione un campo");
 		}
 
 		return borrado;
 	}
 
 	/**
-	 * Con este metodo podremos actualizar determinados datos de las distintaas
-	 * becas de nuestra BBDD
+	 * @author edu
 	 * 
-	 * @param columna       campo del que queremos hacer la actualizacion
-	 * @param cod           codigo del cliente al que se le hace el cambio
+	 *         Con este método podremos actualizar determinados datos de las
+	 *         distintas becas de nuestra BBDD
+	 * 
+	 * @param columna       campo del que queremos hacer la actualización
+	 * @param cod           código del cliente al que se le hace el cambio
 	 * @param actualizacion dato que se cambia en la columna
-	 * @return true en caso de exito, false en caso contrario
+	 * @return true en caso de éxito, false en caso contrario
 	 */
 	public boolean modificarBeca(String columna, int cod, String actualizacion) {
 
@@ -173,8 +180,8 @@ public class Conexion_BBDD {
 
 		try {
 
-			ps = connection
-					.prepareStatement("update becas set " + columna + " = '" + actualizacion + "' where cod= " + cod);
+			ps = connection.prepareStatement(
+					"update becas set " + columna + " = '" + actualizacion + "' where codigo= " + cod);
 			int up = ps.executeUpdate();
 
 			if (up == 2) {
@@ -184,7 +191,8 @@ public class Conexion_BBDD {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("No se a podido realizar la actualizacion de la beca");
+			System.out.println("No se ha podido realizar la actualizaciónn de la beca");
+			e.printStackTrace();
 			modificado = false;
 			return modificado;
 		}
@@ -193,36 +201,13 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Este metodo nos saca de la base de datos toda la informacion relativa a
-	 * nuestras becas
+	 * @author edu
 	 * 
-	 * @return devuelve un string con la informacion solicita o un mensaje de error
-	 *         en caso de fallo
+	 *         Método con el cual rescatamos la información necesaria para crear y
+	 *         rellenar un arraylist de becas
+	 * 
+	 * @return arraylist de becas
 	 */
-
-	public String listarBecas() {
-
-		PreparedStatement ps;
-		String lista = "";
-
-		try {
-			ps = connection.prepareStatement("select * from becas order by 1");
-			rs = ps.executeQuery();
-			while (rs.next()) {
-
-				lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2) + " condiciones= "
-						+ rs.getString(3) + " descripcion= " + rs.getString(4) + " contacto= " + rs.getString(5)
-						+ " nombre proveedor= " + rs.getString(6) + " tipo de beca= " + rs.getString(7) + "\n";
-
-			}
-
-		} catch (SQLException e) {
-
-			return "La lista no se ha podido cargar";
-		}
-
-		return lista;
-	}
 
 	public ArrayList<Beca> listarBecasArray() {
 
@@ -258,6 +243,14 @@ public class Conexion_BBDD {
 		return datos;
 	}
 
+	/**
+	 * @author edu
+	 * 
+	 *         Método con el cual rescatamos la información necesaria para crear y
+	 *         rellenar un arraylist de administradores
+	 * 
+	 * @return arraylist de administradores
+	 */
 	public ArrayList<Administrador> listarAdminitradoresArray() {
 
 		ArrayList<Administrador> datos = new ArrayList<Administrador>();
@@ -265,16 +258,17 @@ public class Conexion_BBDD {
 		PreparedStatement ps;
 
 		try {
-			ps = connection.prepareStatement("select * from administradores order by 1");
+			ps = connection.prepareStatement(
+					"select * from administradores a join usuarios u on a.id_admin=id_usuario order by 1");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				String fecha_cumple = rs.getDate(8).toString();
-				String fecha_ini = rs.getDate(12).toString();
+				String fecha_cumple = rs.getDate(6).toString();
+				String fecha_ini = rs.getDate(4).toString();
 
-				Administrador a = new Administrador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getString(6), rs.getInt(7), fecha_cumple, rs.getString(9), rs.getString(10),
-						rs.getString(11), fecha_ini);
+				Administrador a = new Administrador(rs.getInt(1), rs.getString(11), rs.getString(9), rs.getString(10),
+						rs.getString(12), rs.getString(8), rs.getInt(13), fecha_cumple, rs.getString(7),
+						rs.getString(2), rs.getString(3), fecha_ini);
 				datos.add(a);
 
 			}
@@ -288,203 +282,151 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Metodo destinado a buscar informacion en la base de datos basado en una
-	 * palabra y con una condicion que define el tipo de busqueda que se va a hacer
+	 * @author edu
 	 * 
-	 * @param dato      palabra que hace de filtro en el campo
-	 * @param condicion 1 2 o 3 segun si queremos buscar por id, nombre de beca o
-	 *                  nombre de proveedor
-	 * @return String con la informacion encontrada
+	 *         Método diseñado para obtener información de la base de datos. Tiene
+	 *         varias opciones, una de ellas es según la condición nos dará el
+	 *         filtro del where y hará la búsqueda que devolverá en un Stream y otra
+	 *         opción es simplemente que nos devuelva el filtro
+	 * 
+	 * @param dato      información de igualado del where
+	 * @param condicion numeración interna del filtro
+	 * @param tabla     en la que queremos hacer la búsqueda (becas y
+	 *                  administradores)
+	 * @param buscar    true o false según si queremos o no hacer uso de la consulta
+	 * @return String con la información recogida
 	 */
-
-	public String buscarDatosBeca(String dato, int condicion) {
-
-		String lista = "";
-		String filtro;
-
-		try {
-
-			filtro = menuFiltro(dato, condicion, true);
-
-			while (rs.next()) {
-
-				lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2) + " descripcion= "
-						+ rs.getString(4) + " contacto= " + rs.getString(5) + " nombre proveedor= " + rs.getString(6)
-						+ " tipo de beca= " + rs.getString(7);
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return lista;
-	}
-
-	/**
-	 * metodo que recoge dato y condicion de de busqueda
-	 * 
-	 * @param dato      es la informacion que buscamos
-	 * @param condicion es el filtro por el cual queremos buscar esta informacion
-	 * 
-	 * @throws SQLException subimos la excepcion de funcionamiento SQL
-	 */
-
-	public String menuFiltro(String dato, int condicion, boolean buscar) throws SQLException {
-
-		String filtro = null;
-
-		PreparedStatement ps;
-
-		switch (condicion) {
-		case 1:
-
-			filtro = "cod";
-			if (buscar) {
-				ps = connection.prepareStatement("select * from becas where " + filtro + "=" + dato);
-				rs = ps.executeQuery();
-			}
-			break;
-
-		case 2:
-			filtro = "nombre";
-			if (buscar) {
-				ps = connection
-						.prepareStatement("select * from becas where " + filtro + " like upper('%" + dato + "%')");
-				rs = ps.executeQuery();
-			}
-
-			break;
-		case 3:
-			filtro = "nombreproveedor";
-			if (buscar) {
-				ps = connection
-						.prepareStatement("select * from becas where " + filtro + " like upper('%" + dato + "%')");
-				rs = ps.executeQuery();
-
-			}
-			break;
-
-		default:
-			break;
-
-		}
-		return filtro;
-	}
 
 	public String buscarDatos(String dato, int condicion, String tabla, boolean buscar) {
 
 		String lista = "";
-		String filtro;
+		String filtro = "";
 
 		PreparedStatement ps;
 
 		try {
 
-			if (tabla.equals("becas")) {
+			switch (condicion) {
+			case 1:
 
-				switch (condicion) {
-				case 1:
+				filtro = "codigo";
 
-					filtro = "cod";
-
-					ps = connection.prepareStatement("select * from " + tabla + " where " + filtro + " = " + dato);
-					// pendiente de evaluar ps.setString(1, filtro);
-					// ps.setString(2, dato);
+				if (buscar) {
+					ps = connection.prepareStatement("select * from becas where " + filtro + " = " + dato);
 					rs = ps.executeQuery();
-					break;
+				}
 
-				case 2:
-					filtro = "nombre";
+				break;
+
+			case 2:
+				filtro = "nombre_proveedor";
+
+				if (buscar) {
+
 					ps = connection
 							.prepareStatement("select * from becas where " + filtro + " like upper('%" + dato + "%')");
 					rs = ps.executeQuery();
+				}
+				break;
+			case 3:
 
-					break;
-				case 3:
-					filtro = "nombreproveedor";
-					ps = connection
-							.prepareStatement("select * from becas where " + filtro + " like upper('%" + dato + "%')");
+				filtro = "id_usuario";
+
+				if (buscar) {
+					ps = connection.prepareStatement(
+							"select * from administradores a join usuarios u on a.id_admin=id_usuario where " + filtro
+									+ " = " + dato);
 					rs = ps.executeQuery();
 
-					break;
-
-				default:
-					break;
+				}
+				break;
+			case 4:
+				filtro = "dni";
+				if (buscar) {
+					ps = connection.prepareStatement(
+							"select * from administradores a join usuarios u on a.id_admin=u.id_usuario where " + filtro
+									+ " like upper('%" + dato + "%')");
+					rs = ps.executeQuery();
 
 				}
 
+				break;
+
+			default:
+				break;
+
+			}
+
+			if (buscar && tabla.equals("becas")) {
 				while (rs.next()) {
 
-					lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2) + " descripcion= "
-							+ rs.getString(4) + " contacto= " + rs.getString(5) + " nombre proveedor= "
-							+ rs.getString(6) + " tipo de beca= " + rs.getString(7);
+					lista += "Beca [codigo = " + rs.getInt(1) + " Nombre Proveedor = " + rs.getString(2) + "]" + "\n";
 
 				}
 
-			} else if (tabla.equals("administradores")) {
+			} else if (buscar && tabla.equals("administradores")) {
+				while (rs.next()) {
 
-				switch (condicion) {
-				case 1:
-
-					filtro = "id_usuario";
-
-					if (buscar) {
-						ps = connection.prepareStatement("select * from " + tabla + " where " + filtro + " = " + dato);
-						// pendiente de evaluar ps.setString(1, filtro);
-						// ps.setString(2, dato);
-						rs = ps.executeQuery();
-
-					} else {
-						lista = filtro;
-					}
-					break;
-
-				case 2:
-					filtro = "dni";
-					if (buscar) {
-						ps = connection.prepareStatement(
-								"select * from " + tabla + " where " + filtro + " like upper('%" + dato + "%')");
-						rs = ps.executeQuery();
-
-					} else {
-						lista = filtro;
-					}
-
-					break;
-
-				default:
-					break;
-
-				}
-				if (buscar) {
-					while (rs.next()) {
-
-						lista += "Administrador [" + rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " "
-								+ rs.getString(4) + "]" + "\n";
-					}
+					lista += "Administrador [" + rs.getInt(1) + " " + rs.getString(9) + " " + rs.getString(10) + " "
+							+ rs.getString(11) + "]" + "\n";
 				}
 
 			}
 
+			else {
+				lista = filtro;
+			}
+
 		} catch (Exception e) {
+
 		}
 		return lista;
 
 	}
 
-	public String informacionActualizacion(int cod) throws SQLException {
+	/**
+	 * @author edu
+	 * 
+	 *         Método para comprobar la información que se quiere actualizar antes
+	 *         de realizar la actualización
+	 *
+	 * @param cod     número de código para la búsqueda de información
+	 * @param columna dato del que queremos saber qué contiene
+	 * @return String con la información recogida
+	 * @throws SQLException
+	 */
+	public String informacionActualizacion(int cod, String columna) throws SQLException {
 
 		PreparedStatement ps;
 		String lista = "";
 
-		ps = connection.prepareStatement("select * from becas where cod=" + cod);
+		ps = connection.prepareStatement("select * from becas where codigo=" + cod);
 		rs = ps.executeQuery();
 
 		while (rs.next()) {
 
-			lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2) + " descripcion= "
-					+ rs.getString(4) + " contacto= " + rs.getString(5) + " nombre proveedor= " + rs.getString(6)
-					+ " tipo de beca= " + rs.getString(7) + "\n";
+			switch (columna) {
+			case "nombre":
+				lista += "Codigo beca: " + rs.getInt(1) + " Beca: " + rs.getString(6);
+				break;
+			case "condiciones":
+				lista += "Codigo beca: " + rs.getInt(1) + " Condiciones: " + rs.getString(5);
+				break;
+			case "descripcion":
+				lista += "Codigo beca: " + rs.getInt(1) + " Descripcion: " + rs.getString(4);
+				break;
+			case "contacto":
+				lista += "Codigo beca: " + rs.getInt(1) + " Contacto: " + rs.getString(3);
+				break;
+			case "nombre_proveedor":
+				lista += "Codigo beca: " + rs.getInt(1) + " Proveedor: " + rs.getString(2);
+				break;
+			case "tipo":
+				lista += "Codigo beca: " + rs.getInt(1) + " Tipo: " + rs.getString(7);
+				break;
+			default:
+				break;
+			}
 
 		}
 
@@ -492,10 +434,13 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Con este metodos daremos de alta administradores en la tabla de
-	 * administradores, a partir de un objeto administrador que herreda de usuario
+	 * @author edu
 	 * 
-	 * @param a Objeto de la calse administrador con todos los datos
+	 *         Con este método daremos de alta administradores en la tabla de
+	 *         administradores, a partir de un objeto administrador que hereda de
+	 *         usuario
+	 * 
+	 * @param a Objeto de la clase administrador con todos los datos
 	 * @return true en caso de exito, false en caso contrario
 	 */
 
@@ -506,32 +451,38 @@ public class Conexion_BBDD {
 
 		PreparedStatement ps;
 		try {
-			ps = connection.prepareStatement("select max(id_usuario)from administradores");
+			ps = connection.prepareStatement("select max(id_usuario)from usuarios");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 
 				cod = rs.getInt(1) + 1;
 			}
+			ps = connection.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
 
-			ps = connection.prepareStatement("insert into administradores values(?,?,?,?,?,?,?,?,?,?,?,sysdate)");
 			ps.setInt(1, cod);
-			ps.setString(2, a.getDni());
-			ps.setString(3, a.getNombre());
-			ps.setString(4, a.getApellido());
-			ps.setString(5, a.getNacionalidad());
-			ps.setString(6, a.getEmail());
-			ps.setInt(7, a.getTelf());
-			ps.setString(8, a.getFecha_nac());
-			ps.setString(9, a.getClave());
-			ps.setString(10, a.getEstado());
-			ps.setString(11, a.getDescripcion_puesto());
+			ps.setString(2, a.getFecha_nac());
+			ps.setString(3, a.getClave());
+			ps.setString(4, a.getEmail());
+			ps.setString(5, a.getNombre());
+			ps.setString(6, a.getApellido());
+			ps.setString(7, a.getDni());
+			ps.setString(8, a.getNacionalidad());
+			ps.setInt(9, a.getTelf());
+
+			ps.executeUpdate();
+
+			ps = connection.prepareStatement("insert into administradores values(?,?,?,sysdate)");
+			ps.setInt(1, cod);
+			ps.setString(2, a.getEstado());
+			ps.setString(3, a.getDescripcion_puesto());
+			;
 			ps.executeUpdate();
 
 			alta = true;
 
 		} catch (SQLException e) {
-			System.out.println("no se han insertar los datos");
+			System.out.println("No se han insertado datos");
 			e.printStackTrace();
 			alta = false;
 			return alta;
@@ -542,10 +493,15 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Metodo que borra un admin de la tabla admin a partir de una id de usuario
+	 * @author edu
 	 * 
-	 * @param id_usuario dato que filtra el borrado del administrador
-	 * @return true en caso de exito, false en caso contrario
+	 *         Método para dar de baja a un administrador. Recurriremos al método
+	 *         buscar datos para obtener el filtro del borrado en caso de excepción
+	 *         lanzará una ventana de diálogo
+	 * 
+	 * @param dato      criterio para dar de baja al administrador
+	 * @param condicion número interno para obtener el where
+	 * @return true en caso de éxito, false en caso contrario
 	 */
 
 	public boolean darBajaAdmin(String dato, int condicion) {
@@ -556,16 +512,45 @@ public class Conexion_BBDD {
 		PreparedStatement ps;
 
 		try {
-			filtro = buscarDatos(dato, condicion, "administradores", false);
-			ps = connection
-					.prepareStatement("delete from administradores where " + filtro + " like upper('%" + dato + "%')");
-			ps.executeQuery();
+
+			if (condicion == 3) {
+
+				String id_admin = "id_admin";
+				String id_usuario = "id_usuario";
+
+				ps = connection.prepareStatement(
+						"delete from administradores where " + id_admin + " like upper('%" + dato + "%')");
+				ps.executeQuery();
+				ps = connection
+						.prepareStatement("delete from usuarios where " + id_usuario + " like upper('%" + dato + "%')");
+				ps.executeQuery();
+
+			}
+			if (condicion == 4) {
+
+				String dni = "dni";
+
+				ps = connection.prepareStatement(
+						"delete from administradores where id_admin = (select id_usuario from usuarios where " + dni
+								+ " like upper('%" + dato + "%'))");
+				ps.executeQuery();
+				ps = connection.prepareStatement("delete from usuarios where " + dni + " like upper('%" + dato + "%')");
+				ps.executeQuery();
+
+			}
+
+			/*
+			 * ps = connection .prepareStatement("delete from administradores where " +
+			 * filtro + " like upper('%" + dato + "%')"); ps.executeQuery(); ps = connection
+			 * .prepareStatement("delete from usuarios where " + filtro + " like upper('%" +
+			 * dato + "%')"); ps.executeQuery();
+			 */
 
 			borrado = true;
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Atencion: Introduzca algun criterio");
-
+			JOptionPane.showMessageDialog(null, "Atención: Introduzca algún criterio");
+			e.printStackTrace();
 			borrado = false;
 			return borrado;
 		}
@@ -689,7 +674,7 @@ public class Conexion_BBDD {
 			}
 			
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, ex, "Error de conexi�n", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, ex, "Error de conexi�n", JOptionPane.ERROR_MESSAGE);
 		}
 	
 		return resultado;
@@ -751,7 +736,7 @@ public class Conexion_BBDD {
 					
 				}
 			} catch (SQLException ex) {
-				JOptionPane.showMessageDialog(null, ex, "Error de conexi�n", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, ex, "Error de conexi�n", JOptionPane.ERROR_MESSAGE);
 			}
 			return becas;
 		}

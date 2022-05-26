@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Alumno extends Usuario {
 
-  private Integer numero_familiares;
+	private Integer numero_familiares;
 
-  private double ingreso_anual;
+	private double ingreso_anual;
 
 
   public ArrayList<Beca> becasFavoritas;
@@ -41,14 +41,14 @@ public double calcularUmbral() {
   return 0.0;
   }
 
-  public void registrarAlumno(Alumno A) {
-  }
+	public void registrarAlumno(Alumno A) {
+	}
 
-  public void darDeBajaAlumno(Alumno A) {
-  }
+	public void darDeBajaAlumno(Alumno A) {
+	}
 
-  public void consultarAlumno(Alumno A) {
-  }
+	public void consultarAlumno(Alumno A) {
+	}
 
   public Integer getNumero_familiares() {
 	return numero_familiares;
@@ -92,9 +92,9 @@ public void setUmbral_ingresos(umbral_ingresos umbral_ingresos) {
 public void aniadirFavorito(Beca beca) {
   }
 
-  public String mostrarBecaFavorita() {
-  return null;
-  }
+	public String mostrarBecaFavorita() {
+		return null;
+	}
 
   public void borrarBecaFavorita(Beca beca) {
   }
