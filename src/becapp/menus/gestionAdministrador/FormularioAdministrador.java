@@ -240,7 +240,8 @@ public class FormularioAdministrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				Conexion_BBDD conexion = new Conexion_BBDD();
-				conexion.conectar();
+			
+				
 				try {
 					// comprobramos que no hay campos en blanco
 					if (dni.getText().isBlank() || nombre.getText().isBlank() || apellido.getText().isBlank()
@@ -276,15 +277,12 @@ public class FormularioAdministrador extends JFrame {
 						telf.setText("");
 						clave.setText("");
 						descripcion_puesto.setText("");
-						// Registramos el tipo de moviemiento en nuestro log
-						GregorianCalendar gc = new GregorianCalendar();
-						Date fecha_hora = gc.getTime();
-
+				
 						try {
 
 							Log metodos = new Log();
 							// metodo de escritura en el fichero log
-							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_ADMINISTRADOR, fecha_hora);
+							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_ADMINISTRADOR);
 						} catch (IOException elog) {
 							elog.getStackTrace();
 						}

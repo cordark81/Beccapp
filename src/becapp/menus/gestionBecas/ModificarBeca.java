@@ -170,7 +170,7 @@ public class ModificarBeca extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				conexion = new Conexion_BBDD();
-				conexion.conectar();
+			
 				// mensaje de la excepcion
 				String mensaje = "Atencion: solo son validos los numeros en ID";
 
@@ -207,20 +207,17 @@ public class ModificarBeca extends JFrame {
 							JOptionPane.showMessageDialog(null, "Actualizacion realizada con exito");
 							cod.setText("");
 							actualizacion.setText("");
-							// generamos hora y fecha del registro
-							GregorianCalendar gc = new GregorianCalendar();
-							Date fecha_hora = gc.getTime();
-
+						
 							Log metodos = new Log();
 							// muestra la informacion en el jtext de como ha quedado despues del cambio
 							despuesModi.setText(conexion.informacionActualizacion(numeroCod, columna));
 							// escribimos en el log el movimiento
-							metodos.escribirLog(Tipo_movimiento.MODIFICAR_BECA, fecha_hora);
+							metodos.escribirLog(Tipo_movimiento.MODIFICAR_BECA);
 
 						} else {
 							JOptionPane.showMessageDialog(null, "No se ha encontrado ninguna Beca");
 						}
-						conexion.cerrar();
+
 					}
 				} catch (Exception e1) {
 
@@ -243,7 +240,7 @@ public class ModificarBeca extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				conexion = new Conexion_BBDD();
-				conexion.conectar();
+			
 				int codigo = 0;
 				String mensaje = "Atencion: solo son validos los numeros en ID";
 				try {
@@ -265,7 +262,7 @@ public class ModificarBeca extends JFrame {
 					if (antesModi.getText().isBlank()) {
 						JOptionPane.showMessageDialog(null, "Atencion: no existe beca con esa ID");
 					}
-					conexion.cerrar();
+				
 
 				} catch (SQLException e1) {
 

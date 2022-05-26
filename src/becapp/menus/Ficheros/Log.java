@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
+import java.util.GregorianCalendar;
 /**
  * 
  * @author edu
@@ -34,18 +35,20 @@ public class Log {
 	/**
 	 * Con este metodo escribimos nuestro fichero log.txt en que vamos dejando
 	 * registrado las acciones que se realizan el programa
-	 * 
-	 * @param f fichero en el que se guarda la info
 	 * @param tipo Enum con lo tipo de movimientos
-	 * @param fecha_hora fecha y hora del movimiento
+	 * @param f fichero en el que se guarda la info
 	 * @param detalle aqui se pasa un string con todos los datos de la beca
+	 * 
 	 * @throws IOException subimos la excepcion para tratala mas tarde
 	 */
-	public void escribirLog(Tipo_movimiento tipo, Date fecha_hora) throws IOException {
+	public void escribirLog(Tipo_movimiento tipo) throws IOException {
 
 		File log = new File("log.txt");
 		FileWriter fw = new FileWriter(log, true);
 		BufferedWriter bw = new BufferedWriter(fw);
+		
+		GregorianCalendar gc = new GregorianCalendar();
+		Date fecha_hora = gc.getTime();
 
 		bw.write(tipo.toString());
 		bw.write(" ");

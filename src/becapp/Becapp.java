@@ -25,9 +25,8 @@ public class Becapp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//MenuGestion aplicacion = new MenuGestion();
-		//aplicacion.setVisible(true);
+		Conexion_BBDD conexion=new Conexion_BBDD();
+		conexion.conectar();
 		
 		PrincipalGestion pg = new PrincipalGestion();
 		pg.setVisible(true);

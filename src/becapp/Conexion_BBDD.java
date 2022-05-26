@@ -5,8 +5,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
+
+/**
+ * 
+ * @author Eduardo Arturo
+ *
+ */
+
+//preguntar conexion static
 
 public class Conexion_BBDD {
 
@@ -14,24 +24,29 @@ public class Conexion_BBDD {
 	private String login = "ADMINISTRADOR";
 	private String password = "ADMINISTRADOR";
 	private String url = "jdbc:oracle:thin:@localhost:1521:" + bd;
+
 	java.sql.ResultSet rs = null;
-	Connection connection = null;
+	private static Connection connection = null;
 
 	/**
 	 * Método de conexión a la Base de Datos
 	 */
+
 	public void conectar() {
 
 		try {
 
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			connection = DriverManager.getConnection(url, login, password);
-			if (connection != null) {
+			if (connection==null) {
+				
+				connection = DriverManager.getConnection(url, login, password);
 				System.out.println("Conexion realizada correctamente");
 			}
+						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 
 	}
 
@@ -48,10 +63,6 @@ public class Conexion_BBDD {
 			connection.close();
 
 	}
-
-	/**
-	 * @author Eduardo
-	 */
 
 	/**
 	 * En este método recibimos los datos correspondientes a la beca que queremos
@@ -106,13 +117,11 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * @author edu
-	 * 
-	 *         Método destinado a borrar becas. Empieza comprobando si el dato está
-	 *         en blanco o vacío en cuyo caso lanza una excepción preparada con un
-	 *         mensaje de diálogo. A continuación utiliza el método buscar datos
-	 *         para sacar el filtro de la consulta. Finalmente añadimos toda la
-	 *         información recogida a una variable String
+	 * Método destinado a borrar becas. Empieza comprobando si el dato está en
+	 * blanco o vacío en cuyo caso lanza una excepción preparada con un mensaje de
+	 * diálogo. A continuación utiliza el método buscar datos para sacar el filtro
+	 * de la consulta. Finalmente añadimos toda la información recogida a una
+	 * variable String
 	 * 
 	 * @param dato         la información de referencia para el borrado
 	 * @param condicion    numeración interna que nos da la culumna de filtro
@@ -147,7 +156,6 @@ public class Conexion_BBDD {
 			borrado = false;
 			return borrado;
 		} catch (Exception e) {
-			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Atención: seleccione un campo");
 		}
 
@@ -155,10 +163,8 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * @author edu
-	 * 
-	 *         Con este método podremos actualizar determinados datos de las
-	 *         distintas becas de nuestra BBDD
+	 * Con este método podremos actualizar determinados datos de las distintas becas
+	 * de nuestra BBDD
 	 * 
 	 * @param columna       campo del que queremos hacer la actualización
 	 * @param cod           código del cliente al que se le hace el cambio
@@ -194,10 +200,8 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * @author edu
-	 * 
-	 *         Método con el cual rescatamos la información necesaria para crear y
-	 *         rellenar un arraylist de becas
+	 * Método con el cual rescatamos la información necesaria para crear y rellenar
+	 * un arraylist de becas
 	 * 
 	 * @return arraylist de becas
 	 */
@@ -237,10 +241,8 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * @author edu
-	 * 
-	 *         Método con el cual rescatamos la información necesaria para crear y
-	 *         rellenar un arraylist de administradores
+	 * Método con el cual rescatamos la información necesaria para crear y rellenar
+	 * un arraylist de administradores
 	 * 
 	 * @return arraylist de administradores
 	 */
@@ -275,12 +277,10 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * @author edu
-	 * 
-	 *         Método diseñado para obtener información de la base de datos. Tiene
-	 *         varias opciones, una de ellas es según la condición nos dará el
-	 *         filtro del where y hará la búsqueda que devolverá en un Stream y otra
-	 *         opción es simplemente que nos devuelva el filtro
+	 * Método diseñado para obtener información de la base de datos. Tiene varias
+	 * opciones, una de ellas es según la condición nos dará el filtro del where y
+	 * hará la búsqueda que devolverá en un Stream y otra opción es simplemente que
+	 * nos devuelva el filtro
 	 * 
 	 * @param dato      información de igualado del where
 	 * @param condicion numeración interna del filtro
@@ -378,10 +378,8 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * @author edu
-	 * 
-	 *         Método para comprobar la información que se quiere actualizar antes
-	 *         de realizar la actualización
+	 * Método para comprobar la información que se quiere actualizar antes de
+	 * realizar la actualización
 	 *
 	 * @param cod     número de código para la búsqueda de información
 	 * @param columna dato del que queremos saber qué contiene
@@ -427,11 +425,8 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * @author edu
-	 * 
-	 *         Con este método daremos de alta administradores en la tabla de
-	 *         administradores, a partir de un objeto administrador que hereda de
-	 *         usuario
+	 * Con este método daremos de alta administradores en la tabla de
+	 * administradores, a partir de un objeto administrador que hereda de usuario
 	 * 
 	 * @param a Objeto de la clase administrador con todos los datos
 	 * @return true en caso de exito, false en caso contrario
@@ -486,11 +481,9 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * @author edu
-	 * 
-	 *         Método para dar de baja a un administrador. Recurriremos al método
-	 *         buscar datos para obtener el filtro del borrado en caso de excepción
-	 *         lanzará una ventana de diálogo
+	 * Método para dar de baja a un administrador. Recurriremos al método buscar
+	 * datos para obtener el filtro del borrado en caso de excepción lanzará una
+	 * ventana de diálogo
 	 * 
 	 * @param dato      criterio para dar de baja al administrador
 	 * @param condicion número interno para obtener el where
@@ -532,13 +525,6 @@ public class Conexion_BBDD {
 
 			}
 
-			/*
-			 * ps = connection .prepareStatement("delete from administradores where " +
-			 * filtro + " like upper('%" + dato + "%')"); ps.executeQuery(); ps = connection
-			 * .prepareStatement("delete from usuarios where " + filtro + " like upper('%" +
-			 * dato + "%')"); ps.executeQuery();
-			 */
-
 			borrado = true;
 
 		} catch (SQLException e) {
@@ -549,6 +535,45 @@ public class Conexion_BBDD {
 		}
 
 		return borrado;
+	}
+	
+	public boolean calUmbral(Integer nunFamilia,Integer dinero) {
+		
+		
+		
+		Map<Integer, Bean> umbrales=new HashMap<>();		
+		
+		Bean umbral1=new Bean();
+		Bean umbral2=new Bean();
+		Bean umbral3=new Bean();
+		Bean umbral4=new Bean();
+		
+		umbral1.setUmbralMaximo(10);
+		umbral1.setUmbralMinimo(4);
+		umbral2.setUmbralMaximo(10);
+		umbral2.setUmbralMinimo(4);
+		umbral3.setUmbralMaximo(10);
+		umbral3.setUmbralMinimo(4);
+		umbral4.setUmbralMaximo(10);
+		umbral4.setUmbralMinimo(4);
+		
+		umbrales.put(1, umbral1);
+		umbrales.put(2, umbral2);
+		umbrales.put(3, umbral3);
+		umbrales.put(4, umbral4);
+		
+		Bean umbralRecovery=umbrales.get(nunFamilia);
+		
+		
+		if (umbralRecovery.getUmbralMinimo()>dinero && umbralRecovery.getUmbralMaximo()<dinero) {
+			
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+		
 	}
 
 }

@@ -208,7 +208,7 @@ public class FormularioBeca extends JFrame {
 				String[] columnas = { "Codigo", "Proveedor", "Contacto", "Descripcion", "Nombre", "Condiciones",
 						"Tipo de Beca" };
 				// constructor que genera la tabla
-				Listado listado = new Listado(false, columnas, "beca");
+				Listado listado = new Listado(false, columnas, "becas");
 
 				listado.setTitle("Datos Becas");
 				listado.pack();
@@ -262,22 +262,19 @@ public class FormularioBeca extends JFrame {
 							descripcion.getText().toUpperCase(), contacto.getText().toUpperCase(),
 							nombreProveedor.getText().toUpperCase(), tipo);
 
-					conexion.conectar();
+					
 					informacion.setText(beca.toString());
 					//
 					if (conexion.aniadirBeca(beca)) {
 
 						JOptionPane.showMessageDialog(null, "Beca añadida con exito");
 						informacion.setText(beca.toString());
-						// Registramos el tipo de moviemiento en nuestro log
-						GregorianCalendar gc = new GregorianCalendar();
-						Date fecha_hora = gc.getTime();
-
+				
 						try {
 
 							Log metodos = new Log();
 							// metodo de escritura en el fichero log
-							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_BECA, fecha_hora);
+							metodos.escribirLog(Tipo_movimiento.INTRODUCIR_BECA);
 						} catch (IOException elog) {
 							elog.getStackTrace();
 						}
@@ -294,12 +291,7 @@ public class FormularioBeca extends JFrame {
 					nombreProveedor.setText("");
 
 					grupo1.clearSelection();
-
-					try {
-						conexion.cerrar();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
+				
 
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, mensaje);

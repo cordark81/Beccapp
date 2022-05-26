@@ -4,12 +4,9 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -21,12 +18,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 import becapp.Conexion_BBDD;
-import becapp.menus.PrincipalGestion;
 import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
 import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.Listado;
-import becapp.menus.metodos.MetodosMenus;
 
 /**
  * 
@@ -100,7 +95,7 @@ public class BorradoAdministrador extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
-				conexion.conectar();
+
 				name = JOptionPane.showInputDialog("Introduzca ID del administrador");
 				grupo1.clearSelection();
 				condicion = 3;
@@ -112,10 +107,6 @@ public class BorradoAdministrador extends JFrame {
 				if (informacion.getText().isBlank() || informacion.getText().isEmpty()) {
 					informacion.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Ninguna administrador encontrado");
-				}
-				try {
-					conexion.cerrar();
-				} catch (SQLException e1) {
 				}
 
 			}
@@ -131,8 +122,9 @@ public class BorradoAdministrador extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				conexion = new Conexion_BBDD();
-				conexion.conectar();
+
+				Conexion_BBDD conexion = new Conexion_BBDD();
+
 				name = JOptionPane.showInputDialog("Introduzca Dni del adminitrador");
 				grupo1.clearSelection();
 				condicion = 4;
@@ -145,15 +137,10 @@ public class BorradoAdministrador extends JFrame {
 					informacion.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Ninguna administrador encontrado");
 				}
-				try {
-					conexion.cerrar();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
 
 			}
 		});
-		
+
 		/**
 		 * Funcionalidad del Radio Button listado, este es un poco distinto por que lo
 		 * genera es una tabla con toda la informacion de la base de datos y lo muestra
@@ -165,22 +152,16 @@ public class BorradoAdministrador extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
-				conexion.conectar();
+
 				grupo1.clearSelection();
 				// columnas de la tabla
 				String[] columnas = { "ID", "Estado", "Descripcion puesto", "Fecha inicio", "Fecha nacimiento", "Clave",
-						"Email", "Nombre", "Apellido", "Dni", "Nacionalidad", "Teléfono","" };
+						"Email", "Nombre", "Apellido", "Dni", "Nacionalidad", "Teléfono", "" };
 				// constructor que monta la tabla
 				Listado listado = new Listado(true, columnas, "administrador");
 				listado.setVisible(true);
 				listado.setTitle("Datos administradores");
 				listado.pack();
-
-				try {
-					conexion.cerrar();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
 
 			}
 		});
@@ -190,23 +171,20 @@ public class BorradoAdministrador extends JFrame {
 		 * base de datos y hace un registro en nuestros archivo log con el tipo de
 		 * movimiento
 		 */
-		
+
 		aceptar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
 				conexion.conectar();
-				// generamos fecha de la accion a registrar en el log
-				GregorianCalendar gc = new GregorianCalendar();
-				Date fecha_hora = gc.getTime();
 
 				if (conexion.darBajaAdmin(name, condicion)) {
 					JOptionPane.showMessageDialog(null, "administrador borrado con exito");
 					Log metodos = new Log();
 					try {
 						// metodo de escritura en el archivo log con la hora y el tipo de movimiento
-						metodos.escribirLog(Tipo_movimiento.BORRAR_ADMINISTRADOR, fecha_hora);
+						metodos.escribirLog(Tipo_movimiento.BORRAR_ADMINISTRADOR);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
