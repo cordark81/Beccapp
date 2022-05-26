@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 import becapp.Beca;
 import becapp.Conexion_BBDD;
-import becapp.menus.MenuGestion;
+import becapp.menus.gestionAdministrador.MenuGestion;
 import becapp.menus.metodos.MetodosMenus;
 
 public class GestionBecas extends JFrame {
@@ -31,10 +31,10 @@ public class GestionBecas extends JFrame {
 			}
 		});
 
-		JButton añadirBeca = new JButton("Añadir Beca");
-		añadirBeca.setBounds(100, 50, 400, 30);
-		getContentPane().add(añadirBeca);
-		añadirBeca.addActionListener(new ActionListener() {
+		JButton aniadirBeca = new JButton("Añadir Beca");
+		aniadirBeca.setBounds(100, 50, 400, 30);
+		getContentPane().add(aniadirBeca);
+		aniadirBeca.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {

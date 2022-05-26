@@ -1,9 +1,11 @@
-package becapp.menus;
+package becapp.menus.usuarios;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import becapp.Conexion_BBDD;
+import infoBecas.Skills;
+
+
 
 public class prueba {
 
@@ -25,7 +27,7 @@ public class prueba {
 			e.printStackTrace();
 		}
 		
-		MenuGestion aplicacion = new MenuGestion();
+		Login aplicacion = new Login();
 		aplicacion.setVisible(true);
 		
 	}

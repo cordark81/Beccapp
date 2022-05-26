@@ -35,7 +35,7 @@ public class BorradoAdministrador extends JFrame {
 	public BorradoAdministrador() {
 
 		setTitle("GESTION: BORRAR ADMINISTRADORES");
-		ImagenFondo fondo = new ImagenFondo();
+		ImagenFondo fondo = new ImagenFondo("/imagenes/tabla");
 		setContentPane(fondo);
 		setBounds(500, 300, 600, 450);
 		getContentPane().setLayout(null);
@@ -129,9 +129,8 @@ public class BorradoAdministrador extends JFrame {
 				conexion.conectar();
 				name = JOptionPane.showInputDialog("Listado");
 				grupo1.clearSelection();
-				condicion = 3;
-				informacion.setText(conexion.buscarDatosBeca(name, condicion));
-
+											
+				
 				try {
 					conexion.cerrar();
 				} catch (SQLException e1) {

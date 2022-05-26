@@ -1,5 +1,13 @@
 package becapp;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 public class Beca {
 
 	private int cod;
@@ -15,6 +23,7 @@ public class Beca {
 	private String nombreProveedor;
 
 	public tipo_beca tipo_beca;
+	Connection connection = null;
 
 	public Beca(String nombre, String condiciones, String descripcion, String contacto, String nombreProveedor,
 			becapp.tipo_beca tipo_beca) {
@@ -40,7 +49,22 @@ public class Beca {
 		this.tipo_beca = tipo_beca;
 
 	}
+	
+	public Beca(String nombre, String descripcion) {
+		this.nombre=nombre;
+		this.descripcion=descripcion;
+	}
+	
+	public Beca(String nombre, String descripcion, String proveedor) {
+		this.nombre=nombre;
+		this.descripcion=descripcion;
+		this.nombreProveedor=proveedor;
+	}
 
+
+	public Beca() {
+		
+	}
 	public String mostrarBeca() {
 		return null;
 	}
@@ -87,4 +111,6 @@ public class Beca {
 				+ ", contacto=" + contacto + ", nombreProveedor=" + nombreProveedor + ", tipo_beca=" + tipo_beca + "]";
 	}
 
+	
+	
 }

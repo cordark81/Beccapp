@@ -1,4 +1,4 @@
-package becapp.menus;
+package becapp.menus.gestionAdministrador;
 
 import java.awt.Color;
 import java.awt.HeadlessException;
@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import becapp.menus.Ficheros.Log;
-import becapp.menus.gestionAdministrador.GestionAdministradores;
 import becapp.menus.gestionBecas.GestionBecas;
 import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.MetodosMenus;
@@ -23,7 +22,7 @@ public class MenuGestion extends JFrame {
 	public MenuGestion() {
 
 		setTitle("MENU DE GESTION");
-		ImagenFondo fondo = new ImagenFondo();
+		ImagenFondo fondo = new ImagenFondo("/imagenes/tabla");
 		setContentPane(fondo);
 		setBounds(600, 300, 600, 450);
 		getContentPane().setLayout(null);

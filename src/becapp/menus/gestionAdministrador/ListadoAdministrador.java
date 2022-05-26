@@ -9,13 +9,14 @@ import javax.swing.JTable;
 
 import becapp.Conexion_BBDD;
 import becapp.menus.metodos.MetodosMenus;
+import becapp.menus.metodos.renderizarTabla;
 
 public class ListadoAdministrador extends JFrame {
 
-	public ListadoAdministrador() {
+	public ListadoAdministrador(boolean eliminar) {
 
 		String[] columnas = { "ID", "DNI", "Nombre", "Apellido", "Nacionalidad", "Email", "Telefono",
-				"Fecha  nacimientos", "Clave", "Estado", "Descripcion puesto", "Fecha alta" };
+				"Fecha  nacimientos", "Clave", "Estado", "Descripcion puesto", "Fecha alta"};
 
 		MetodosMenus mm = new MetodosMenus();
 		Conexion_BBDD conexion = new Conexion_BBDD();
@@ -27,5 +28,6 @@ public class ListadoAdministrador extends JFrame {
 		table.setPreferredScrollableViewportSize(new Dimension(1000, 300));
 		JScrollPane scrollpane = new JScrollPane(table);
 		getContentPane().add(scrollpane, BorderLayout.CENTER);
+
 	}
 }

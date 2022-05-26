@@ -8,7 +8,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import becapp.menus.MenuGestion;
 import becapp.menus.gestionBecas.BorradoBecas;
 import becapp.menus.gestionBecas.FormularioBeca;
 import becapp.menus.gestionBecas.ListadoBecas;
@@ -21,7 +20,7 @@ public class GestionAdministradores extends JFrame {
 	public GestionAdministradores() {
 
 		setTitle("AÑADIR ADMINISTRADOR");
-		ImagenFondo fondo = new ImagenFondo();
+		ImagenFondo fondo = new ImagenFondo("/imagenes/tabla");
 		setContentPane(fondo);
 		setBounds(600, 300, 600, 450);
 		getContentPane().setLayout(null);
@@ -35,11 +34,11 @@ public class GestionAdministradores extends JFrame {
 			}
 		});
 		
-		JButton añadirAdministrador = new JButton("Añadir Administrador");
-		añadirAdministrador.setBounds(100, 50, 400, 30);
-		getContentPane().add(añadirAdministrador);
+		JButton aniadirAdministrador = new JButton("Añadir Administrador");
+		aniadirAdministrador.setBounds(100, 50, 400, 30);
+		getContentPane().add(aniadirAdministrador);
 		
-		añadirAdministrador.addActionListener(new ActionListener() {
+		aniadirAdministrador.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -72,7 +71,7 @@ public class GestionAdministradores extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				ListadoAdministrador la=new ListadoAdministrador();
+				ListadoAdministrador la=new ListadoAdministrador(false);
 				la.setVisible(true);
 				la.setTitle("Datos administradores");
 				la.pack();

@@ -36,7 +36,7 @@ public class FormularioAdministrador extends JFrame {
 	public FormularioAdministrador() {
 
 		setTitle("FORMULARIO ADMINISTRADOR");
-		ImagenFondo fondo = new ImagenFondo();
+		ImagenFondo fondo = new ImagenFondo("/imagenes/tabla");
 		setContentPane(fondo);
 		setBounds(500, 300, 800, 650);
 		getContentPane().setLayout(null);
@@ -310,7 +310,7 @@ public class FormularioAdministrador extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ListadoAdministrador la =new ListadoAdministrador();
+				ListadoAdministrador la =new ListadoAdministrador(false);
 				la.setTitle("Datos Administradores");
 				la.pack();
 				la.setVisible(true);
