@@ -4,6 +4,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import becapp.menus.PrincipalGestion;
+import becapp.menus.usuarios.Login;
 
 public class Becapp {
 
@@ -29,7 +30,7 @@ public class Becapp {
 		//MenuGestion aplicacion = new MenuGestion();
 		//aplicacion.setVisible(true);
 		
-		PrincipalGestion pg = new PrincipalGestion();
+		Login pg = new Login	();
 		pg.setVisible(true);
 	}
 }
