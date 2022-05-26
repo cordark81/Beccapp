@@ -17,9 +17,10 @@ import becapp.Conexion_BBDD;
  */
 
 public class MetodosMenus extends JFrame {
-	
+
 	/**
-	 * con este metodo conseguimos una confirmacion si queremos salir del programa, esta seguro?? si o no.
+	 * con este metodo conseguimos una confirmacion si queremos salir del programa,
+	 * esta seguro?? si o no.
 	 */
 	public void confirmarSalida() {
 		int valor = JOptionPane.showConfirmDialog(this, "Esta seguro de cerrar la aplicacion", "Advertencia",
@@ -40,6 +41,7 @@ public class MetodosMenus extends JFrame {
 	 * @param tipoTabla string "beca" o "administrador" para navegar por el if
 	 * @return matriz de objetos para la tabla
 	 */
+	
 	public Object[][] arrayBidimensional(Conexion_BBDD conexion, String tipoTabla) {
 
 		Object[] array;
@@ -53,122 +55,43 @@ public class MetodosMenus extends JFrame {
 			array = d.toArray();
 
 			for (int i = 0; i < d.size(); i++) {
-
-				for (int j = 0; j <= 6; j++) {
-
-					switch (j) {
-					case 0:
-						Integer cod = ((Beca) array[i]).getCod();
-						datos[i][j] = cod;
-						break;
-					case 1:
-						String nombre = ((Beca) array[i]).getNombre();
-						datos[i][j] = nombre;
-						break;
-					case 2:
-						String condiciones = ((Beca) array[i]).getCondiciones();
-						datos[i][j] = condiciones;
-						break;
-					case 3:
-						String descripcion = ((Beca) array[i]).getDescripcion();
-						datos[i][j] = descripcion;
-						break;
-					case 4:
-						String proveedor = ((Beca) array[i]).getNombreProveedor();
-						datos[i][j] = proveedor;
-						break;
-					case 5:
-						String contacto = ((Beca) array[i]).getContacto();
-						datos[i][j] = contacto;
-						break;
-					case 6:
-						String tipo = ((Beca) array[i]).getTipo_beca().toString();
-						datos[i][j] = tipo;
-						break;
-
-					default:
-						break;
-					}
-
-				}
+				
+				datos[i][0] = d.get(i).getCod();
+				datos[i][1] = d.get(i).getNombre();
+				datos[i][2] = d.get(i).getCondiciones();
+				datos[i][3] = d.get(i).getDescripcion();
+				datos[i][4] = d.get(i).getNombreProveedor();
+				datos[i][5] = d.get(i).getContacto();
+				datos[i][6] = d.get(i).getTipo_beca().toString();
+	
 			}
 
 		} else if (tipoTabla.equals("administrador")) {
-			
+
 			ArrayList<Administrador> d = conexion.listarAdminitradoresArray();
 			datos = new Object[d.size()][13];
 			array = d.toArray();
-			
+
 			for (int i = 0; i < d.size(); i++) {
+				datos[i][0] = d.get(i).getId_usuario();
+				datos[i][1] = d.get(i).getEstado();
+				datos[i][2] = d.get(i).getDescripcion_puesto();
+				datos[i][3] = d.get(i).getFecha_inc();
+				datos[i][4] = d.get(i).getFecha_nac();
+				datos[i][5] = d.get(i).getClave();
+				datos[i][6] = d.get(i).getEmail();
+				datos[i][7] = d.get(i).getNombre();
+				datos[i][8] = d.get(i).getApellido();
+				datos[i][9] = d.get(i).getDni();
+				datos[i][10] = d.get(i).getNacionalidad();
+				datos[i][11] = d.get(i).getTelf();
+				datos[i][12] = null;
 
-				for (int j = 0; j <= 11; j++) {
-
-					switch (j) {
-					case 0:
-						Integer cod = ((Administrador) array[i]).getId_usuario();
-						datos[i][j] = cod;
-						break;
-					case 1:
-						String dni = ((Administrador) array[i]).getDni();
-						datos[i][j] = dni;
-						break;
-					case 2:
-						String nombre = ((Administrador) array[i]).getNombre();
-						datos[i][j] = nombre;
-						break;
-					case 3:
-						String apellido = ((Administrador) array[i]).getApellido();
-						datos[i][j] = apellido;
-						break;
-					case 4:
-						String nacionalidad = ((Administrador) array[i]).getNacionalidad();
-						datos[i][j] = nacionalidad;
-						break;
-					case 5:
-						String email = ((Administrador) array[i]).getEmail();
-						datos[i][j] = email;
-						break;
-					case 6:
-						Integer telefono = ((Administrador) array[i]).getTelf();
-						datos[i][j] = telefono;
-						break;
-					case 7:
-						String fechaNaci = ((Administrador) array[i]).getFecha_nac();
-						datos[i][j] = fechaNaci;
-						break;
-					case 8:
-						String clave = ((Administrador) array[i]).getClave();
-						datos[i][j] = clave;
-						break;
-					case 9:
-						String estado = ((Administrador) array[i]).getEstado();
-						datos[i][j] = estado;
-						break;
-					case 10:
-						String descripcion = ((Administrador) array[i]).getDescripcion_puesto();
-						datos[i][j] = descripcion;
-						break;
-					case 11:
-						String fechaAlta = ((Administrador) array[i]).getFecha_inc();
-						datos[i][j] = fechaAlta;
-						break;
-					case 12:
-						JButton eliminar = new JButton("Eliminar");
-						datos[i][j] = eliminar;
-						break;
-								
-
-					default:
-						break;
-					}
-
-				}
 			}
 
-		}else {
+		} else {
 			System.out.println("Revisar el string introducido");
 		}
-		
 
 		return datos;
 	}

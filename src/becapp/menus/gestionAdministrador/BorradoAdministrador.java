@@ -168,8 +168,8 @@ public class BorradoAdministrador extends JFrame {
 				conexion.conectar();
 				grupo1.clearSelection();
 				// columnas de la tabla
-				String[] columnas = { "ID", "DNI", "Nombre", "Apellido", "Nacionalidad", "Email", "Telefono",
-						"Fecha  nacimientos", "Clave", "Estado", "Descripcion puesto", "Fecha alta", "" };
+				String[] columnas = { "ID", "Estado", "Descripcion puesto", "Fecha inicio", "Fecha nacimiento", "Clave",
+						"Email", "Nombre", "Apellido", "Dni", "Nacionalidad", "Teléfono","" };
 				// constructor que monta la tabla
 				Listado listado = new Listado(true, columnas, "administrador");
 				listado.setVisible(true);
@@ -206,7 +206,7 @@ public class BorradoAdministrador extends JFrame {
 					Log metodos = new Log();
 					try {
 						// metodo de escritura en el archivo log con la hora y el tipo de movimiento
-						metodos.escribirLog(Tipo_movimiento.BORRAR_ADMINITRADOR, fecha_hora);
+						metodos.escribirLog(Tipo_movimiento.BORRAR_ADMINISTRADOR, fecha_hora);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}

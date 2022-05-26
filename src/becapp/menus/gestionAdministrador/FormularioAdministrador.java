@@ -315,8 +315,8 @@ public class FormularioAdministrador extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// columnas de la tabla
-				String[] columnas = { "ID", "DNI", "Nombre", "Apellido", "Nacionalidad", "Email", "Telefono",
-						"Fecha  nacimientos", "Clave", "Estado", "Descripcion puesto", "Fecha alta" };
+				String[] columnas = { "ID", "Estado", "Descripcion puesto", "Fecha inicio", "Fecha nacimiento", "Clave",
+						"Email", "Nombre", "Apellido", "Dni", "Nacionalidad", "Teléfono" };
 				// constructor que genera la tabla
 				Listado listado = new Listado(false, columnas, "administrador");
 				listado.setVisible(true);

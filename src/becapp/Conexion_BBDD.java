@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 public class Conexion_BBDD {
 
 	private String bd = "XE";
-	private String login = "BANCO";
-	private String password = "BANCO";
+	private String login = "ADMINISTRADOR";
+	private String password = "ADMINISTRADOR";
 	private String url = "jdbc:oracle:thin:@localhost:1521:" + bd;
 	java.sql.ResultSet rs = null;
 	Connection connection = null;
@@ -192,36 +192,6 @@ public class Conexion_BBDD {
 
 		return modificado;
 	}
-	/*
-	 * pendiente de borrar
-	 * 
-	 * /** Este método nos saca de la base de datos toda la información relativa a
-	 * nuestras becas
-	 * 
-	 * @return devuelve un string con la informacion solicita o un mensaje de error
-	 * en caso de fallo
-	 *//*
-		 * 
-		 * public String listarBecas() {
-		 * 
-		 * PreparedStatement ps; String lista = "";
-		 * 
-		 * try { ps = connection.prepareStatement("select * from becas order by 1"); rs
-		 * = ps.executeQuery(); while (rs.next()) {
-		 * 
-		 * lista += "Codigo beca= " + rs.getInt(1) + " nombre beca = " + rs.getString(2)
-		 * + " condiciones= " + rs.getString(3) + " descripcion= " + rs.getString(4) +
-		 * " contacto= " + rs.getString(5) + " nombre proveedor= " + rs.getString(6) +
-		 * " tipo de beca= " + rs.getString(7) + "\n";
-		 * 
-		 * }
-		 * 
-		 * } catch (SQLException e) {
-		 * 
-		 * return "La lista no se ha podido cargar"; }
-		 * 
-		 * return lista; }
-		 */
 
 	/**
 	 * @author edu
@@ -281,16 +251,17 @@ public class Conexion_BBDD {
 		PreparedStatement ps;
 
 		try {
-			ps = connection.prepareStatement("select * from administradores order by 1");
+			ps = connection.prepareStatement(
+					"select * from administradores a join usuarios u on a.id_admin=id_usuario order by 1");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				String fecha_cumple = rs.getDate(8).toString();
-				String fecha_ini = rs.getDate(12).toString();
+				String fecha_cumple = rs.getDate(6).toString();
+				String fecha_ini = rs.getDate(4).toString();
 
-				Administrador a = new Administrador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getString(6), rs.getInt(7), fecha_cumple, rs.getString(9), rs.getString(10),
-						rs.getString(11), fecha_ini);
+				Administrador a = new Administrador(rs.getInt(1), rs.getString(11), rs.getString(9), rs.getString(10),
+						rs.getString(12), rs.getString(8), rs.getInt(13), fecha_cumple, rs.getString(7),
+						rs.getString(2), rs.getString(3), fecha_ini);
 				datos.add(a);
 
 			}
@@ -335,8 +306,6 @@ public class Conexion_BBDD {
 
 				if (buscar) {
 					ps = connection.prepareStatement("select * from becas where " + filtro + " = " + dato);
-					// pendiente de evaluar ps.setString(1, filtro);
-					// ps.setString(2, dato);
 					rs = ps.executeQuery();
 				}
 
@@ -358,9 +327,8 @@ public class Conexion_BBDD {
 
 				if (buscar) {
 					ps = connection.prepareStatement(
-							"select * from administradores " + tabla + " where " + filtro + " = " + dato);
-					// pendiente de evaluar ps.setString(1, filtro);
-					// ps.setString(2, dato);
+							"select * from administradores a join usuarios u on a.id_admin=id_usuario where " + filtro
+									+ " = " + dato);
 					rs = ps.executeQuery();
 
 				}
@@ -369,7 +337,8 @@ public class Conexion_BBDD {
 				filtro = "dni";
 				if (buscar) {
 					ps = connection.prepareStatement(
-							"select * from administradores where " + filtro + " like upper('%" + dato + "%')");
+							"select * from administradores a join usuarios u on a.id_admin=u.id_usuario where " + filtro
+									+ " like upper('%" + dato + "%')");
 					rs = ps.executeQuery();
 
 				}
@@ -391,8 +360,8 @@ public class Conexion_BBDD {
 			} else if (buscar && tabla.equals("administradores")) {
 				while (rs.next()) {
 
-					lista += "Administrador [" + rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " "
-							+ rs.getString(4) + "]" + "\n";
+					lista += "Administrador [" + rs.getInt(1) + " " + rs.getString(9) + " " + rs.getString(10) + " "
+							+ rs.getString(11) + "]" + "\n";
 				}
 
 			}
@@ -411,9 +380,10 @@ public class Conexion_BBDD {
 	/**
 	 * @author edu
 	 * 
-	 * Método para comprobar la información que se quiere actualizar antes de realizar la actualización 
+	 *         Método para comprobar la información que se quiere actualizar antes
+	 *         de realizar la actualización
 	 *
-	 * @param cod número de código para la búsqueda de información
+	 * @param cod     número de código para la búsqueda de información
 	 * @param columna dato del que queremos saber qué contiene
 	 * @return String con la información recogida
 	 * @throws SQLException
@@ -459,8 +429,9 @@ public class Conexion_BBDD {
 	/**
 	 * @author edu
 	 * 
-	 * Con este método daremos de alta administradores en la tabla de
-	 * administradores, a partir de un objeto administrador que hereda de usuario
+	 *         Con este método daremos de alta administradores en la tabla de
+	 *         administradores, a partir de un objeto administrador que hereda de
+	 *         usuario
 	 * 
 	 * @param a Objeto de la clase administrador con todos los datos
 	 * @return true en caso de exito, false en caso contrario
@@ -473,26 +444,32 @@ public class Conexion_BBDD {
 
 		PreparedStatement ps;
 		try {
-			ps = connection.prepareStatement("select max(id_usuario)from administradores");
+			ps = connection.prepareStatement("select max(id_usuario)from usuarios");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 
 				cod = rs.getInt(1) + 1;
 			}
+			ps = connection.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
 
-			ps = connection.prepareStatement("insert into administradores values(?,?,?,?,?,?,?,?,?,?,?,sysdate)");
 			ps.setInt(1, cod);
-			ps.setString(2, a.getDni());
-			ps.setString(3, a.getNombre());
-			ps.setString(4, a.getApellido());
-			ps.setString(5, a.getNacionalidad());
-			ps.setString(6, a.getEmail());
-			ps.setInt(7, a.getTelf());
-			ps.setString(8, a.getFecha_nac());
-			ps.setString(9, a.getClave());
-			ps.setString(10, a.getEstado());
-			ps.setString(11, a.getDescripcion_puesto());
+			ps.setString(2, a.getFecha_nac());
+			ps.setString(3, a.getClave());
+			ps.setString(4, a.getEmail());
+			ps.setString(5, a.getNombre());
+			ps.setString(6, a.getApellido());
+			ps.setString(7, a.getDni());
+			ps.setString(8, a.getNacionalidad());
+			ps.setInt(9, a.getTelf());
+
+			ps.executeUpdate();
+
+			ps = connection.prepareStatement("insert into administradores values(?,?,?,sysdate)");
+			ps.setInt(1, cod);
+			ps.setString(2, a.getEstado());
+			ps.setString(3, a.getDescripcion_puesto());
+			;
 			ps.executeUpdate();
 
 			alta = true;
@@ -508,16 +485,17 @@ public class Conexion_BBDD {
 
 	}
 
-	
-/**
- * @author edu
- * 
- * Método para dar de baja a un administrador. Recurriremos al método buscar datos para obtener el filtro del borrado en caso de excepción lanzará una ventana de diálogo
- * 
- * @param dato criterio para dar de baja al administrador
- * @param condicion número interno para obtener el where
- * @return true en caso de éxito, false en caso contrario
- */
+	/**
+	 * @author edu
+	 * 
+	 *         Método para dar de baja a un administrador. Recurriremos al método
+	 *         buscar datos para obtener el filtro del borrado en caso de excepción
+	 *         lanzará una ventana de diálogo
+	 * 
+	 * @param dato      criterio para dar de baja al administrador
+	 * @param condicion número interno para obtener el where
+	 * @return true en caso de éxito, false en caso contrario
+	 */
 
 	public boolean darBajaAdmin(String dato, int condicion) {
 
@@ -527,53 +505,50 @@ public class Conexion_BBDD {
 		PreparedStatement ps;
 
 		try {
-			filtro = buscarDatos(dato, condicion, "administradores", false);
-			ps = connection
-					.prepareStatement("delete from administradores where " + filtro + " like upper('%" + dato + "%')");
-			ps.executeQuery();
+
+			if (condicion == 3) {
+
+				String id_admin = "id_admin";
+				String id_usuario = "id_usuario";
+
+				ps = connection.prepareStatement(
+						"delete from administradores where " + id_admin + " like upper('%" + dato + "%')");
+				ps.executeQuery();
+				ps = connection
+						.prepareStatement("delete from usuarios where " + id_usuario + " like upper('%" + dato + "%')");
+				ps.executeQuery();
+
+			}
+			if (condicion == 4) {
+
+				String dni = "dni";
+
+				ps = connection.prepareStatement(
+						"delete from administradores where id_admin = (select id_usuario from usuarios where " + dni
+								+ " like upper('%" + dato + "%'))");
+				ps.executeQuery();
+				ps = connection.prepareStatement("delete from usuarios where " + dni + " like upper('%" + dato + "%')");
+				ps.executeQuery();
+
+			}
+
+			/*
+			 * ps = connection .prepareStatement("delete from administradores where " +
+			 * filtro + " like upper('%" + dato + "%')"); ps.executeQuery(); ps = connection
+			 * .prepareStatement("delete from usuarios where " + filtro + " like upper('%" +
+			 * dato + "%')"); ps.executeQuery();
+			 */
 
 			borrado = true;
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Atención: Introduzca algún criterio");
-
+			e.printStackTrace();
 			borrado = false;
 			return borrado;
 		}
 
 		return borrado;
 	}
-
-	/**
-	 * En proceso de eliminacion!!! Metodo que devuelve una lista completa de todo
-	 * los administradores que tenemos en la tabla administradores
-	 * 
-	 * @return variable String con toda la informacion
-	 */
-	/*
-	 * public String mostrarAdmin() {
-	 * 
-	 * PreparedStatement ps; String lista = "";
-	 * 
-	 * try { ps = connection.prepareStatement("select * from administradores"); rs =
-	 * ps.executeQuery();
-	 * 
-	 * while (rs.next()) {
-	 * 
-	 * lista += "Codigo administrador " + rs.getInt(1) + " dni = " + rs.getString(2)
-	 * + " nombre= " + rs.getString(3) + " apellido= " + rs.getString(4) +
-	 * " nacionalidad= " + rs.getString(5) + " email= " + rs.getString(6) +
-	 * " telfono= " + rs.getInt(7) + " fecha nacimiento= " + rs.getDate(8) +
-	 * " clave= " + rs.getString(9) + " estado= " + rs.getString(10) +
-	 * " Descripcion puesto= " + rs.getString(11) + " fecha inicio= " +
-	 * rs.getDate(12) + "\n";
-	 * 
-	 * }
-	 * 
-	 * } catch (SQLException e) { e.printStackTrace(); return
-	 * "La lista no se ha podido cargar"; }
-	 * 
-	 * return lista; }
-	 */
 
 }

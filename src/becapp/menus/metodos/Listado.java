@@ -48,8 +48,9 @@ public class Listado extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					//aqui sacamos el dato de la id de la fila 1 para el borrado
 					String dato = String.valueOf(table.getValueAt(table.getSelectedRow(), 0));
-					
-					if (conexion.borrarBeca(dato, 1, false)) {
+					if(tabla.equals("becas")) {
+						
+						if (conexion.borrarBeca(dato, 1, false)) {
 						JOptionPane.showMessageDialog(null, "Beca borrada con exito");
 						Log metodos = new Log();
 						GregorianCalendar gc = new GregorianCalendar();
@@ -60,8 +61,27 @@ public class Listado extends JFrame {
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-					} else {
+						} else {
 						JOptionPane.showMessageDialog(null, "Atecion: la beca no se ha podido borrar");
+						}
+					}
+					else if(tabla.equals("administrador")){
+						if (conexion.darBajaAdmin(dato, 1)) {
+							JOptionPane.showMessageDialog(null, "Beca borrada con exito");
+							Log metodos = new Log();
+							GregorianCalendar gc = new GregorianCalendar();
+							Date fecha_hora = gc.getTime();
+							try {
+								//tiene su propio añadido al fichero log si se elige con borrado
+								metodos.escribirLog(Tipo_movimiento.BORRAR_ADMINISTRADOR, fecha_hora);
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
+							} else {
+							JOptionPane.showMessageDialog(null, "Atecion: la beca no se ha podido borrar");
+							}
+						
+						
 					}
 					// cerramos la ventana de tabla despues del borrado
 					dispose();
