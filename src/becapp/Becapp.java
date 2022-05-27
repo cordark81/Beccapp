@@ -30,7 +30,7 @@ public class Becapp {
 		//MenuGestion aplicacion = new MenuGestion();
 		//aplicacion.setVisible(true);
 		
-		Login pg = new Login	();
+		Login pg = new Login();
 		pg.setVisible(true);
 	}
 }

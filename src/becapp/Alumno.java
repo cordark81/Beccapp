@@ -105,19 +105,18 @@ public void aniadirFavorito(Beca beca) {
 	  
 	  String[]umbrales= {"umbral1","umbral2","umbral3"};
 	  String umbral="";
-	  	  
 	  
-	  if(numeroFamiliares==1) {
-		  
+	  if(numeroFamiliares==1) {	  
 		  if(ingresosAnuales<=8871) {
 			 umbral=umbrales[0];
 		  }
-		  
 		  else if (ingresosAnuales>8871 && ingresosAnuales<=13236) {
 			  umbral=umbrales[1];
 		  }
-		  
-		  
+		  else {
+			  umbral=umbrales[2];
+		  }
+		   
 	  }
 	  
 	  
