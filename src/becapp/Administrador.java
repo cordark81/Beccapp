@@ -32,17 +32,16 @@ public class Administrador extends Usuario {
 	}
 
 	public Administrador(String dni, String clave, String nombre, String apellido, String nacionalidad, String email,
-			int telf, String fecha_nac,  String estado, String descripcion_puesto, String fecha_inc) {
+			int telf, String fecha_nac,  String estado, String descripcion_puesto) {
 		super(dni, clave, nombre, apellido, nacionalidad, email, telf, fecha_nac);
 		
 		this.estado = estado;
 		this.descripcion_puesto = descripcion_puesto;
-		this.fecha_inc = fecha_inc;
 	}
 	
 	public Administrador(int id_usuario, String dni, String clave, String nombre, String apellido, String nacionalidad, String email,
 			int telf, String fecha_nac,  String estado, String descripcion_puesto, String fecha_inc) {
-		super(dni, clave, nombre, apellido, nacionalidad, email, telf, fecha_nac);
+		super(id_usuario,dni, clave, nombre, apellido, nacionalidad, email, telf, fecha_nac);
 		
 		this.estado = estado;
 		this.descripcion_puesto = descripcion_puesto;
@@ -59,7 +58,7 @@ public class Administrador extends Usuario {
 	}
 	@Override
 	public String toString() {
-		return "Administrador ["+ super.getNombre() + " " + super.getApellido() + " DNI: " + super.getDni() + "]";
+		return "Administrador [ID: " +super.getId_usuario()+" Nombre "+ super.getNombre() + " " + super.getApellido() + " DNI: " + super.getDni() + "]";
 	}
 	
 

@@ -55,7 +55,7 @@ public class Skills extends JFrame {
 		
 		Beca beca = c.getBeca(i);
 		JTextPane textoNombre = new JTextPane();
-		textoNombre.setBounds(80, 106, 501, 40);
+		textoNombre.setBounds(80, 101, 212, 28);
 		textoNombre.setText(beca.getNombre());
 		fondo.add(textoNombre);
 		textoNombre.getText();
@@ -64,14 +64,14 @@ public class Skills extends JFrame {
 		JTextPane textoProveedor = new JTextPane();
 		textoProveedor.setText(beca.getNombreProveedor());
 		textoProveedor.setEditable(false);
-		textoProveedor.setBounds(80, 157, 501, 40);
+		textoProveedor.setBounds(329, 101, 273, 28);
 		fondo.add(textoProveedor);
 		
 		
 		JTextPane textoDescripcion = new JTextPane();
 		textoDescripcion.setText(beca.getDescripcion());
 		textoDescripcion.setEditable(false);
-		textoDescripcion.setBounds(80, 208, 501, 167);
+		textoDescripcion.setBounds(329, 155, 273, 189);
 		fondo.add(textoDescripcion);
 		
 	}

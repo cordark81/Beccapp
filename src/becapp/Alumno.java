@@ -127,28 +127,21 @@ public class Alumno extends Usuario {
 		return umbral;
 	}
 
-	public static String calBeca(String umbral) {
-		Double total = null;
-		
-		
+	public static Double calBeca(String umbral) {
+		Double total = 0.0;
+	
 		if(umbral.equals("umbral1")) {
 			total = total + 1700 + 1600 + 60;
-			
 		}
 		else if(umbral.equals("umbral2")) {
-			
 			total = total + 1600 + 60;
-			
 		}
 		else if(umbral.equals("umbral3")) {
 			total=total+300;
 		}
 		else {
 			total=total+0;
-			
-			
 		}
-		
-		return "La cuantía de su beca es de " + total + "€";
+		return total;
 	}
 }

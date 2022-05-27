@@ -35,7 +35,7 @@ public class Login extends JFrame{
 		 * Admin:
 		 * 
 		 * ANTONIOOTONGONZALEZ@YAHOO.COM
-		 * Passw0rd
+		 *  
 		 * 
 		 * 
 		 * User:

@@ -100,8 +100,9 @@ public class MenuUsuario extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaCalcula ventana = new VentanaCalcula();
-				ventana.setVisible(true);
+				VentanaCalcula pg = new VentanaCalcula();
+
+				pg.setVisible(true);
 				dispose();
 			}
 			

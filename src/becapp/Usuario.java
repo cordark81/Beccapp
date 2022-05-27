@@ -35,8 +35,8 @@ public class Usuario {
 	}
 	
 
-	public Usuario(int id_usuario, String fecha_nac,
-			String clave, String email, String nombre, String apellido, String dni, String nacionalidad, int telf ) {
+	public Usuario(int id_usuario, String dni, String clave, String nombre, String apellido, String nacionalidad, String email,
+			int telf, String fecha_nac ) {
 		super();
 		this.id_usuario=id_usuario;
 		this.dni = dni;
@@ -91,6 +91,11 @@ public class Usuario {
 		return "Usuario [id_usuario=" + id_usuario + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", nacionalidad=" + nacionalidad + ", email=" + email + ", telf=" + telf + ", fecha_nac=" + fecha_nac
 				+ "]";
+	}
+
+
+	public void setId_usuario(int id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 
 }

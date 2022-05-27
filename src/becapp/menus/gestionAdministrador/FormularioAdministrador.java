@@ -257,11 +257,11 @@ public class FormularioAdministrador extends JFrame {
 
 					int telefono = Integer.parseInt(telf.getText());
 					// completamos el objeto beca con los datos recogidos
-					Administrador admin = new Administrador(dni.getText().toUpperCase(), nombre.getText().toUpperCase(),
-							apellido.getText().toUpperCase(), nacionalidad.getText().toUpperCase(),
-							email.getText().toUpperCase(), telefono, fecha, clave.getText().toUpperCase(),
-							estado.getSelectedItem().toString().toUpperCase(),
-							descripcion_puesto.getText().toUpperCase());
+					Administrador admin = new Administrador(dni.getText().toUpperCase(), clave.getText(),
+							nombre.getText().toUpperCase(), apellido.getText().toUpperCase(),
+							nacionalidad.getText().toUpperCase(), email.getText().toUpperCase(), telefono, fecha,
+							estado.getSelectedItem().toString().toUpperCase(), descripcion_puesto.getText().toUpperCase());
+							
 
 					if (conexion.darAltaAdmin(admin)) {
 
