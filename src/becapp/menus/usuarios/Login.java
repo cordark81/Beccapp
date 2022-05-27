@@ -30,6 +30,20 @@ public class Login extends JFrame{
 	private JPasswordField passwordField;
 
 	public Login(){
+		
+		/**
+		 * Admin:
+		 * 
+		 * ANTONIOOTONGONZALEZ@YAHOO.COM
+		 * Passw0rd
+		 * 
+		 * 
+		 * User:
+		 * MARIAALONSOCARMONA@GMAIL.COM
+		 * Passw0rd
+		 * 
+		 * 
+		 */
 
 		setTitle("BECAPP");
 		setBounds(200, 100, 800, 620);
@@ -103,12 +117,11 @@ public class Login extends JFrame{
 					ventana.setVisible(true);
 					dispose();
 					
-					GregorianCalendar gc = new GregorianCalendar();
-					Date fecha_hora = gc.getTime();
+				
 					Log log = new Log();
 					
 					try {
-						log.escribirLog(Tipo_movimiento.LOGIN, fecha_hora);
+						log.escribirLog(Tipo_movimiento.LOGIN);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -122,12 +135,11 @@ public class Login extends JFrame{
 							ventana.setVisible(true);
 							dispose();
 							
-							GregorianCalendar gc = new GregorianCalendar();
-							Date fecha_hora = gc.getTime();
+	
 							Log log = new Log();
 							
 							try {
-								log.escribirLog(Tipo_movimiento.LOGIN, fecha_hora);
+								log.escribirLog(Tipo_movimiento.LOGIN);
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

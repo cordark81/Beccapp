@@ -168,12 +168,11 @@ public class RegistroUsuarios extends JFrame {
 						ventana.setVisible(true);
 						dispose();
 
-						GregorianCalendar gc = new GregorianCalendar();
-						Date fecha_hora = gc.getTime();
+					
 
 						Log log = new Log();
 						try {
-							log.escribirLog(Tipo_movimiento.REGISTRAR_ALUMNO, fecha_hora);
+							log.escribirLog(Tipo_movimiento.REGISTRAR_ALUMNO);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

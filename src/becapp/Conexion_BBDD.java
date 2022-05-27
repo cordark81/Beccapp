@@ -63,11 +63,12 @@ public class Conexion_BBDD {
 	 * @throws SQLException
 	 */
 	public void cerrar() throws SQLException {
-
+/*
 		if (rs != null)
 			rs.close();
 		if (connection != null)
 			connection.close();
+			*/
 
 	}
 
@@ -258,19 +259,19 @@ public class Conexion_BBDD {
 		ArrayList<Administrador> datos = new ArrayList<Administrador>();
 
 		PreparedStatement ps;
-
+		
 		try {
 			ps = connection.prepareStatement(
 					"select * from administradores a join usuarios u on a.id_admin=id_usuario order by 1");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				String fecha_cumple = rs.getDate(6).toString();
-				String fecha_ini = rs.getDate(4).toString();
-
-				Administrador a = new Administrador(rs.getInt(1), rs.getString(11), rs.getString(9), rs.getString(10),
-						rs.getString(12), rs.getString(8), rs.getInt(13), fecha_cumple, rs.getString(7),
-						rs.getString(2), rs.getString(3), fecha_ini);
+				
+		
+				Administrador a = new Administrador(rs.getInt(5),rs.getString(11), rs.getString(7),
+						rs.getString(9), rs.getString(10),
+						rs.getString(12), rs.getString(8), rs.getInt(13), rs.getDate(4).toString(),
+						rs.getString(2), rs.getString(3),rs.getDate(4).toString());
 				datos.add(a);
 
 			}
@@ -544,45 +545,10 @@ public class Conexion_BBDD {
 		return borrado;
 	}
 	
-	public boolean calUmbral(Integer nunFamilia,Integer dinero) {
+	
 		
-		
-		
-		Map<Integer, Bean> umbrales=new HashMap<>();		
-		
-		Bean umbral1=new Bean();
-		Bean umbral2=new Bean();
-		Bean umbral3=new Bean();
-		Bean umbral4=new Bean();
-		
-		umbral1.setUmbralMaximo(10);
-		umbral1.setUmbralMinimo(4);
-		umbral2.setUmbralMaximo(10);
-		umbral2.setUmbralMinimo(4);
-		umbral3.setUmbralMaximo(10);
-		umbral3.setUmbralMinimo(4);
-		umbral4.setUmbralMaximo(10);
-		umbral4.setUmbralMinimo(4);
-		
-		umbrales.put(1, umbral1);
-		umbrales.put(2, umbral2);
-		umbrales.put(3, umbral3);
-		umbrales.put(4, umbral4);
-		
-		Bean umbralRecovery=umbrales.get(nunFamilia);
-		
-		
-		if (umbralRecovery.getUmbralMinimo()>dinero && umbralRecovery.getUmbralMaximo()<dinero) {
-			
-			return true;
-		}
-		else {
-			return false;
-		}
-		
-		
-	}
 
+		
 	// pendiente gestionar el tema de la fecha
 	public boolean registrarAlumno (Alumno a) {
 
@@ -688,7 +654,7 @@ public class Conexion_BBDD {
 					+ "on administradores.id_admin=usuarios.id_usuario WHERE email=UPPER('"+email+"') AND clave='"+clave+"'");
 			if(rs.next()){
 				if(rs.getString(3) != null ) {
-					if(rs.getString(3).equals("ACTIVO")) {
+					if(rs.getString(3).equals("DESACTIVADO")) {
 					resultado=2;
 					}
 				}

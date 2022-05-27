@@ -35,9 +35,8 @@ public class Usuario {
 	}
 	
 
-	public Usuario(int id_usuario,String dni,
-			String clave, String nombre, String apellido, String nacionalidad, String email,
-			int telf, String fecha_nac) {
+	public Usuario(int id_usuario, String fecha_nac,
+			String clave, String email, String nombre, String apellido, String dni, String nacionalidad, int telf ) {
 		super();
 		this.id_usuario=id_usuario;
 		this.dni = dni;
