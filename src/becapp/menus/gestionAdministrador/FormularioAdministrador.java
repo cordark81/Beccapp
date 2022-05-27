@@ -1,6 +1,7 @@
 package becapp.menus.gestionAdministrador;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -46,6 +47,7 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().setLayout(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane dniC = new JTextPane();
 		dniC.setText("Dni");
@@ -53,12 +55,14 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(dniC);
 		dniC.setEditable(false);
 		dniC.setOpaque(false);
+		dniC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextField dni = new JTextField();
 		dni.setBounds(100, 50, 150, 19);
 		getContentPane().add(dni);
 		dni.setColumns(10);
 		dni.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		dni.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane nombreC = new JTextPane();
 		nombreC.setText("Nombre");
@@ -66,12 +70,14 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(nombreC);
 		nombreC.setEditable(false);
 		nombreC.setOpaque(false);
+		nombreC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextField nombre = new JTextField();
 		nombre.setBounds(100, 110, 250, 19);
 		getContentPane().add(nombre);
 		nombre.setColumns(10);
 		nombre.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		nombre.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane apellidoC = new JTextPane();
 		apellidoC.setText("Apellido");
@@ -79,12 +85,14 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(apellidoC);
 		apellidoC.setEditable(false);
 		apellidoC.setOpaque(false);
+		apellidoC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextField apellido = new JTextField();
 		apellido.setBounds(100, 170, 250, 19);
 		getContentPane().add(apellido);
 		apellido.setColumns(10);
 		apellido.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		apellido.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane nacionalidadC = new JTextPane();
 		nacionalidadC.setText("Nacionalidad");
@@ -92,12 +100,14 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(nacionalidadC);
 		nacionalidadC.setEditable(false);
 		nacionalidadC.setOpaque(false);
+		nacionalidadC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextField nacionalidad = new JTextField();
 		nacionalidad.setBounds(450, 50, 250, 19);
 		getContentPane().add(nacionalidad);
 		nacionalidad.setColumns(10);
 		nacionalidad.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		nacionalidad.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane emailC = new JTextPane();
 		emailC.setText("Email");
@@ -105,12 +115,14 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(emailC);
 		emailC.setEditable(false);
 		emailC.setOpaque(false);
-
+		emailC.setFont(new Font("Roboto", Font.PLAIN, 14));
+		
 		JTextField email = new JTextField();
 		email.setBounds(450, 110, 250, 19);
 		getContentPane().add(email);
 		email.setColumns(10);
 		email.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		email.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane telfC = new JTextPane();
 		telfC.setText("Telefono");
@@ -118,19 +130,22 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(telfC);
 		telfC.setEditable(false);
 		telfC.setOpaque(false);
+		telfC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextField telf = new JTextField();
 		telf.setBounds(450, 170, 250, 19);
 		getContentPane().add(telf);
 		telf.setColumns(10);
 		telf.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
-
+		telf.setFont(new Font("Roboto", Font.PLAIN, 14));
+		
 		JTextPane fecha_nacC = new JTextPane();
 		fecha_nacC.setText("Fecha de nacimiento");
 		fecha_nacC.setBounds(100, 200, 250, 19);
 		getContentPane().add(fecha_nacC);
 		fecha_nacC.setEditable(false);
 		fecha_nacC.setOpaque(false);
+		fecha_nacC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane claveC = new JTextPane();
 		claveC.setText("Clave");
@@ -138,12 +153,14 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(claveC);
 		claveC.setEditable(false);
 		claveC.setOpaque(false);
+		claveC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextField clave = new JTextField();
 		clave.setBounds(450, 230, 100, 19);
 		getContentPane().add(clave);
 		clave.setColumns(10);
 		clave.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		clave.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane estadoC = new JTextPane();
 		estadoC.setText("Estado");
@@ -151,6 +168,7 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(estadoC);
 		estadoC.setEditable(false);
 		estadoC.setOpaque(false);
+		estadoC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		String[] optionsToChoose = { "Activo", "No activo" };
 
@@ -158,6 +176,7 @@ public class FormularioAdministrador extends JFrame {
 		estado.setBounds(100, 290, 100, 19);
 		getContentPane().add(estado);
 		estado.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		estado.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane descipcion_puestoC = new JTextPane();
 		descipcion_puestoC.setText("Descripcion puesto");
@@ -165,12 +184,14 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(descipcion_puestoC);
 		descipcion_puestoC.setEditable(false);
 		descipcion_puestoC.setOpaque(false);
+		descipcion_puestoC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextField descripcion_puesto = new JTextField();
 		descripcion_puesto.setBounds(450, 290, 250, 19);
 		getContentPane().add(descripcion_puesto);
 		descripcion_puesto.setColumns(10);
 		descripcion_puesto.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		descripcion_puesto.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane ultimoAdminitradorC = new JTextPane();
 		ultimoAdminitradorC.setText("Ultimo Administrador añadido");
@@ -178,6 +199,7 @@ public class FormularioAdministrador extends JFrame {
 		getContentPane().add(ultimoAdminitradorC);
 		ultimoAdminitradorC.setEditable(false);
 		ultimoAdminitradorC.setOpaque(false);
+		ultimoAdminitradorC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextField ultimoAdministrador = new JTextField();
 		ultimoAdministrador.setBounds(100, 380, 600, 38);
@@ -186,6 +208,7 @@ public class FormularioAdministrador extends JFrame {
 		ultimoAdministrador.setEditable(false);
 		ultimoAdministrador.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 		ultimoAdministrador.setEditable(false);
+		ultimoAdministrador.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		// boton estrella con funcinaliidad de calendario, fuentes importadas
 		JDateChooser jdc = new JDateChooser();
@@ -193,21 +216,25 @@ public class FormularioAdministrador extends JFrame {
 		jdc.setBounds(100, 230, 224, 19);
 		fondo.add(jdc);
 		jdc.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
+		jdc.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JButton limpiar = new JButton("LIMPIAR");
 		limpiar.setBounds(350, 550, 100, 30);
 		getContentPane().add(limpiar);
 		limpiar.setBackground(Color.orange);
+		limpiar.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JButton listado = new JButton("Ver BBDD");
 		listado.setBounds(100, 550, 100, 30);
 		getContentPane().add(listado);
 		listado.setBackground(Color.orange);
+		listado.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.setBounds(600, 550, 100, 30);
 		getContentPane().add(aceptar);
 		aceptar.setBackground(Color.orange);
+		aceptar.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		/**
 		 * Accion del boton limpiar para resetear la entrada de datos
