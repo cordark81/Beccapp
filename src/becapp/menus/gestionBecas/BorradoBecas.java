@@ -96,7 +96,7 @@ public class BorradoBecas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
-				conexion.conectar();
+			
 				name = JOptionPane.showInputDialog("Introduzca ID de la beca");
 				grupo1.clearSelection();
 				condicion = 1;
@@ -109,11 +109,7 @@ public class BorradoBecas extends JFrame {
 					informacion.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Ninguna beca encontrada");
 				}
-				try {
-					conexion.cerrar();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+		
 
 			}
 		});
@@ -163,22 +159,18 @@ public class BorradoBecas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				conexion = new Conexion_BBDD();
-				conexion.conectar();
+				
 				grupo1.clearSelection();
 				// columnas de la tabla
 				String[] columnas = { "Codigo", "Proveedor", "Contacto", "Descripcion", "Nombre", "Condiciones",
 						"Tipo de Beca", "" };
 				// constructor que monta la tabla
-				Listado listado = new Listado(true, columnas, "beca");
+				Listado listado = new Listado(true, columnas, "becas");
 				listado.setVisible(true);
 				listado.pack();
 				listado.setTitle("Informacion Becas");
 
-				try {
-					conexion.cerrar();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+			
 
 			}
 		});
@@ -193,17 +185,13 @@ public class BorradoBecas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
-				conexion.conectar();
-				// generamos fecha de la accion a registrar en el log
-				GregorianCalendar gc = new GregorianCalendar();
-				Date fecha_hora = gc.getTime();
-
+		
 				if (conexion.borrarBeca(name, condicion, true)) {
 					JOptionPane.showMessageDialog(null, "Seleccion de beca/s borrado con exito");
 					Log metodos = new Log();
 					try {
 						// metodo de escritura en el archivo log con la hora y el tipo de movimiento
-						metodos.escribirLog(Tipo_movimiento.BORRAR_BECA, fecha_hora);
+						metodos.escribirLog(Tipo_movimiento.BORRAR_BECA);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
