@@ -19,10 +19,13 @@ public class Usuario {
 
 	private String fecha_nac;
 	
-	public Usuario(String dni, String nombre, String apellido, String nacionalidad, String email,
+	private String clave;
+	
+	public Usuario(String dni, String clave, String nombre, String apellido, String nacionalidad, String email,
 			int telf, String fecha_nac) {
 		super();
 		this.dni = dni;
+		this.clave=clave;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.nacionalidad = nacionalidad;
@@ -30,11 +33,14 @@ public class Usuario {
 		this.telf = telf;
 		this.fecha_nac = fecha_nac;
 	}
-	public Usuario(int id_usuario,String dni, String nombre, String apellido, String nacionalidad, String email,
-			int telf, String fecha_nac) {
+	
+
+	public Usuario(int id_usuario, String dni, String clave, String nombre, String apellido, String nacionalidad, String email,
+			int telf, String fecha_nac ) {
 		super();
 		this.id_usuario=id_usuario;
 		this.dni = dni;
+		this.clave=clave;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.nacionalidad = nacionalidad;
@@ -43,6 +49,12 @@ public class Usuario {
 		this.fecha_nac = fecha_nac;
 	}
 
+	public String getClave() {
+		return clave;
+	}
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
 	public String getDni() {
 		return dni;
 	}
@@ -79,6 +91,11 @@ public class Usuario {
 		return "Usuario [id_usuario=" + id_usuario + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", nacionalidad=" + nacionalidad + ", email=" + email + ", telf=" + telf + ", fecha_nac=" + fecha_nac
 				+ "]";
+	}
+
+
+	public void setId_usuario(int id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 
 }

@@ -8,7 +8,7 @@ import java.util.Date;
 import org.junit.Test;
 
 public class conexion_BBDDTest {
-
+/**
 	@Test
 	public void testAnadirBeca() {
 		// beca valida
@@ -95,5 +95,5 @@ public class conexion_BBDDTest {
 		//String resultado = c.mostrarAdmin();
 		//Se puede testear este metodo?
 	}
-
+*/
 }

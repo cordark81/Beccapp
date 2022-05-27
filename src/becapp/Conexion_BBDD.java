@@ -3,12 +3,19 @@ package becapp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import becapp.menus.PrincipalGestion;
+import becapp.menus.usuarios.Login;
 
 /**
  * 
@@ -37,16 +44,15 @@ public class Conexion_BBDD {
 		try {
 
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			if (connection==null) {
-				
+			if (connection == null) {
+
 				connection = DriverManager.getConnection(url, login, password);
 				System.out.println("Conexion realizada correctamente");
 			}
-						
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 
 	}
 
@@ -56,11 +62,9 @@ public class Conexion_BBDD {
 	 * @throws SQLException
 	 */
 	public void cerrar() throws SQLException {
-
-		if (rs != null)
-			rs.close();
-		if (connection != null)
-			connection.close();
+		/*
+		 * if (rs != null) rs.close(); if (connection != null) connection.close();
+		 */
 
 	}
 
@@ -68,12 +72,13 @@ public class Conexion_BBDD {
 	 * En este método recibimos los datos correspondientes a la beca que queremos
 	 * dar de alta en un objeto beca, a excepción del número de beca, que
 	 * conseguimos en la primera parte del método de la tabla beca.cod y le sumamos
-	 * +1 para que siga el orden correlativo. En la segunda parte del método hacemos
-	 * un insert con todos los datos recopilados con el método consulta preparada.
+	 * +1 para que siga el orden correlativo. En la segunda parte del método
+	 * hacemos un insert con todos los datos recopilados con el método consulta
+	 * preparada.
 	 * 
 	 * @param nombre          datos beca
 	 * @param condiciones     datos beca
-	 * @param descripción     datos beca
+	 * @param descripción    datos beca
 	 * @param contacto        datos beca
 	 * @param nombreProveedor datos beca
 	 * @param tipo_beca       datos beca
@@ -119,9 +124,9 @@ public class Conexion_BBDD {
 	/**
 	 * Método destinado a borrar becas. Empieza comprobando si el dato está en
 	 * blanco o vacío en cuyo caso lanza una excepción preparada con un mensaje de
-	 * diálogo. A continuación utiliza el método buscar datos para sacar el filtro
-	 * de la consulta. Finalmente añadimos toda la información recogida a una
-	 * variable String
+	 * diálogo. A continuación utiliza el método buscar datos para sacar el
+	 * filtro de la consulta. Finalmente añadimos toda la información recogida a
+	 * una variable String
 	 * 
 	 * @param dato         la información de referencia para el borrado
 	 * @param condicion    numeración interna que nos da la culumna de filtro
@@ -163,8 +168,8 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Con este método podremos actualizar determinados datos de las distintas becas
-	 * de nuestra BBDD
+	 * Con este método podremos actualizar determinados datos de las distintas
+	 * becas de nuestra BBDD
 	 * 
 	 * @param columna       campo del que queremos hacer la actualización
 	 * @param cod           código del cliente al que se le hace el cambio
@@ -200,8 +205,8 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Método con el cual rescatamos la información necesaria para crear y rellenar
-	 * un arraylist de becas
+	 * Método con el cual rescatamos la información necesaria para crear y
+	 * rellenar un arraylist de becas
 	 * 
 	 * @return arraylist de becas
 	 */
@@ -241,8 +246,8 @@ public class Conexion_BBDD {
 	}
 
 	/**
-	 * Método con el cual rescatamos la información necesaria para crear y rellenar
-	 * un arraylist de administradores
+	 * Método con el cual rescatamos la información necesaria para crear y
+	 * rellenar un arraylist de administradores
 	 * 
 	 * @return arraylist de administradores
 	 */
@@ -258,14 +263,12 @@ public class Conexion_BBDD {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				String fecha_cumple = rs.getDate(6).toString();
-				String fecha_ini = rs.getDate(4).toString();
 
-				Administrador a = new Administrador(rs.getInt(1), rs.getString(11), rs.getString(9), rs.getString(10),
-						rs.getString(12), rs.getString(8), rs.getInt(13), fecha_cumple, rs.getString(7),
-						rs.getString(2), rs.getString(3), fecha_ini);
+				Administrador a = new Administrador(rs.getInt(1), rs.getString(11), rs.getString(7), rs.getString(9),
+						rs.getString(10), rs.getString(12), rs.getString(8), rs.getInt(13), rs.getDate(4).toString(),
+						rs.getString(2), rs.getString(3), rs.getDate(4).toString());
 				datos.add(a);
-
+				
 			}
 
 		} catch (SQLException e) {
@@ -278,15 +281,16 @@ public class Conexion_BBDD {
 
 	/**
 	 * Método diseñado para obtener información de la base de datos. Tiene varias
-	 * opciones, una de ellas es según la condición nos dará el filtro del where y
-	 * hará la búsqueda que devolverá en un Stream y otra opción es simplemente que
-	 * nos devuelva el filtro
+	 * opciones, una de ellas es según la condición nos dará el filtro del where
+	 * y hará la búsqueda que devolverá en un Stream y otra opción es
+	 * simplemente que nos devuelva el filtro
 	 * 
 	 * @param dato      información de igualado del where
 	 * @param condicion numeración interna del filtro
 	 * @param tabla     en la que queremos hacer la búsqueda (becas y
 	 *                  administradores)
-	 * @param buscar    true o false según si queremos o no hacer uso de la consulta
+	 * @param buscar    true o false según si queremos o no hacer uso de la
+	 *                  consulta
 	 * @return String con la información recogida
 	 */
 
@@ -436,6 +440,7 @@ public class Conexion_BBDD {
 
 		boolean alta = false;
 		int cod = 0;
+		
 
 		PreparedStatement ps;
 		try {
@@ -445,6 +450,7 @@ public class Conexion_BBDD {
 			while (rs.next()) {
 
 				cod = rs.getInt(1) + 1;
+				a.setId_usuario(cod);
 			}
 			ps = connection.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
 
@@ -536,44 +542,243 @@ public class Conexion_BBDD {
 
 		return borrado;
 	}
-	
-	public boolean calUmbral(Integer nunFamilia,Integer dinero) {
-		
-		
-		
-		Map<Integer, Bean> umbrales=new HashMap<>();		
-		
-		Bean umbral1=new Bean();
-		Bean umbral2=new Bean();
-		Bean umbral3=new Bean();
-		Bean umbral4=new Bean();
-		
-		umbral1.setUmbralMaximo(10);
-		umbral1.setUmbralMinimo(4);
-		umbral2.setUmbralMaximo(10);
-		umbral2.setUmbralMinimo(4);
-		umbral3.setUmbralMaximo(10);
-		umbral3.setUmbralMinimo(4);
-		umbral4.setUmbralMaximo(10);
-		umbral4.setUmbralMinimo(4);
-		
-		umbrales.put(1, umbral1);
-		umbrales.put(2, umbral2);
-		umbrales.put(3, umbral3);
-		umbrales.put(4, umbral4);
-		
-		Bean umbralRecovery=umbrales.get(nunFamilia);
-		
-		
-		if (umbralRecovery.getUmbralMinimo()>dinero && umbralRecovery.getUmbralMaximo()<dinero) {
-			
-			return true;
+
+	// pendiente gestionar el tema de la fecha
+	public boolean registrarAlumno(Alumno a) {
+
+		boolean alta = false;
+		int cod = 0;
+
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement("select max(id_usuario)from alumnos");
+			rs = ps.executeQuery();
+			// variar en un futuro para poder hacer la incorpoacion en una tabla vacia
+
+			while (rs.next()) {
+
+				cod = rs.getInt(1) + 1;
+			}
+
+			ps = connection.prepareStatement("insert into alumnos values(?,?,?,?,?,?,?,sysdate,?,?,?,?,?");
+			ps.setInt(1, cod);
+			ps.setString(2, a.getDni());
+			ps.setString(3, a.getNombre());
+			ps.setString(4, a.getApellido());
+			ps.setString(5, a.getNacionalidad());
+			ps.setInt(6, a.getTelf());
+			ps.setString(7, a.getEmail());
+
+			// pendiente de ver al interaccion de este dato
+			// ps.setDate(8,"sysdate");
+			// ps.setString(8, "sysdate");
+			ps.setInt(9, a.getNumero_familiares());
+			ps.setDouble(10, a.getIngreso_anual());
+			ps.setInt(11, a.getNumero_familiares());
+			ps.setString(12, a.getEstudios_requisitos().toString());
+			ps.setString(13, a.getUmbral_ingresos().toString());
+			ps.executeUpdate();
+
+			alta = true;
+
+		} catch (SQLException e) {
+			System.out.println("no se han insertar los datos");
+			e.printStackTrace();
+			alta = false;
+			return alta;
 		}
-		else {
-			return false;
+
+		return alta;
+
+	}
+
+	public String mostrarAlumno() {
+
+		PreparedStatement ps;
+		String lista = "";
+
+		try {
+			ps = connection.prepareStatement("select * from alumnos");
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				lista += "Codigo alumno " + rs.getInt(1) + " dni = " + rs.getString(2) + " nombre= " + rs.getString(3)
+						+ " apellido= " + rs.getString(4) + " nacionalidad= " + rs.getString(5) + " email= "
+						+ rs.getString(6) + " telfono= " + rs.getInt(7) + " fecha nacimiento= " + rs.getDate(8)
+						+ " numero de familiares= " + rs.getInt(9) + " ingresos anuales= " + rs.getDouble(10)
+						+ " telf 2= " + rs.getInt(11) + " estudios= " + rs.getString(12) + "umbral ingresos= "
+						+ rs.getString(13) + "\n";
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "La lista no se ha podido cargar";
 		}
-		
-		
+		return lista;
+	}
+
+	public boolean darBajaAlumno(int id_usuario) {
+
+		boolean borrado = false;
+
+		PreparedStatement ps;
+
+		try {
+			ps = connection.prepareStatement("delete from alumnos where id_usuario=?");
+			ps.setInt(1, id_usuario);
+			ps.executeUpdate();
+
+			borrado = true;
+
+		} catch (SQLException e) {
+			System.out.println("No se a podido realizar el borrado del alumno");
+			e.printStackTrace();
+			borrado = false;
+			return borrado;
+		}
+
+		return borrado;
+	}
+
+	public int loginUsuario(String email, String clave) {
+
+		int resultado = 0;
+		try {
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT email, clave, estado from administradores right join usuarios "
+					+ "on administradores.id_admin=usuarios.id_usuario WHERE email=UPPER('" + email + "') AND clave='"
+					+ clave + "'");
+			if (rs.next()) {
+				if (rs.getString(3) != null) {
+					if (rs.getString(3).equals("ACTIVO")) {
+						resultado = 2;
+					}
+				} else {
+					resultado = 1;
+				}
+
+			}
+
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, ex, "Error de conexi�n", JOptionPane.ERROR_MESSAGE);
+		}
+
+		return resultado;
+	}
+
+	// pendiente gestionar el tema de la fecha
+	public boolean registrarUsuario(Usuario a) {
+
+		boolean alta = false;
+		int cod = 0;
+		PreparedStatement ps;
+
+		try {
+
+			ps = connection.prepareStatement("select max(id_usuario)from usuarios");
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				cod = rs.getInt(1) + 1;
+
+			}
+
+			ps = connection.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?)");
+
+			ps.setInt(1, cod);
+			ps.setString(2, a.getEmail());
+			ps.setString(3, a.getClave());
+			ps.setString(4, a.getNombre());
+			ps.setString(5, a.getApellido());
+			ps.setString(6, a.getDni());
+			ps.setString(7, a.getNacionalidad());
+			ps.setInt(8, a.getTelf());
+
+			ps.executeUpdate();
+			alta = true;
+
+		} catch (SQLException e) {
+			System.out.println("no se han podido insertar los datos");
+			e.printStackTrace();
+			alta = false;
+			return alta;
+		}
+		return alta;
+	}
+
+	public ArrayList<Beca> recuperarBecas() {
+
+		conectar();
+
+		ArrayList<Beca> becas = new ArrayList<Beca>();
+		try {
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT nombre, descripcion from becas");
+			Beca beca;
+			while (rs.next()) {
+				beca = new Beca(rs.getString(1), rs.getString(2));
+				becas.add(beca);
+
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, ex, "Error de conexi�n", JOptionPane.ERROR_MESSAGE);
+		}
+		return becas;
+	}
+
+	public Beca getBeca(int cod) {
+
+		Beca beca = null;
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select nombre, descripcion, nombre_proveedor from becas where codigo=?");
+			ps.setInt(1, cod);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				beca = new Beca(rs.getString("nombre"), rs.getString("descripcion"), rs.getString("nombre_proveedor"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return beca;
+
 	}
 
 }
+
+/**
+ * En proceso de eliminacion!!! Metodo que devuelve una lista completa de todo
+ * los administradores que tenemos en la tabla administradores
+ * 
+ * @return variable String con toda la informacion
+ */
+/*
+ * public String mostrarAdmin() {
+ * 
+ * PreparedStatement ps; String lista = "";
+ * 
+ * try { ps = connection.prepareStatement("select * from administradores"); rs =
+ * ps.executeQuery();
+ * 
+ * while (rs.next()) {
+ * 
+ * lista += "Codigo administrador " + rs.getInt(1) + " dni = " + rs.getString(2)
+ * + " nombre= " + rs.getString(3) + " apellido= " + rs.getString(4) +
+ * " nacionalidad= " + rs.getString(5) + " email= " + rs.getString(6) +
+ * " telfono= " + rs.getInt(7) + " fecha nacimiento= " + rs.getDate(8) +
+ * " clave= " + rs.getString(9) + " estado= " + rs.getString(10) +
+ * " Descripcion puesto= " + rs.getString(11) + " fecha inicio= " +
+ * rs.getDate(12) + "\n";
+ * 
+ * }
+ * 
+ * } catch (SQLException e) { e.printStackTrace(); return
+ * "La lista no se ha podido cargar"; }
+ * 
+ * return lista; }
+ */

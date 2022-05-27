@@ -29,9 +29,9 @@ public class MetodosMenus extends JFrame {
 			JOptionPane.showMessageDialog(null, "Gracias, hasta pronto", "Gracias", JOptionPane.INFORMATION_MESSAGE);
 			System.exit(0);
 		}
-
+		
 	}
-
+	
 	/**
 	 * Este metodo se encarga de transformatar un arraylist de becas o
 	 * administradores en una matriz de objetos que contiene los capos que iran en
@@ -74,17 +74,17 @@ public class MetodosMenus extends JFrame {
 
 			for (int i = 0; i < d.size(); i++) {
 				datos[i][0] = d.get(i).getId_usuario();
-				datos[i][1] = d.get(i).getEstado();
-				datos[i][2] = d.get(i).getDescripcion_puesto();
-				datos[i][3] = d.get(i).getFecha_inc();
-				datos[i][4] = d.get(i).getFecha_nac();
-				datos[i][5] = d.get(i).getClave();
-				datos[i][6] = d.get(i).getEmail();
-				datos[i][7] = d.get(i).getNombre();
-				datos[i][8] = d.get(i).getApellido();
-				datos[i][9] = d.get(i).getDni();
-				datos[i][10] = d.get(i).getNacionalidad();
-				datos[i][11] = d.get(i).getTelf();
+				datos[i][1] = d.get(i).getDni();
+				datos[i][2] = d.get(i).getNombre();
+				datos[i][3] = d.get(i).getApellido();
+				datos[i][4] = d.get(i).getNacionalidad();
+				datos[i][5] = d.get(i).getEmail();
+				datos[i][6] = d.get(i).getTelf();
+				datos[i][7] = d.get(i).getFecha_nac();
+				datos[i][8] = d.get(i).getClave();
+				datos[i][9] = d.get(i).getEstado();
+				datos[i][10] = d.get(i).getDescripcion_puesto();
+				datos[i][11] = d.get(i).getFecha_inc();
 				datos[i][12] = null;
 
 			}

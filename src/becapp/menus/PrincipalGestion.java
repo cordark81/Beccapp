@@ -70,7 +70,7 @@ public class PrincipalGestion extends JFrame implements ActionListener {
 		menuBar.add(menuBecas);
 
 		// a√±adimos un item
-		anaidirBeca = new JMenuItem("A√±adir becas");
+		anaidirBeca = new JMenuItem("AÒadir becas");
 		anaidirBeca.addActionListener(this);
 		menuBecas.add(anaidirBeca);
 
@@ -92,7 +92,7 @@ public class PrincipalGestion extends JFrame implements ActionListener {
 		menuAdministrador = new JMenu("Gestion administrador");
 		menuBar.add(menuAdministrador);
 
-		anaidirAdmin = new JMenuItem("A√±adir administrador");
+		anaidirAdmin = new JMenuItem("AÒadir administrador");
 		anaidirAdmin.addActionListener(this);
 		menuAdministrador.add(anaidirAdmin);
 
@@ -100,7 +100,7 @@ public class PrincipalGestion extends JFrame implements ActionListener {
 		borrarAdmin.addActionListener(this);
 		menuAdministrador.add(borrarAdmin);
 
-		listaAdmin = new JMenuItem("Listado adminitrador");
+		listaAdmin = new JMenuItem("Listado administrador");
 		listaAdmin.addActionListener(this);
 		menuAdministrador.add(listaAdmin);
 

@@ -28,4 +28,5 @@ public class ImagenFondo extends JPanel{
 		super.paint(g);
 	}
 	
+	
 }

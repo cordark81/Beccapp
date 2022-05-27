@@ -38,7 +38,7 @@ public class Listado extends JFrame {
 
 		MetodosMenus mm = new MetodosMenus();
 		Conexion_BBDD conexion = new Conexion_BBDD();
-		conexion.conectar();
+		
 		
 		Object[][] datos = mm.arrayBidimensional(conexion, tabla);
 
