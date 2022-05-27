@@ -47,7 +47,7 @@ public class MetodosMenus extends JFrame {
 		Object[] array;
 		Object[][] datos = null;
 
-		if (tipoTabla.equals("beca")) {
+		if (tipoTabla.equals("becas")) {
 
 			ArrayList<Beca> d = conexion.listarBecasArray();
 			datos = new Object[d.size()][8];

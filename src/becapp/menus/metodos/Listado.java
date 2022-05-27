@@ -53,11 +53,10 @@ public class Listado extends JFrame {
 						if (conexion.borrarBeca(dato, 1, false)) {
 						JOptionPane.showMessageDialog(null, "Beca borrada con exito");
 						Log metodos = new Log();
-						GregorianCalendar gc = new GregorianCalendar();
-						Date fecha_hora = gc.getTime();
+					
 						try {
 							//tiene su propio añadido al fichero log si se elige con borrado
-							metodos.escribirLog(Tipo_movimiento.BORRAR_BECA, fecha_hora);
+							metodos.escribirLog(Tipo_movimiento.BORRAR_BECA);
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
@@ -66,14 +65,13 @@ public class Listado extends JFrame {
 						}
 					}
 					else if(tabla.equals("administrador")){
-						if (conexion.darBajaAdmin(dato, 1)) {
+						if (conexion.darBajaAdmin(dato, 3)) {
 							JOptionPane.showMessageDialog(null, "Beca borrada con exito");
 							Log metodos = new Log();
-							GregorianCalendar gc = new GregorianCalendar();
-							Date fecha_hora = gc.getTime();
+						
 							try {
 								//tiene su propio añadido al fichero log si se elige con borrado
-								metodos.escribirLog(Tipo_movimiento.BORRAR_ADMINISTRADOR, fecha_hora);
+								metodos.escribirLog(Tipo_movimiento.BORRAR_ADMINISTRADOR);
 							} catch (IOException e1) {
 								e1.printStackTrace();
 							}

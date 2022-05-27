@@ -153,7 +153,7 @@ public class PrincipalGestion extends JFrame implements ActionListener {
 			String[] columnas = { "Codigo", "Proveedor", "Contacto", "Descripcion", "Nombre", "Condiciones",
 					"Tipo de Beca" };
 
-			Listado listado = new Listado(false, columnas, "beca");
+			Listado listado = new Listado(false, columnas, "becas");
 			listado.setTitle("Datos Becas");
 			listado.pack();
 			listado.setVisible(true);
