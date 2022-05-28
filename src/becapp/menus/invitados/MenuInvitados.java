@@ -48,6 +48,7 @@ public class MenuInvitados extends JFrame {
 		setTitle("BECAPP");
 		setBounds(200, 100, 648, 430);
 		setFont(new Font("Roboto", Font.PLAIN, 14));
+		setResizable(false);
 	    
 		ImagenFondo fondo = new ImagenFondo("/imagenes/FondoCalcula.jpg");
 		setContentPane(fondo);

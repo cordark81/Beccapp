@@ -35,6 +35,7 @@ public class Alumno extends Usuario {
 		this.umbral_ingresos = null;
 	}
 
+
 	public double calcularUmbral() {
 		return 0.0;
 	}
@@ -80,6 +81,15 @@ public class Alumno extends Usuario {
 	public void borrarBecaFavorita(Beca beca) {
 	}
 
+	/**
+	 * @author Eduardo y Arturo
+	 * @param numFamilia
+	 * @param dinero
+	 * @return umbral
+	 * El siguiente método nos permite calcular el umbral económico en el que se encuentra el 
+	 * usuario que introduce los datos. Posteriormente esta variable umbral se utiliza para 
+	 * calcular la cuantía monetaria de la beca.
+	 */
 	public static String calUmbral(Integer numFamilia,Double dinero) {
 		String umbral="";
 		final int intervalos[][] = {
@@ -107,7 +117,13 @@ public class Alumno extends Usuario {
 		}
 		return umbral;
 	}
-
+	/**
+	 * @author amart y Eduardo
+	 * @param umbral
+	 * @param universitario
+	 * @return total de la beca
+	 * El siguiente método nos sirve para calcular la cuantía de la beca.
+	 */
 	public static Double calBeca(String umbral, boolean universitario) {
 		Double total = 0.0;
 	
@@ -131,4 +147,7 @@ public class Alumno extends Usuario {
 		}
 		return total;
 	}
+
+	
+	
 }

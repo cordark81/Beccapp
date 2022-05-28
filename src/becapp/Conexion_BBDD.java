@@ -563,7 +563,7 @@ public class Conexion_BBDD {
 			
 			a.setId_usuario(cod);
 
-			ps = connection.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?,?");
+			ps = connection.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
 			ps.setInt(1, cod);
 			ps.setString(2, a.getFecha_nac());
 			ps.setString(3, a.getClave());
@@ -571,12 +571,13 @@ public class Conexion_BBDD {
 			ps.setString(5, a.getNombre());
 			ps.setString(6, a.getApellido());
 			ps.setString(7, a.getDni());
-			ps.setString(9, a.getNacionalidad());
-			ps.setInt(10, a.getTelf());
+			ps.setString(8, a.getNacionalidad());
+			ps.setInt(9, a.getTelf());
+			
 			
 			ps.executeUpdate();
 			
-			ps = connection.prepareStatement("insert into alumnos values(?,?,?,?,?");
+			ps = connection.prepareStatement("insert into alumnos values(?,?,?,?,?)");
 			
 			ps.setInt(1, cod);
 			ps.setInt(2, 0);

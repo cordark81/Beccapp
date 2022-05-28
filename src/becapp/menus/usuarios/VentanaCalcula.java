@@ -18,14 +18,22 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
-
+/**
+ * 
+ * @author Eduardo y Arturo
+ * 
+ *
+ */
 public class VentanaCalcula extends JFrame {
 	private JTextField Dinero;
 	private JTextField Nfam;
 	private boolean prima_universidad=false;
 
 	/**
-	 * Create the frame.
+	 * @author Eduardo y Arturo
+	 * El siguiente constructor contiene los elementos necesarios para generar la
+	 * ventana mediante la que el usuario calcula la cuantía de la beca mediante dos 
+	 * parámetros(cuantía de ingresos anuales y número de familiares).
 	 */
 	public VentanaCalcula() {
 
