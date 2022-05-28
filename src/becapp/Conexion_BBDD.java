@@ -450,8 +450,9 @@ public class Conexion_BBDD {
 			while (rs.next()) {
 
 				cod = rs.getInt(1) + 1;
-				a.setId_usuario(cod);
+				
 			}
+			a.setId_usuario(cod);
 			ps = connection.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
 
 			ps.setInt(1, cod);
@@ -700,13 +701,13 @@ public class Conexion_BBDD {
 		Beca beca = null;
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select nombre, descripcion, nombre_proveedor from becas where codigo=?");
+					.prepareStatement("select nombre, descripcion, nombre_proveedor, contacto from becas where codigo=?");
 			ps.setInt(1, cod);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
 
-				beca = new Beca(rs.getString("nombre"), rs.getString("descripcion"), rs.getString("nombre_proveedor"));
+				beca = new Beca(rs.getString("nombre"), rs.getString("descripcion"), rs.getString("nombre_proveedor"),rs.getString("contacto"));
 			}
 
 		} catch (SQLException e) {

@@ -68,6 +68,13 @@ public class Beca {
 		this.descripcion=descripcion;
 		this.nombreProveedor=proveedor;
 	}
+	
+	public Beca(String nombre, String descripcion, String proveedor, String contacto) {
+		this.nombre=nombre;
+		this.descripcion=descripcion;
+		this.nombreProveedor=proveedor;
+		this.contacto=contacto;
+	}
 
 
 	public Beca() {

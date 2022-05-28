@@ -33,7 +33,7 @@ public class Becapp {
 		conexion.conectar();
 		
 		//MenuUsuario pg = new MenuUsuario();
-		RegistroUsuarios pg = new RegistroUsuarios();
+		MenuUsuario pg = new MenuUsuario();
 		pg.setVisible(true);
 		
 		

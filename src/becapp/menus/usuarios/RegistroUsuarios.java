@@ -1,6 +1,7 @@
 package becapp.menus.usuarios;
 
 
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -75,7 +76,7 @@ public class RegistroUsuarios extends JFrame {
 		correo.setBounds(134, 169, 48, 41);
 		fondo.add(correo);
 
-		JLabel contraseña = new JLabel("Contrase\u00F1a");
+		JLabel contraseña = new JLabel("Contrasenia");
 		contraseña.setBounds(274, 169, 83, 41);
 		fondo.add(contraseña);
 

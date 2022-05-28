@@ -112,13 +112,13 @@ public class Alumno extends Usuario {
 		Double total = 0.0;
 	
 		if(umbral.equals("umbral1")) {
-			total = total + 1700 + 1600 + 60;
+			total = total + 1700 + 1600 + 60+ 125;
 		}
 		else if(umbral.equals("umbral2")&&universitario==false) {
-			total = total + 1600 + 60 + 125;
+			total = total + 1600 + 60;
 		}
 		else if(umbral.equals("umbral2")&&universitario) {
-			total = total + 1600 + 60;
+			total = total + 1700 + 60;
 		}
 		else if(umbral.equals("umbral3")&&universitario==false) {
 			total = total + 0;
