@@ -30,6 +30,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import javax.swing.SpringLayout;
 
 public class MenuUsuario extends JFrame {
 	
@@ -49,16 +50,19 @@ public class MenuUsuario extends JFrame {
 		});
 
 		setTitle("BECAPP");
-		setBounds(200, 100, 725, 613);
+		setBounds(200, 100, 725, 534);
 		setFont(new Font("Roboto", Font.PLAIN, 14));
 	    
-		ImagenFondo fondo = new ImagenFondo("/imagenes/FondoNeutro.png");
+		ImagenFondo fondo = new ImagenFondo("/imagenes/FondoCalcula.jpg");
 		setContentPane(fondo);
-		fondo.setLayout(null);
+		SpringLayout sl_fondo = new SpringLayout();
+		fondo.setLayout(sl_fondo);
 
 		JButton sesion = new JButton("Cerrar sesion");
-	
-		sesion.setBounds(533, 25, 101, 17);
+		sl_fondo.putConstraint(SpringLayout.NORTH, sesion, 39, SpringLayout.NORTH, fondo);
+		sl_fondo.putConstraint(SpringLayout.WEST, sesion, 535, SpringLayout.WEST, fondo);
+		sl_fondo.putConstraint(SpringLayout.SOUTH, sesion, 56, SpringLayout.NORTH, fondo);
+		sl_fondo.putConstraint(SpringLayout.EAST, sesion, -73, SpringLayout.EAST, fondo);
 		fondo.add(sesion);
 		sesion.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
@@ -71,34 +75,30 @@ public class MenuUsuario extends JFrame {
 			}
 		});
 		
-		JLabel Becapp = new JLabel("BECAPP");
-		Becapp.setFont(new Font("Roboto Condensed", Font.PLAIN, 20));
-		Becapp.setBounds(51, 11, 75, 40);
-		fondo.add(Becapp);
-		Becapp.setFont(new Font("Roboto", Font.PLAIN, 14));
-		
-		JPanel Inicio = new JPanel();
-		Inicio.setBackground(new Color(175, 238, 238));
-		Inicio.setBounds(0, 0, 724, 69);
-		fondo.add(Inicio);
-		Inicio.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JLabel listaBecas = new JLabel("Nuestras becas");
-		listaBecas.setFont(new Font("Roboto Condensed", Font.PLAIN, 20));
-		listaBecas.setBounds(290, 92, 128, 26);
+		sl_fondo.putConstraint(SpringLayout.NORTH, listaBecas, 69, SpringLayout.NORTH, fondo);
+		sl_fondo.putConstraint(SpringLayout.WEST, listaBecas, 210, SpringLayout.WEST, fondo);
+		sl_fondo.putConstraint(SpringLayout.SOUTH, listaBecas, -363, SpringLayout.SOUTH, fondo);
+		sl_fondo.putConstraint(SpringLayout.EAST, listaBecas, -195, SpringLayout.EAST, fondo);
+		
 		fondo.add(listaBecas);
-		listaBecas.setFont(new Font("Roboto", Font.PLAIN, 14));
+		listaBecas.setFont(new Font("Roboto", Font.PLAIN, 40));
 		
 		JTextPane txtpnCalculaLaCuanta = new JTextPane();
+		sl_fondo.putConstraint(SpringLayout.WEST, txtpnCalculaLaCuanta, 106, SpringLayout.WEST, fondo);
+		sl_fondo.putConstraint(SpringLayout.SOUTH, txtpnCalculaLaCuanta, -98, SpringLayout.SOUTH, fondo);
+		sl_fondo.putConstraint(SpringLayout.EAST, txtpnCalculaLaCuanta, -272, SpringLayout.EAST, fondo);
 		txtpnCalculaLaCuanta.setBackground(new Color(255, 255, 255));
 		txtpnCalculaLaCuanta.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtpnCalculaLaCuanta.setText("Calcula la cuant\u00EDa de tu beca. Introduce tus datos (ingresos y numero de familiares) y obten una aproximaci\u00F3n de la cuant\u00EDa fija que puedes percibir.");
-		txtpnCalculaLaCuanta.setBounds(83, 421, 549, 46);
 		fondo.add(txtpnCalculaLaCuanta);
 		txtpnCalculaLaCuanta.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		JButton Calcula = new JButton("Calcula");
-		Calcula.setBounds(290, 489, 89, 40);
+		sl_fondo.putConstraint(SpringLayout.WEST, Calcula, 36, SpringLayout.EAST, txtpnCalculaLaCuanta);
+		sl_fondo.putConstraint(SpringLayout.SOUTH, Calcula, -114, SpringLayout.SOUTH, fondo);
+		sl_fondo.putConstraint(SpringLayout.EAST, Calcula, -147, SpringLayout.EAST, fondo);
 		fondo.add(Calcula);
 		Calcula.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
@@ -109,13 +109,18 @@ public class MenuUsuario extends JFrame {
 				VentanaCalcula pg = new VentanaCalcula();
 
 				pg.setVisible(true);
-				dispose();
+				
 			}
 			
 		});
 		
 		scroll = new JScrollPane();
-		scroll.setBounds(69, 138, 576, 237);
+		sl_fondo.putConstraint(SpringLayout.NORTH, Calcula, 38, SpringLayout.SOUTH, scroll);
+		sl_fondo.putConstraint(SpringLayout.NORTH, txtpnCalculaLaCuanta, 31, SpringLayout.SOUTH, scroll);
+		sl_fondo.putConstraint(SpringLayout.NORTH, scroll, 6, SpringLayout.SOUTH, listaBecas);
+		sl_fondo.putConstraint(SpringLayout.WEST, scroll, 70, SpringLayout.WEST, fondo);
+		sl_fondo.putConstraint(SpringLayout.SOUTH, scroll, -192, SpringLayout.SOUTH, fondo);
+		sl_fondo.putConstraint(SpringLayout.EAST, scroll, -63, SpringLayout.EAST, fondo);
 		fondo.add(scroll);
 		
 		construirTabla();

@@ -5,12 +5,7 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -26,8 +21,6 @@ import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
 import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.Listado;
-import becapp.menus.metodos.MetodosMenus;
-import junit.extensions.TestSetup;
 import becapp.Beca;
 import becapp.Conexion_BBDD;
 

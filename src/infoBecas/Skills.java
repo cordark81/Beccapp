@@ -41,25 +41,13 @@ public class Skills extends JFrame {
 		ImagenFondo fondo = new ImagenFondo("/imagenes/imagenFondoBecas.jpg");
 		setContentPane(fondo);
 		fondo.setLayout(null);
-
-		JLabel Becapp = new JLabel("BECAPP");
-		Becapp.setFont(new Font("Roboto Condensed", Font.PLAIN, 20));
-		Becapp.setBounds(51, 11, 75, 40);
-		fondo.add(Becapp);
-		Becapp.setFont(new Font("Roboto", Font.PLAIN, 14));
-		
-		JPanel Inicio = new JPanel();
-		Inicio.setBackground(new Color(175, 238, 238));
-		Inicio.setBounds(0, 0, 724, 69);
-		fondo.add(Inicio);
-		Inicio.setFont(new Font("Roboto", Font.PLAIN, 14));
-		
+	
 		Conexion_BBDD c = new Conexion_BBDD();
 			
 		Beca beca = c.getBeca(i);
 	
 		JTextPane textoNombre = new JTextPane();
-		textoNombre.setBounds(100, 89, 188, 28);
+		textoNombre.setBounds(99, 56, 188, 62);
 		textoNombre.setText(beca.getNombre());
 		fondo.add(textoNombre);
 		textoNombre.getText();
@@ -69,7 +57,7 @@ public class Skills extends JFrame {
 		JTextPane textoProveedor = new JTextPane();
 		textoProveedor.setText(beca.getNombreProveedor());
 		textoProveedor.setEditable(false);
-		textoProveedor.setBounds(100, 128, 188, 28);
+		textoProveedor.setBounds(99, 133, 188, 61);
 		fondo.add(textoProveedor);
 		textoProveedor.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
@@ -77,12 +65,12 @@ public class Skills extends JFrame {
 		JTextPane textoDescripcion = new JTextPane();
 		textoDescripcion.setText(beca.getDescripcion());
 		textoDescripcion.setEditable(false);
-		textoDescripcion.setBounds(67, 234, 563, 117);
+		textoDescripcion.setBounds(67, 233, 563, 117);
 		fondo.add(textoDescripcion);
 		textoDescripcion.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		JLabel imagen = new JLabel("");
-		imagen.setBounds(319, 72, 311, 151);
+		imagen.setBounds(296, 44, 334, 178);
 		
 		ImageIcon nuevaImagen=new ImageIcon(Skills.class.getResource("/imagenes/ImagenBeca.jpg"));
 		ImageIcon img = new ImageIcon(nuevaImagen.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_SMOOTH));
@@ -90,7 +78,7 @@ public class Skills extends JFrame {
 		fondo.add(imagen);
 		
 		JButton contacto = new JButton("Obtener contacto");
-		contacto.setBounds(125, 177, 140, 23);
+		contacto.setBounds(262, 367, 154, 28);
 		fondo.add(contacto);
 		contacto.addActionListener(new ActionListener() {
 

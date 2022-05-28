@@ -32,36 +32,36 @@ public class VentanaCalcula extends JFrame {
 		setTitle("CALCULA LA CUANTï¿½A DE TU BECA");
 		setBounds(200, 100, 563, 342);
 
-		ImagenFondo fondo = new ImagenFondo("/imagenes/FondoNeutro.png");
+		ImagenFondo fondo = new ImagenFondo("/imagenes/FondoCalcula.jpg");
 		setContentPane(fondo);
 		fondo.setLayout(null);
 
 		JLabel Ingresos = new JLabel("Ingresos anuales");
 		Ingresos.setToolTipText("Introduz la suma de los ingresos durante los \u00FAltimos 12 meses de todos los componentes de su unidad familiar");
-		Ingresos.setBounds(115, 38, 125, 23);
+		Ingresos.setBounds(127, 51, 112, 23);
 		fondo.add(Ingresos);
 		Ingresos.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JLabel Familiares = new JLabel("Numero de familiares");
-		Familiares.setBounds(331, 40, 142, 19);
+		Familiares.setBounds(301, 53, 142, 19);
 		fondo.add(Familiares);
 		Familiares.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		Dinero = new JTextField();
-		Dinero.setBounds(96, 72, 125, 20);
+		Dinero.setBounds(115, 85, 125, 20);
 		fondo.add(Dinero);
 		Dinero.setColumns(10);
 		Dinero.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		Nfam = new JTextField();
-		Nfam.setBounds(318, 72, 125, 20);
+		Nfam.setBounds(301, 85, 125, 20);
 		Nfam.setColumns(10);
 		fondo.add(Nfam);
 		Nfam.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane panel = new JTextPane();
 		panel.setFont(new Font("Roboto", Font.PLAIN, 20));
-		panel.setBounds(96, 151, 351, 75);
+		panel.setBounds(92, 160, 351, 60);
 		fondo.add(panel);
 		panel.setVisible(false);
 		panel.setEditable(false);
@@ -71,9 +71,9 @@ public class VentanaCalcula extends JFrame {
 		calcular.setBounds(184, 249, 182, 23);
 		fondo.add(calcular);
 		
-		JLabel universitario = new JLabel("\u00BFEres universitario?");
+		JLabel universitario = new JLabel("¿Eres universitario?");
 		universitario.setToolTipText("");
-		universitario.setBounds(200, 117, 97, 23);
+		universitario.setBounds(172, 123, 142, 23);
 		fondo.add(universitario);
 		
 		JCheckBox univ = new JCheckBox("");
@@ -87,7 +87,7 @@ public class VentanaCalcula extends JFrame {
 		});
 		
 		
-		univ.setBounds(303, 117, 21, 23);
+		univ.setBounds(320, 123, 21, 23);
 		fondo.add(univ);
 		calcular.setFont(new Font("Roboto", Font.PLAIN, 14));
 		calcular.addActionListener(new ActionListener() {

@@ -35,7 +35,7 @@ public class Becapp {
 		/*MenuUsuario pg = new MenuUsuario();
 		pg.setVisible(true);*/
 		
-		PrincipalGestion pg= new PrincipalGestion();
+		Login pg= new Login();
 		pg.setVisible(true);
 		
 		
