@@ -1,6 +1,7 @@
 package becapp.menus.gestionAdministrador;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,6 +44,7 @@ public class BorradoAdministrador extends JFrame {
 		setResizable(false);
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane campoC = new JTextPane();
 		campoC.setText("Seleccionar campo para el borrado:");
@@ -50,21 +52,25 @@ public class BorradoAdministrador extends JFrame {
 		getContentPane().add(campoC);
 		campoC.setEditable(false);
 		campoC.setOpaque(false);
+		campoC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JRadioButton id = new JRadioButton("ID");
 		id.setBounds(100, 70, 50, 23);
 		getContentPane().add(id);
 		id.setOpaque(false);
+		id.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JRadioButton dni = new JRadioButton("DNI");
 		dni.setBounds(250, 70, 150, 23);
 		getContentPane().add(dni);
 		dni.setOpaque(false);
+		dni.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JRadioButton listado = new JRadioButton("Listado");
 		listado.setBounds(400, 70, 175, 23);
 		getContentPane().add(listado);
 		listado.setOpaque(false);
+		listado.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		// grupo de JRadioButton para un unica seleccion
 		ButtonGroup grupo1 = new ButtonGroup();
@@ -78,11 +84,13 @@ public class BorradoAdministrador extends JFrame {
 		informacion.setVisible(false);
 		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 		getContentPane().add(informacion);
+		informacion.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JButton aceptar = new JButton("BORRAR");
 		aceptar.setBounds(400, 350, 100, 30);
 		getContentPane().add(aceptar);
 		aceptar.setBackground(Color.orange);
+		aceptar.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		/**
 		 * Funcionalidad del Radio Button id, pide la id para hacer la busqueda la hace

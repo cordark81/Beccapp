@@ -10,6 +10,7 @@ import javax.swing.JTextPane;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,7 +29,7 @@ public class VentanaCalcula extends JFrame {
 	 */
 	public VentanaCalcula() {
 
-		setTitle("CALCULA LA CUANTÍA DE TU BECA");
+		setTitle("CALCULA LA CUANTï¿½A DE TU BECA");
 		setBounds(200, 100, 563, 342);
 
 		ImagenFondo fondo = new ImagenFondo("/imagenes/FondoNeutro.png");
@@ -39,20 +40,24 @@ public class VentanaCalcula extends JFrame {
 		Ingresos.setToolTipText("Introduz la suma de los ingresos durante los \u00FAltimos 12 meses de todos los componentes de su unidad familiar");
 		Ingresos.setBounds(115, 38, 125, 23);
 		fondo.add(Ingresos);
+		Ingresos.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JLabel Familiares = new JLabel("Numero de familiares");
 		Familiares.setBounds(331, 40, 142, 19);
 		fondo.add(Familiares);
+		Familiares.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		Dinero = new JTextField();
 		Dinero.setBounds(96, 72, 125, 20);
 		fondo.add(Dinero);
 		Dinero.setColumns(10);
+		Dinero.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		Nfam = new JTextField();
 		Nfam.setBounds(318, 72, 125, 20);
 		Nfam.setColumns(10);
 		fondo.add(Nfam);
+		Nfam.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane panel = new JTextPane();
 		panel.setFont(new Font("Roboto", Font.PLAIN, 20));
@@ -60,6 +65,7 @@ public class VentanaCalcula extends JFrame {
 		fondo.add(panel);
 		panel.setVisible(false);
 		panel.setEditable(false);
+		panel.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JButton calcular = new JButton("Calcular");
 		calcular.setBounds(184, 249, 182, 23);
@@ -83,6 +89,7 @@ public class VentanaCalcula extends JFrame {
 		
 		univ.setBounds(303, 117, 21, 23);
 		fondo.add(univ);
+		calcular.setFont(new Font("Roboto", Font.PLAIN, 14));
 		calcular.addActionListener(new ActionListener() {
 
 			@Override
@@ -96,10 +103,10 @@ public class VentanaCalcula extends JFrame {
 					Double cantidad = Alumno.calBeca(umbral, prima_universidad);
 					if (cantidad == 0) {
 						panel.setVisible(true);
-						panel.setText("No tiene derecho a recibir una beca pública debido a sus ingresos anuales");
+						panel.setText("No tiene derecho a recibir una beca pï¿½blica debido a sus ingresos anuales");
 					} else {
 						panel.setVisible(true);
-						panel.setText("La cuantía de su beca es de: " + cantidad);
+						panel.setText("La cuantï¿½a de su beca es de: " + cantidad);
 					}
 				} catch (NumberFormatException a) {
 					panel.setText("Introduzca unos parametros correctos");

@@ -1,13 +1,12 @@
 package becapp.menus.gestionBecas;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -45,6 +44,7 @@ public class BorradoBecas extends JFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(500, 300, 600, 450);
 		getContentPane().setLayout(null);
+		setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane campoC = new JTextPane();
 		campoC.setText("Seleccionar campo para el borrado de la beca:");
@@ -52,21 +52,25 @@ public class BorradoBecas extends JFrame {
 		getContentPane().add(campoC);
 		campoC.setEditable(false);
 		campoC.setOpaque(false);
+		campoC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JRadioButton id = new JRadioButton("ID");
 		id.setBounds(100, 100, 50, 23);
 		getContentPane().add(id);
 		id.setOpaque(false);
+		id.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JRadioButton nombre = new JRadioButton("Nombre Proveedor");
 		nombre.setBounds(200, 100, 200, 23);
 		getContentPane().add(nombre);
 		nombre.setOpaque(false);
+		nombre.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JRadioButton listado = new JRadioButton("Listado");
 		listado.setBounds(400, 100, 100, 23);
 		getContentPane().add(listado);
 		listado.setOpaque(false);
+		listado.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		ButtonGroup grupo1 = new ButtonGroup();
 		grupo1.add(id);
@@ -79,13 +83,17 @@ public class BorradoBecas extends JFrame {
 		informacion.setVisible(false);
 		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 		getContentPane().add(informacion);
+		informacion.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JButton aceptar = new JButton("BORRAR BECAS");
 		aceptar.setBounds(300, 350, 200, 30);
 		getContentPane().add(aceptar);
 		aceptar.setBackground(Color.ORANGE);
+		aceptar.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		/**
+		 * 
+		 * 
 		 * Funcionalidad del Radio Button id, pide la id para hacer la busqueda la hece
 		 * y si encuentra muestra la informacion pero todavia no borra. Si no encuentra
 		 * nada lazara un panel de diagolo con la inforamcion pertinente

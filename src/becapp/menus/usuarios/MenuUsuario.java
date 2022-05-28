@@ -50,6 +50,7 @@ public class MenuUsuario extends JFrame {
 
 		setTitle("BECAPP");
 		setBounds(200, 100, 725, 613);
+		setFont(new Font("Roboto", Font.PLAIN, 14));
 	    
 		ImagenFondo fondo = new ImagenFondo("/imagenes/FondoNeutro.png");
 		setContentPane(fondo);
@@ -59,7 +60,7 @@ public class MenuUsuario extends JFrame {
 	
 		sesion.setBounds(533, 25, 101, 17);
 		fondo.add(sesion);
-		sesion.setFont(new Font("Roboto Condensed", Font.PLAIN, 13));
+		sesion.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		sesion.addActionListener(new ActionListener() {
 			
@@ -74,16 +75,19 @@ public class MenuUsuario extends JFrame {
 		Becapp.setFont(new Font("Roboto Condensed", Font.PLAIN, 20));
 		Becapp.setBounds(51, 11, 75, 40);
 		fondo.add(Becapp);
+		Becapp.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		JPanel Inicio = new JPanel();
 		Inicio.setBackground(new Color(175, 238, 238));
 		Inicio.setBounds(0, 0, 724, 69);
 		fondo.add(Inicio);
+		Inicio.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JLabel listaBecas = new JLabel("Nuestras becas");
 		listaBecas.setFont(new Font("Roboto Condensed", Font.PLAIN, 20));
 		listaBecas.setBounds(290, 92, 128, 26);
 		fondo.add(listaBecas);
+		listaBecas.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		JTextPane txtpnCalculaLaCuanta = new JTextPane();
 		txtpnCalculaLaCuanta.setBackground(new Color(255, 255, 255));
@@ -91,10 +95,12 @@ public class MenuUsuario extends JFrame {
 		txtpnCalculaLaCuanta.setText("Calcula la cuant\u00EDa de tu beca. Introduce tus datos (ingresos y numero de familiares) y obten una aproximaci\u00F3n de la cuant\u00EDa fija que puedes percibir.");
 		txtpnCalculaLaCuanta.setBounds(83, 421, 549, 46);
 		fondo.add(txtpnCalculaLaCuanta);
+		txtpnCalculaLaCuanta.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		JButton Calcula = new JButton("Calcula");
 		Calcula.setBounds(290, 489, 89, 40);
 		fondo.add(Calcula);
+		Calcula.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		Calcula.addActionListener(new ActionListener() {
 			
@@ -119,12 +125,12 @@ public class MenuUsuario extends JFrame {
 		
 	/**
 	 * @author amart y edu
-	 * Método que crea y da formato a la tabla que se muestra en el menú de navegación de usuario. 
-	 * También añade un botón con funcionalidad de ver más información de la beca seleccionada,
+	 * Mï¿½todo que crea y da formato a la tabla que se muestra en el menï¿½ de navegaciï¿½n de usuario. 
+	 * Tambiï¿½n aï¿½ade un botï¿½n con funcionalidad de ver mï¿½s informaciï¿½n de la beca seleccionada,
 	 */
 	
 	public void construirTabla() {
-		String[] columnas = { "Nombre", "Descripcion", "Más" };
+		String[] columnas = { "Nombre", "Descripcion", "Mï¿½s" };
 		Object informacion[][]=obetenerMatriz();
 		
 		System.out.println(informacion.length);
@@ -156,7 +162,7 @@ public class MenuUsuario extends JFrame {
 		        
 		    }
 		}, columnas.length-1);
-		buttonColumn.setText("Ver más");
+		buttonColumn.setText("Ver mï¿½s");
 	}
 	
 	/*

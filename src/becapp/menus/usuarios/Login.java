@@ -1,5 +1,8 @@
 package becapp.menus.usuarios;
 
+
+
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -46,6 +49,7 @@ public class Login extends JFrame{
 		setTitle("BECAPP");
 		setBounds(200, 100, 800, 620);
 		getContentPane().setLayout(null);
+		setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		ImagenFondo fondo = 
 		new ImagenFondo("/imagenes/Logo.png");
@@ -69,11 +73,13 @@ public class Login extends JFrame{
 		getContentPane().add(nombreC);
 		nombreC.setEditable(false);
 		nombreC.setOpaque(false);
+		nombreC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextField nombre = new JTextField();
 		nombre.setBounds(495, 225, 150, 19);
 		getContentPane().add(nombre);
 		nombre.setColumns(10);
+		nombre.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane claveC = new JTextPane();
 		claveC.setText("Clave");
@@ -81,10 +87,12 @@ public class Login extends JFrame{
 		getContentPane().add(claveC);
 		claveC.setEditable(false);
 		claveC.setOpaque(false);
+		claveC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JButton login = new JButton("Login");
 		login.setBounds(520, 350, 100, 30);
 		getContentPane().add(login);
+		login.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(495, 295, 150, 19);
@@ -99,13 +107,13 @@ public class Login extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 
 				String usuario = nombre.getText();
-				String contraseña = passwordField.getText();
+				String contrasena = passwordField.getText();
 				Conexion_BBDD connection = new Conexion_BBDD();
-				connection.conectar();
+				
 				
 				int resultado;
 				
-				resultado=connection.loginUsuario(usuario, contraseña);
+				resultado=connection.loginUsuario(usuario, contrasena);
 				
 				if(resultado==1){
 
@@ -145,7 +153,7 @@ public class Login extends JFrame{
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
-							+ "Por favor ingrese un usuario y/o contraseña correctos", "Acceso denegado",
+							+ "Por favor ingrese un usuario y/o contraseï¿½a correctos", "Acceso denegado",
 							JOptionPane.ERROR_MESSAGE);
 				}
 
@@ -155,10 +163,12 @@ public class Login extends JFrame{
 		JButton registro = new JButton("Registrate");
 		registro.setBounds(520, 400, 100, 15);
 		getContentPane().add(registro);
+		registro.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JButton invitados = new JButton("Accede como invitado");
 		invitados.setBounds(600, 40, 150, 20);
 		getContentPane().add(invitados);
+		invitados.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		registro.addActionListener(new ActionListener() {
 

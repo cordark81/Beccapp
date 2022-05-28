@@ -2,6 +2,7 @@ package becapp.menus.metodos;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Date;
@@ -43,6 +44,7 @@ public class Listado extends JFrame {
 		Object[][] datos = mm.arrayBidimensional(conexion, tabla);
 
 		final JTable table = new JTable(datos, columnas);
+		
 		if (eliminar) {
 			ButtonColumn btnEliminar = new ButtonColumn(table, new AbstractAction() {
 				public void actionPerformed(ActionEvent e) {
@@ -93,6 +95,7 @@ public class Listado extends JFrame {
 		table.setPreferredScrollableViewportSize(new Dimension(1000, 300));
 		JScrollPane scrollpane = new JScrollPane(table);
 		getContentPane().add(scrollpane, BorderLayout.CENTER);
+		table.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 	}
 }

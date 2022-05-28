@@ -1,7 +1,7 @@
 package becapp.menus.gestionBecas;
 
 import java.awt.Color;
-
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,6 +58,7 @@ public class FormularioBeca extends JFrame {
 		setResizable(false);
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		fondo.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane nombreC = new JTextPane();
 		nombreC.setText("Nombre");
@@ -65,12 +66,14 @@ public class FormularioBeca extends JFrame {
 		getContentPane().add(nombreC);
 		nombreC.setEditable(false);
 		nombreC.setOpaque(false);
+		nombreC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		nombre = new JTextField();
 		nombre.setBounds(100, 50, 150, 19);
 		getContentPane().add(nombre);
 		nombre.setColumns(10);
 		nombre.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
+		nombre.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane condicionesC = new JTextPane();
 		condicionesC.setText("Condiciones");
@@ -78,12 +81,14 @@ public class FormularioBeca extends JFrame {
 		getContentPane().add(condicionesC);
 		condicionesC.setEditable(false);
 		condicionesC.setOpaque(false);
+		condicionesC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		condiciones = new JTextField();
 		condiciones.setBounds(100, 110, 250, 19);
 		getContentPane().add(condiciones);
 		condiciones.setColumns(10);
 		condiciones.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
+		condiciones.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane descripcionC = new JTextPane();
 		descripcionC.setText("Descripcion");
@@ -91,12 +96,14 @@ public class FormularioBeca extends JFrame {
 		getContentPane().add(descripcionC);
 		descripcionC.setEditable(false);
 		descripcionC.setOpaque(false);
+		descripcionC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		descripcion = new JTextField();
 		descripcion.setBounds(100, 170, 250, 19);
 		getContentPane().add(descripcion);
 		descripcion.setColumns(10);
 		descripcion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
+		descripcion.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane nombreProveedorC = new JTextPane();
 		nombreProveedorC.setText("Nombre proveedor");
@@ -104,12 +111,14 @@ public class FormularioBeca extends JFrame {
 		getContentPane().add(nombreProveedorC);
 		nombreProveedorC.setEditable(false);
 		nombreProveedorC.setOpaque(false);
+		nombreProveedorC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		nombreProveedor = new JTextField();
 		nombreProveedor.setBounds(450, 50, 250, 19);
 		getContentPane().add(nombreProveedor);
 		nombreProveedor.setColumns(10);
 		nombreProveedor.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
+		nombreProveedor.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane contactoC = new JTextPane();
 		contactoC.setText("Contacto");
@@ -117,12 +126,14 @@ public class FormularioBeca extends JFrame {
 		getContentPane().add(contactoC);
 		contactoC.setEditable(false);
 		contactoC.setOpaque(false);
+		contactoC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		contacto = new JTextField();
 		contacto.setBounds(450, 110, 250, 19);
 		getContentPane().add(contacto);
 		contacto.setColumns(10);
 		contacto.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
+		contacto.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane tipoBecaC = new JTextPane();
 		tipoBecaC.setText("Tipo de beca");
@@ -130,16 +141,19 @@ public class FormularioBeca extends JFrame {
 		getContentPane().add(tipoBecaC);
 		tipoBecaC.setEditable(false);
 		tipoBecaC.setOpaque(false);
+		tipoBecaC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		privada = new JRadioButton("Privada");
 		privada.setBounds(450, 170, 149, 23);
 		getContentPane().add(privada);
 		privada.setOpaque(false);
+		privada.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		publica = new JRadioButton("Publica");
 		publica.setBounds(600, 170, 149, 23);
 		getContentPane().add(publica);
 		publica.setOpaque(false);
+		publica.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		ButtonGroup grupo1 = new ButtonGroup();
 		grupo1.add(privada);
@@ -151,6 +165,7 @@ public class FormularioBeca extends JFrame {
 		getContentPane().add(informacionC);
 		informacionC.setEditable(false);
 		informacionC.setOpaque(false);
+		informacionC.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextArea informacion = new JTextArea();
 		informacion.setBounds(new Rectangle(100, 270, 600, 30));
@@ -159,21 +174,26 @@ public class FormularioBeca extends JFrame {
 		informacion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 		getContentPane().add(informacion);
 		informacion.setEditable(false);
+		informacion.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JButton BBDD = new JButton("BBDD");
 		BBDD.setBounds(350, 400, 100, 30);
 		getContentPane().add(BBDD);
 		BBDD.setBackground(Color.ORANGE);
+		BBDD.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JButton limpiar = new JButton("LIMPIAR");
 		limpiar.setBounds(100, 400, 100, 30);
 		getContentPane().add(limpiar);
 		limpiar.setBackground(Color.ORANGE);
+		limpiar.setFont(new Font("Roboto", Font.PLAIN, 14));
+		
 
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.setBounds(600, 400, 100, 30);
 		getContentPane().add(aceptar);
 		aceptar.setBackground(Color.ORANGE);
+		aceptar.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		/**
 		 * Accion del boton limpiar para resetear la entrada de datos

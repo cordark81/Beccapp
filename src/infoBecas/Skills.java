@@ -42,22 +42,36 @@ public class Skills extends JFrame {
 		setContentPane(fondo);
 		fondo.setLayout(null);
 
-		Conexion_BBDD c = new Conexion_BBDD();
-		c.conectar();
+		JLabel Becapp = new JLabel("BECAPP");
+		Becapp.setFont(new Font("Roboto Condensed", Font.PLAIN, 20));
+		Becapp.setBounds(51, 11, 75, 40);
+		fondo.add(Becapp);
+		Becapp.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
+		JPanel Inicio = new JPanel();
+		Inicio.setBackground(new Color(175, 238, 238));
+		Inicio.setBounds(0, 0, 724, 69);
+		fondo.add(Inicio);
+		Inicio.setFont(new Font("Roboto", Font.PLAIN, 14));
+		
+		Conexion_BBDD c = new Conexion_BBDD();
+			
 		Beca beca = c.getBeca(i);
+	
 		JTextPane textoNombre = new JTextPane();
 		textoNombre.setBounds(100, 89, 188, 28);
 		textoNombre.setText(beca.getNombre());
 		fondo.add(textoNombre);
 		textoNombre.getText();
 		textoNombre.setEditable(false);
+		textoNombre.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		JTextPane textoProveedor = new JTextPane();
 		textoProveedor.setText(beca.getNombreProveedor());
 		textoProveedor.setEditable(false);
 		textoProveedor.setBounds(100, 128, 188, 28);
 		fondo.add(textoProveedor);
+		textoProveedor.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		
 		JTextPane textoDescripcion = new JTextPane();
@@ -65,6 +79,7 @@ public class Skills extends JFrame {
 		textoDescripcion.setEditable(false);
 		textoDescripcion.setBounds(67, 234, 563, 117);
 		fondo.add(textoDescripcion);
+		textoDescripcion.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		JLabel imagen = new JLabel("");
 		imagen.setBounds(319, 72, 311, 151);
