@@ -13,27 +13,25 @@ public class Alumno extends Usuario {
 
 	public ArrayList<Beca> becasFavoritas;
 
-	public estudios_requisitos estudios_requisitos;
-	public umbral_ingresos umbral_ingresos;
+	public String umbral_ingresos;
 
 	public Alumno(String dni, String clave, String nombre, String apellido, String nacionalidad, String email, int telf,
 			String fecha_nac, Integer numero_familiares, double ingreso_anual, 
-			becapp.estudios_requisitos estudios_requisitos, becapp.umbral_ingresos umbral_ingresos) {
+			becapp.estudios_requisitos estudios_requisitos, String umbral_ingresos) {
 		super(dni, clave, nombre, apellido, nacionalidad, email, telf, fecha_nac);
 		this.numero_familiares = numero_familiares;
 		this.ingreso_anual = ingreso_anual;
 		becasFavoritas=new ArrayList<Beca>();
-		this.estudios_requisitos = estudios_requisitos;
 		this.umbral_ingresos = umbral_ingresos;
 	}
 
 	public Alumno(String dni, String clave, String nombre, String apellido, String nacionalidad, String email, int telf,
-			String fecha_nac, Integer numero_familiares, double ingreso_anual) {
-		super(dni, clave, nombre, apellido, nacionalidad, email, telf, fecha_nac);
-		this.numero_familiares = numero_familiares;
-		this.ingreso_anual = ingreso_anual;
+			String fecha_nac) {
+		super(dni, clave, nombre, apellido, nacionalidad,email,
+				 telf, fecha_nac );
+		this.numero_familiares = 0;
+		this.ingreso_anual = 0;
 		becasFavoritas=new ArrayList<Beca>();
-		this.estudios_requisitos = null;
 		this.umbral_ingresos = null;
 	}
 
@@ -71,23 +69,6 @@ public class Alumno extends Usuario {
 		return becasFavoritas;
 	}
 
-
-
-	public estudios_requisitos getEstudios_requisitos() {
-		return estudios_requisitos;
-	}
-
-	public void setEstudios_requisitos(estudios_requisitos estudios_requisitos) {
-		this.estudios_requisitos = estudios_requisitos;
-	}
-
-	public umbral_ingresos getUmbral_ingresos() {
-		return umbral_ingresos;
-	}
-
-	public void setUmbral_ingresos(umbral_ingresos umbral_ingresos) {
-		this.umbral_ingresos = umbral_ingresos;
-	}
 
 	public void aniadirFavorito(Beca beca) {
 	}
@@ -127,16 +108,22 @@ public class Alumno extends Usuario {
 		return umbral;
 	}
 
-	public static Double calBeca(String umbral) {
+	public static Double calBeca(String umbral, boolean universitario) {
 		Double total = 0.0;
 	
 		if(umbral.equals("umbral1")) {
 			total = total + 1700 + 1600 + 60;
 		}
-		else if(umbral.equals("umbral2")) {
+		else if(umbral.equals("umbral2")&&universitario==false) {
+			total = total + 1600 + 60 + 125;
+		}
+		else if(umbral.equals("umbral2")&&universitario) {
 			total = total + 1600 + 60;
 		}
-		else if(umbral.equals("umbral3")) {
+		else if(umbral.equals("umbral3")&&universitario==false) {
+			total = total + 0;
+		}
+		else if(umbral.equals("umbral3")&&universitario) {
 			total=total+300;
 		}
 		else {

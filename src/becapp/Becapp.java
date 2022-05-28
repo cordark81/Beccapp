@@ -6,6 +6,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import becapp.menus.PrincipalGestion;
 import becapp.menus.usuarios.Login;
 import becapp.menus.usuarios.MenuUsuario;
+import becapp.menus.usuarios.RegistroUsuarios;
 import becapp.menus.usuarios.VentanaCalcula;
 
 public class Becapp {
@@ -31,7 +32,8 @@ public class Becapp {
 		Conexion_BBDD conexion=new Conexion_BBDD();
 		conexion.conectar();
 		
-		MenuUsuario pg = new MenuUsuario();
+		//MenuUsuario pg = new MenuUsuario();
+		RegistroUsuarios pg = new RegistroUsuarios();
 		pg.setVisible(true);
 		
 		

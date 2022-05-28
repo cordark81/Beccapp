@@ -1,16 +1,20 @@
 package becapp.menus.usuarios;
 
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JFrame;
 
+import becapp.Alumno;
 import becapp.Conexion_BBDD;
 import becapp.Usuario;
 import becapp.menus.Ficheros.Log;
@@ -20,6 +24,10 @@ import becapp.menus.metodos.MetodosMenus;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import com.toedter.calendar.JDateChooser;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
@@ -32,10 +40,9 @@ public class RegistroUsuarios extends JFrame {
 	private JTextField Fcontra;
 	private JTextField Fapellido;
 	private JTextField Fnacionalidad;
-	private JTextField Ffecha;
 
 
-	RegistroUsuarios(){
+	public RegistroUsuarios(){
 
 		setTitle("REGISTRO");
 		setBounds(200, 100, 500, 420);
@@ -49,15 +56,15 @@ public class RegistroUsuarios extends JFrame {
 		fondo.setLayout(null);
 
 		JLabel nombre = new JLabel("Nombre");
-		nombre.setBounds(134, 39, 37, 41);
+		nombre.setBounds(134, 39, 65, 41);
 		fondo.add(nombre);
 
 		JLabel apellido = new JLabel("Apellido");
-		apellido.setBounds(290, 39, 46, 41);
+		apellido.setBounds(281, 39, 76, 41);
 		fondo.add(apellido);
 
 		JLabel telf = new JLabel("Tel\u00E9fono");
-		telf.setBounds(134, 109, 46, 41);
+		telf.setBounds(134, 109, 65, 41);
 		fondo.add(telf);
 
 		JLabel dni = new JLabel("DNI");
@@ -65,11 +72,11 @@ public class RegistroUsuarios extends JFrame {
 		fondo.add(dni);
 
 		JLabel correo = new JLabel("Email");
-		correo.setBounds(144, 169, 37, 41);
+		correo.setBounds(134, 169, 48, 41);
 		fondo.add(correo);
 
 		JLabel contraseña = new JLabel("Contrase\u00F1a");
-		contraseña.setBounds(274, 169, 61, 41);
+		contraseña.setBounds(274, 169, 83, 41);
 		fondo.add(contraseña);
 
 		Fnombre = new JTextField();
@@ -105,6 +112,12 @@ public class RegistroUsuarios extends JFrame {
 		JButton resgistrarse = new JButton("Registrarse");
 		resgistrarse.setBounds(183, 313, 109, 30);
 		fondo.add(resgistrarse);
+		
+		JDateChooser jdc = new JDateChooser();
+		jdc.setDateFormatString("d/MM/y");
+		jdc.setBounds(264, 270, 93, 19);
+		fondo.add(jdc);
+		jdc.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 
 		Fnacionalidad = new JTextField();
 		Fnacionalidad.setColumns(10);
@@ -115,13 +128,8 @@ public class RegistroUsuarios extends JFrame {
 		lblNacionalidad.setBounds(123, 231, 76, 41);
 		fondo.add(lblNacionalidad);
 
-		Ffecha = new JTextField();
-		Ffecha.setColumns(10);
-		Ffecha.setBounds(264, 269, 86, 20);
-		fondo.add(Ffecha);
-
-		JLabel lblFechaNac = new JLabel("Fecha Nac");
-		lblFechaNac.setBounds(281, 231, 55, 41);
+		JLabel lblFechaNac = new JLabel("Fecha de nacimiento");
+		lblFechaNac.setBounds(264, 231, 104, 41);
 		fondo.add(lblFechaNac);
 
 		JButton atras = new JButton("<-");
@@ -145,26 +153,29 @@ public class RegistroUsuarios extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				Date fechaCalendario = jdc.getDate();
+				DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+				String Ffecha = f.format(fechaCalendario);
 
 				Conexion_BBDD connection = new Conexion_BBDD();
 				connection.conectar();
 				if( Fcontra.getText().length()==0 || Fdni.getText().length()==0|| Fnombre.getText().length()==0 ||  Fapellido.getText().length()==0
-						|| Fnacionalidad.getText().length()==0 || Femail.getText().length()==0 || Ffecha.getText().length()==0  ) {
+						|| Fnacionalidad.getText().length()==0 || Femail.getText().length()==0){
 						
 					JOptionPane.showMessageDialog(null, "¡Debe comprobar que ha introducido todos los datos!", "Campos vacios",
 							JOptionPane.INFORMATION_MESSAGE);
 						
 				}
 				else {
-					Usuario nuevoUsuario = new Usuario(Fdni.getText(), Fcontra.getText(), Fnombre.getText(), Fapellido.getText(), Fnacionalidad.getText(), Femail.getText(),
-							Integer.valueOf(Ftelf.getText()), Ffecha.getText());
+					Alumno nuevoUsuario = new Alumno( Fdni.getText(), Fcontra.getText(), Fnombre.getText(), Fapellido.getText(), Fnacionalidad.getText(),
+							Femail.getText(), Integer.valueOf(Ftelf.getText()), Ffecha);
 
-
-					if(connection.registrarUsuario(nuevoUsuario)){
+					if(connection.registrarAlumno(nuevoUsuario)){
 
 						JOptionPane.showMessageDialog(null, "¡Usuario registrado con exito!", "Registro finalizado",
 								JOptionPane.INFORMATION_MESSAGE);
-						MenuUsuario ventana = new MenuUsuario();          
+						MenuUsuario ventana = new MenuUsuario();         
 						ventana.setVisible(true);
 						dispose();
 

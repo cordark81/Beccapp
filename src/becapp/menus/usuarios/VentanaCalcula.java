@@ -14,10 +14,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import java.awt.Font;
+import javax.swing.JRadioButton;
+import javax.swing.JCheckBox;
 
 public class VentanaCalcula extends JFrame {
 	private JTextField Dinero;
 	private JTextField Nfam;
+	private boolean prima_universidad=false;
 
 	/**
 	 * Create the frame.
@@ -32,11 +36,12 @@ public class VentanaCalcula extends JFrame {
 		fondo.setLayout(null);
 
 		JLabel Ingresos = new JLabel("Ingresos anuales");
-		Ingresos.setBounds(118, 38, 82, 23);
+		Ingresos.setToolTipText("Introduz la suma de los ingresos durante los \u00FAltimos 12 meses de todos los componentes de su unidad familiar");
+		Ingresos.setBounds(115, 38, 125, 23);
 		fondo.add(Ingresos);
 
 		JLabel Familiares = new JLabel("Numero de familiares");
-		Familiares.setBounds(332, 40, 107, 19);
+		Familiares.setBounds(331, 40, 142, 19);
 		fondo.add(Familiares);
 
 		Dinero = new JTextField();
@@ -50,7 +55,8 @@ public class VentanaCalcula extends JFrame {
 		fondo.add(Nfam);
 
 		JTextPane panel = new JTextPane();
-		panel.setBounds(96, 117, 351, 109);
+		panel.setFont(new Font("Roboto", Font.PLAIN, 20));
+		panel.setBounds(96, 151, 351, 75);
 		fondo.add(panel);
 		panel.setVisible(false);
 		panel.setEditable(false);
@@ -58,15 +64,36 @@ public class VentanaCalcula extends JFrame {
 		JButton calcular = new JButton("Calcular");
 		calcular.setBounds(184, 249, 182, 23);
 		fondo.add(calcular);
+		
+		JLabel universitario = new JLabel("\u00BFEres universitario?");
+		universitario.setToolTipText("");
+		universitario.setBounds(200, 117, 97, 23);
+		fondo.add(universitario);
+		
+		JCheckBox univ = new JCheckBox("");
+		univ.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				prima_universidad=true;
+			}
+			
+		});
+		
+		
+		univ.setBounds(303, 117, 21, 23);
+		fondo.add(univ);
 		calcular.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				try {
+					
 					double euros = Double.valueOf(Dinero.getText());
 					Integer Nfamiliares = Integer.valueOf(Nfam.getText());
 					String umbral = Alumno.calUmbral(Nfamiliares, euros);
-					Double cantidad = Alumno.calBeca(umbral);
+					Double cantidad = Alumno.calBeca(umbral, prima_universidad);
 					if (cantidad == 0) {
 						panel.setVisible(true);
 						panel.setText("No tiene derecho a recibir una beca pública debido a sus ingresos anuales");

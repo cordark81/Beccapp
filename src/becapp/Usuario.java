@@ -3,7 +3,7 @@ package becapp;
 
 public class Usuario {
 
-	private int id_usuario;
+	protected int id_usuario;
 
 	private String dni;
 
