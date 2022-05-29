@@ -32,7 +32,7 @@ import becapp.menus.metodos.MetodosMenus;
 
 /**
  * 
- * @author edu
+ *  @author Eduardo y Arturo
  *
  */
 

@@ -1,6 +1,10 @@
 package becapp;
 
-
+/**
+ * 
+ * @ @author Eduardo y Arturo
+ *
+ */
 public class Usuario {
 
 	protected int id_usuario;
@@ -8,7 +12,7 @@ public class Usuario {
 	private String dni;
 
 	private String nombre;
-		
+
 	private String apellido;
 
 	private String nacionalidad;
@@ -18,14 +22,30 @@ public class Usuario {
 	private int telf;
 
 	private String fecha_nac;
-	
+
 	private String clave;
-	
+
+	/**
+	 * 
+	 * 
+	 * Constructor sin id_usuario para generarlo de menera auntomatica según la
+	 * tabla usuarios Datos base para alumnos y administradores
+	 * 
+	 * @param dni          dni usuario
+	 * @param clave        clave acesso alumnos o adminitradores
+	 * @param nombre       nombre
+	 * @param apellido     apellido
+	 * @param nacionalidad nacionalidad
+	 * @param email        email para acceso
+	 * @param telf         telefono contacto
+	 * @param fecha_nac    fecha nacimiento
+	 */
+
 	public Usuario(String dni, String clave, String nombre, String apellido, String nacionalidad, String email,
 			int telf, String fecha_nac) {
 		super();
 		this.dni = dni;
-		this.clave=clave;
+		this.clave = clave;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.nacionalidad = nacionalidad;
@@ -33,14 +53,13 @@ public class Usuario {
 		this.telf = telf;
 		this.fecha_nac = fecha_nac;
 	}
-	
 
-	public Usuario(int id_usuario, String dni, String clave, String nombre, String apellido, String nacionalidad, String email,
-			int telf, String fecha_nac ) {
+	public Usuario(int id_usuario, String dni, String clave, String nombre, String apellido, String nacionalidad,
+			String email, int telf, String fecha_nac) {
 		super();
-		this.id_usuario=id_usuario;
+		this.id_usuario = id_usuario;
 		this.dni = dni;
-		this.clave=clave;
+		this.clave = clave;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.nacionalidad = nacionalidad;
@@ -52,9 +71,11 @@ public class Usuario {
 	public String getClave() {
 		return clave;
 	}
+
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
+
 	public String getDni() {
 		return dni;
 	}
@@ -86,13 +107,13 @@ public class Usuario {
 	public String getFecha_nac() {
 		return fecha_nac;
 	}
+
 	@Override
 	public String toString() {
 		return "Usuario [id_usuario=" + id_usuario + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", nacionalidad=" + nacionalidad + ", email=" + email + ", telf=" + telf + ", fecha_nac=" + fecha_nac
 				+ "]";
 	}
-
 
 	public void setId_usuario(int id_usuario) {
 		this.id_usuario = id_usuario;

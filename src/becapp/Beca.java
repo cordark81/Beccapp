@@ -1,13 +1,10 @@
 package becapp;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
+/**
+ * 
+ *  @author Eduardo y Arturo
+ *
+ */
 public class Beca {
 
 	private int cod;
@@ -24,14 +21,15 @@ public class Beca {
 
 	public tipo_beca tipo_beca;
 	/**
-	 * Contructor sin cod para luego generalo de menera correlativa al darlo de alta
+	 * Constructor sin con(numero beca) para generarlo de menera auntomatica según la tabla usuarios
+	 * Datos de la nueva beca
 	 * 
-	 * @param nombre
-	 * @param condiciones
-	 * @param descripcion
-	 * @param contacto
-	 * @param nombreProveedor
-	 * @param tipo_beca
+	 * @param nombre nombre 
+	 * @param condiciones condiciones de la beca
+	 * @param descripcion descrición de la beca
+	 * @param contacto contacto del patrocinar de la beca
+	 * @param nombreProveedor nombre proveedor
+	 * @param tipo_beca privada o pública
 	 */
 	public Beca(String nombre, String condiciones, String descripcion, String contacto, String nombreProveedor,
 			becapp.tipo_beca tipo_beca) {

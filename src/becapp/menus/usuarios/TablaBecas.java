@@ -11,29 +11,34 @@ import javax.swing.table.DefaultTableModel;
 
 import becapp.Conexion_BBDD;
 
+/**
+ * 
+ * @author Eduardo y Arturo
+ *
+ *         Clase para la creacion de una tabla del menu de visializaciÃ³n de
+ *         becas
+ *
+ */
 public class TablaBecas extends JFrame {
-	
+
 	Connection c = null;
 	ResultSet rs = null;
 	Statement st = null;
 
-	 TablaBecas() {
-		 
-		 Conexion_BBDD conect = new Conexion_BBDD();
-		 conect.conectar();
-		
-		JTable	table = new JTable();
+	TablaBecas() {
+
+		Conexion_BBDD conect = new Conexion_BBDD();
+
+		JTable table = new JTable();
 		DefaultTableModel modelo = new DefaultTableModel();
 		modelo.addColumn("Nombre");
 		modelo.addColumn("Proveedor");
-		modelo.addColumn("Descripción");
-		modelo.addColumn("Más info");
+		modelo.addColumn("Descripciï¿½n");
+		modelo.addColumn("Mï¿½s info");
 		table.setModel(modelo);
-		
-		String[] datos = new String [2];
-		
-	
+
+		String[] datos = new String[2];
+
 	}
-	
-	
+
 }

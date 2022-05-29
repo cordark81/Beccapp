@@ -1,5 +1,10 @@
 package becapp;
 
+/**
+ * 
+ * @author Eduardo y Arturo
+ *
+ */
 
 public class Administrador extends Usuario {
 
@@ -8,47 +13,46 @@ public class Administrador extends Usuario {
 	private String descripcion_puesto;
 
 	private String fecha_inc;
-	
+
 	/**
-	 * Contructor sin id_usuario para luego generarlo de manera correlativa 
 	 * 
-	 * @param dni
-	 * @param nombre
-	 * @param apellido
-	 * @param nacionalidad
-	 * @param email
-	 * @param telf
-	 * @param fecha_nac
-	 * @param clave
-	 * @param estado
-	 * @param descripcion_puesto
+	 * 
+	 * Constructor sin id_usuario para generarlo de menera auntomatica según la
+	 * tabla usuarios Datos del nuevo administrador
+	 * 
+	 * @param dni                dni
+	 * @param nombre             nombre
+	 * @param apellido           apellidos
+	 * @param nacionalidad       nacionalidad
+	 * @param email              email para el acceso
+	 * @param telf               telefono
+	 * @param fecha_nac          fecha naciemiento
+	 * @param clave              clave de acceso
+	 * @param estado             indica si esta en activo no el administrador
+	 * @param descripcion_puesto comentario del puesto
 	 */
 
-	
-
-
-	public String getEstado() {
-		return estado;
-	}
-
 	public Administrador(String dni, String clave, String nombre, String apellido, String nacionalidad, String email,
-			int telf, String fecha_nac,  String estado, String descripcion_puesto) {
+			int telf, String fecha_nac, String estado, String descripcion_puesto) {
 		super(dni, clave, nombre, apellido, nacionalidad, email, telf, fecha_nac);
-		
+
 		this.estado = estado;
 		this.descripcion_puesto = descripcion_puesto;
 	}
-	
-	public Administrador(int id_usuario, String dni, String clave, String nombre, String apellido, String nacionalidad, String email,
-			int telf, String fecha_nac,  String estado, String descripcion_puesto, String fecha_inc) {
-		super(id_usuario,dni, clave, nombre, apellido, nacionalidad, email, telf, fecha_nac);
-		
+
+	public Administrador(int id_usuario, String dni, String clave, String nombre, String apellido, String nacionalidad,
+			String email, int telf, String fecha_nac, String estado, String descripcion_puesto, String fecha_inc) {
+		super(id_usuario, dni, clave, nombre, apellido, nacionalidad, email, telf, fecha_nac);
+
 		this.estado = estado;
 		this.descripcion_puesto = descripcion_puesto;
 		this.fecha_inc = fecha_inc;
 	}
 
-	
+	public String getEstado() {
+		return estado;
+	}
+
 	public String getDescripcion_puesto() {
 		return descripcion_puesto;
 	}
@@ -56,10 +60,11 @@ public class Administrador extends Usuario {
 	public String getFecha_inc() {
 		return fecha_inc;
 	}
+
 	@Override
 	public String toString() {
-		return "Administrador [ID: " +super.getId_usuario()+" Nombre "+ super.getNombre() + " " + super.getApellido() + " DNI: " + super.getDni() + "]";
+		return "Administrador [ID: " + super.getId_usuario() + " Nombre " + super.getNombre() + " "
+				+ super.getApellido() + " DNI: " + super.getDni() + "]";
 	}
-	
 
 }

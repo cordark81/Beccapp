@@ -25,7 +25,7 @@ import becapp.menus.metodos.ImagenFondo;
 
 /**
  * 
- * @author edu
+ * @author Eduardo y Arturo
  *
  */
 
@@ -134,14 +134,14 @@ public class ModificarBeca extends JFrame {
 		descripcion.setActionCommand("descripcion");
 		descripcion.setOpaque(false);
 		descripcion.setFont(new Font("Roboto", Font.PLAIN, 14));
-		
+
 		JRadioButton contacto = new JRadioButton("contacto");
 		contacto.setBounds(50, 160, 120, 23);
 		getContentPane().add(contacto);
 		contacto.setActionCommand("contacto");
 		contacto.setOpaque(false);
 		contacto.setFont(new Font("Roboto", Font.PLAIN, 14));
-		
+
 		JRadioButton nombreProveedor = new JRadioButton("proveedor");
 		nombreProveedor.setBounds(225, 160, 120, 23);
 		getContentPane().add(nombreProveedor);
@@ -188,7 +188,7 @@ public class ModificarBeca extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				conexion = new Conexion_BBDD();
-			
+
 				// mensaje de la excepcion
 				String mensaje = "Atencion: solo son validos los numeros en ID";
 
@@ -225,7 +225,7 @@ public class ModificarBeca extends JFrame {
 							JOptionPane.showMessageDialog(null, "Actualizacion realizada con exito");
 							cod.setText("");
 							actualizacion.setText("");
-						
+
 							Log metodos = new Log();
 							// muestra la informacion en el jtext de como ha quedado despues del cambio
 							despuesModi.setText(conexion.informacionActualizacion(numeroCod, columna));
@@ -258,7 +258,7 @@ public class ModificarBeca extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				conexion = new Conexion_BBDD();
-			
+
 				int codigo = 0;
 				String mensaje = "Atencion: solo son validos los numeros en ID";
 				try {
@@ -275,12 +275,11 @@ public class ModificarBeca extends JFrame {
 
 					ButtonModel aux = grupo1.getSelection();
 					String columna = aux.getActionCommand();
-					//mostramos los datos del campo que se quiere sondear para cambiar
+					// mostramos los datos del campo que se quiere sondear para cambiar
 					antesModi.setText(conexion.informacionActualizacion(codigo, columna));
 					if (antesModi.getText().isBlank()) {
 						JOptionPane.showMessageDialog(null, "Atencion: no existe beca con esa ID");
 					}
-				
 
 				} catch (SQLException e1) {
 

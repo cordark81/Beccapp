@@ -29,13 +29,15 @@ public class Becapp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		Conexion_BBDD conexion=new Conexion_BBDD();
 		conexion.conectar();
 		
-		/*MenuUsuario pg = new MenuUsuario();
-		pg.setVisible(true);*/
-		MenuUsuario pg= new MenuUsuario();
+		PrincipalGestion pg = new PrincipalGestion();
 		pg.setVisible(true);
+		/*MenuUsuario pg= new MenuUsuario();
+		pg.setVisible(true);*/
 		
 		
 	}

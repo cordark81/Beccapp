@@ -26,7 +26,7 @@ import becapp.menus.metodos.Listado;
 
 /**
  * 
- * @author edu
+ *  @author Eduardo y Arturo
  *
  */
 public class BorradoAdministrador extends JFrame {
