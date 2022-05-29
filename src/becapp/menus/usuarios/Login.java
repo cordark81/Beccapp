@@ -1,7 +1,5 @@
 package becapp.menus.usuarios;
 
-
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,22 +25,25 @@ import becapp.menus.metodos.FondoLogin;
 import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.MetodosMenus;
 
-public class Login extends JFrame{
-	
+/**
+ * 
+ * @author Eduardo y Arturo
+ *
+ */
+public class Login extends JFrame {
+
 	private JPasswordField passwordField;
 
-	public Login(){
-		
+	public Login() {
+
 		/**
 		 * Admin:
 		 * 
 		 * ANTONIOOTONGONZALEZ@YAHOO.COM
-		 *  
 		 * 
 		 * 
-		 * User:
-		 * MARIAALONSOCARMONA@GMAIL.COM
-		 * Passw0rd
+		 * 
+		 * User: MARIAALONSOCARMONA@GMAIL.COM Passw0rd
 		 * 
 		 * 
 		 */
@@ -52,8 +53,7 @@ public class Login extends JFrame{
 		getContentPane().setLayout(null);
 		setFont(new Font("Roboto", Font.PLAIN, 14));
 
-		ImagenFondo fondo = 
-		new ImagenFondo("/imagenes/Logo.png");
+		ImagenFondo fondo = new ImagenFondo("/imagenes/Logo.png");
 		setContentPane(fondo);
 		fondo.setLayout(null);
 
@@ -94,13 +94,16 @@ public class Login extends JFrame{
 		login.setBounds(520, 350, 100, 30);
 		getContentPane().add(login);
 		login.setFont(new Font("Roboto", Font.PLAIN, 14));
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setBounds(495, 295, 150, 19);
 		fondo.add(passwordField);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
+		/**
+		 * Accion para el boton de verificación de los credencias
+		 */
 
 		login.addActionListener(new ActionListener() {
 
@@ -110,57 +113,55 @@ public class Login extends JFrame{
 				String usuario = nombre.getText();
 				String contrasena = passwordField.getText();
 				Conexion_BBDD connection = new Conexion_BBDD();
-				
-				
-				int resultado;
-				
-				resultado=connection.loginUsuario(usuario, contrasena);
-				
-				if(resultado==1){
 
+				int resultado;
+				// este metodo recibe los datos dados por el usuario en el formulario y los
+				// checkea
+				resultado = connection.loginUsuario(usuario, contrasena);
+
+				if (resultado == 1) {
+					// acceso a usuario
 					JOptionPane.showMessageDialog(null, "Bienvenido a Becapp", "Mensaje de bienvenida",
-					JOptionPane.INFORMATION_MESSAGE);
-					MenuUsuario ventana = new MenuUsuario();          
+							JOptionPane.INFORMATION_MESSAGE);
+					MenuUsuario ventana = new MenuUsuario();
 					ventana.setVisible(true);
 					dispose();
-					
-				
+
 					Log log = new Log();
-					
+
+					try {
+						// registamos en el log la accion
+						log.escribirLog(Tipo_movimiento.LOGIN);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				} else if (resultado == 2) {
+					// acceso a menu gestión
+					JOptionPane.showMessageDialog(null, "Bienvenido a Becapp", "Mensaje de bienvenida",
+							JOptionPane.INFORMATION_MESSAGE);
+					PrincipalGestion ventana = new PrincipalGestion();
+					ventana.setVisible(true);
+					dispose();
+
+					Log log = new Log();
+
 					try {
 						log.escribirLog(Tipo_movimiento.LOGIN);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
-				}else if(resultado==2) {
-					
-					JOptionPane.showMessageDialog(null, "Bienvenido a Becapp", "Mensaje de bienvenida",
-							JOptionPane.INFORMATION_MESSAGE);
-							PrincipalGestion ventana = new PrincipalGestion();          
-							ventana.setVisible(true);
-							dispose();
-							
-	
-							Log log = new Log();
-							
-							try {
-								log.escribirLog(Tipo_movimiento.LOGIN);
-							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
-							+ "Por favor ingrese un usuario y/o contrase�a correctos", "Acceso denegado",
-							JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Acceso denegado:\n" + "Por favor ingrese un usuario y/o contrase�a correctos",
+							"Acceso denegado", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
 		});
-		
+
 		JButton registro = new JButton("Registrate");
 		registro.setBounds(520, 400, 100, 15);
 		getContentPane().add(registro);
@@ -170,7 +171,10 @@ public class Login extends JFrame{
 		invitados.setBounds(600, 40, 150, 20);
 		getContentPane().add(invitados);
 		invitados.setFont(new Font("Roboto", Font.PLAIN, 14));
-		
+
+		/**
+		 * accion para el boton pasar como invitado
+		 */
 		invitados.addActionListener(new ActionListener() {
 
 			@Override
@@ -178,12 +182,14 @@ public class Login extends JFrame{
 				MenuInvitados ventana = new MenuInvitados();
 				ventana.setVisible(true);
 				dispose();
-				
-				
+
 			}
-			
+
 		});
-		
+
+		/*
+		 * accion para el boton de registrar usuario
+		 */
 		registro.addActionListener(new ActionListener() {
 
 			@Override
@@ -191,28 +197,11 @@ public class Login extends JFrame{
 				RegistroUsuarios ventana = new RegistroUsuarios();
 				ventana.setVisible(true);
 				dispose();
-				
+
 			}
 
-				
 		});
-		
-		
-		
-		
-		
-		
-		
-
-
-
-
 
 	}
-	
-	
-
 
 }
-
-

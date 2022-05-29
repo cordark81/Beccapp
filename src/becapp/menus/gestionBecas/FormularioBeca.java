@@ -26,7 +26,7 @@ import becapp.Conexion_BBDD;
 
 /**
  * 
- * @author edu
+ * @author Eduardo y Arturo
  *
  */
 
@@ -180,7 +180,6 @@ public class FormularioBeca extends JFrame {
 		getContentPane().add(limpiar);
 		limpiar.setBackground(Color.ORANGE);
 		limpiar.setFont(new Font("Roboto", Font.PLAIN, 14));
-		
 
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.setBounds(600, 400, 100, 30);
@@ -243,16 +242,15 @@ public class FormularioBeca extends JFrame {
 				tipo_beca tipo = null;
 
 				conexion = new Conexion_BBDD();
-				//con esta variable cambiamos el mensaje de salida para las excepciones;
-				String mensaje="";
+				// con esta variable cambiamos el mensaje de salida para las excepciones;
+				String mensaje = "";
 
-				
 				try {
 					// comprobramos que no hay campos en blanco
 					if (nombre.getText().isBlank() || condiciones.getText().isBlank() || descripcion.getText().isBlank()
 							|| contacto.getText().isBlank() || nombreProveedor.getText().isBlank()) {
 						// mostramos mensaje y cortamos la ejecucion del codigo
-						mensaje="Atencion: Algun campo en blanco";
+						mensaje = "Atencion: Algun campo en blanco";
 						throw new Exception();
 					}
 					// comprobamos que tipo esta seleccionado
@@ -266,7 +264,7 @@ public class FormularioBeca extends JFrame {
 
 					} else {
 						// en caso contrario levanto una expcecion y controlo la ejecucion del metodo
-						mensaje= "Atencion: obligatorio elegir beca publica o privada";
+						mensaje = "Atencion: obligatorio elegir beca publica o privada";
 						throw new Exception();
 
 					}
@@ -275,14 +273,13 @@ public class FormularioBeca extends JFrame {
 							descripcion.getText().toUpperCase(), contacto.getText().toUpperCase(),
 							nombreProveedor.getText().toUpperCase(), tipo);
 
-					
 					informacion.setText(beca.toString());
 					//
 					if (conexion.aniadirBeca(beca)) {
 
 						JOptionPane.showMessageDialog(null, "Beca añadida con exito");
 						informacion.setText(beca.toString());
-				
+
 						try {
 
 							Log metodos = new Log();
@@ -293,7 +290,7 @@ public class FormularioBeca extends JFrame {
 						}
 
 					} else {
-						mensaje="Atencion: problemas a la hora de cargar la beca";
+						mensaje = "Atencion: problemas a la hora de cargar la beca";
 						throw new Exception();
 					}
 
@@ -304,11 +301,10 @@ public class FormularioBeca extends JFrame {
 					nombreProveedor.setText("");
 
 					grupo1.clearSelection();
-				
 
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, mensaje);
-					
+
 				}
 
 			}

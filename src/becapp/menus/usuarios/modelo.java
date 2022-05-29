@@ -2,7 +2,14 @@ package becapp.menus.usuarios;
 
 import javax.swing.table.AbstractTableModel;
 
-public class modelo extends AbstractTableModel{
+/**
+ * 
+ * @author Eduardo y Arturo
+ *
+ *         lo de pendiente de comentar
+ */
+
+public class modelo extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
@@ -21,7 +28,5 @@ public class modelo extends AbstractTableModel{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }

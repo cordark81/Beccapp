@@ -7,26 +7,27 @@ import javax.swing.JPanel;
 
 /**
  * 
- * @author edu
+ * @author Eduardo y Arturo
  *
- *Clase para implemtar una imagen de fondo en la ventana
+ *         Clase para implemtar una imagen de fondo en las ventanas de
+ *         adminitracion
  */
-public class ImagenFondo extends JPanel{
-	
+public class ImagenFondo extends JPanel {
+
 	String imag;
-	//constructor para poder variar la imagen
+
+	// constructor para poder variar la imagen
 	public ImagenFondo(String imagen) {
-		this.imag=imagen;
+		this.imag = imagen;
 	}
-		
+
 	@Override
 	public void paint(Graphics g) {
-		
+
 		ImageIcon imagen = new ImageIcon(getClass().getResource(imag));
 		g.drawImage(imagen.getImage(), 0, 0, getWidth(), getHeight(), this);
 		setOpaque(false);
 		super.paint(g);
 	}
-	
-	
+
 }

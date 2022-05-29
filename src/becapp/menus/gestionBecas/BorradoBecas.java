@@ -25,8 +25,8 @@ import becapp.menus.metodos.Listado;
 
 /**
  * 
- * @author edu
- *  
+ * @author Eduardo y Arturo
+ * 
  */
 
 public class BorradoBecas extends JFrame {
@@ -104,7 +104,7 @@ public class BorradoBecas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
-			
+
 				name = JOptionPane.showInputDialog("Introduzca ID de la beca");
 				grupo1.clearSelection();
 				condicion = 1;
@@ -117,7 +117,6 @@ public class BorradoBecas extends JFrame {
 					informacion.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Ninguna beca encontrada");
 				}
-		
 
 			}
 		});
@@ -167,7 +166,7 @@ public class BorradoBecas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				conexion = new Conexion_BBDD();
-				
+
 				grupo1.clearSelection();
 				// columnas de la tabla
 				String[] columnas = { "Codigo", "Proveedor", "Contacto", "Descripcion", "Nombre", "Condiciones",
@@ -177,8 +176,6 @@ public class BorradoBecas extends JFrame {
 				listado.setVisible(true);
 				listado.pack();
 				listado.setTitle("Informacion Becas");
-
-			
 
 			}
 		});
@@ -193,7 +190,7 @@ public class BorradoBecas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Conexion_BBDD conexion = new Conexion_BBDD();
-		
+
 				if (conexion.borrarBeca(name, condicion, true)) {
 					JOptionPane.showMessageDialog(null, "Seleccion de beca/s borrado con exito");
 					Log metodos = new Log();

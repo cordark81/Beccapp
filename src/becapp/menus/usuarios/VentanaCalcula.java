@@ -7,17 +7,14 @@ import becapp.menus.metodos.ImagenFondo;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.JPanel;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import java.awt.Font;
-import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+
 /**
  * 
  * @author Eduardo y Arturo
@@ -27,13 +24,13 @@ import javax.swing.JCheckBox;
 public class VentanaCalcula extends JFrame {
 	private JTextField Dinero;
 	private JTextField Nfam;
-	private boolean prima_universidad=false;
+	private boolean prima_universidad = false;
 
 	/**
-	 * @author Eduardo y Arturo
-	 * El siguiente constructor contiene los elementos necesarios para generar la
-	 * ventana mediante la que el usuario calcula la cuantía de la beca mediante dos 
-	 * parámetros(cuantía de ingresos anuales y número de familiares).
+	 *         El siguiente constructor contiene los elementos
+	 *         necesarios para generar la ventana mediante la que el usuario calcula
+	 *         la cuantï¿½a de la beca mediante dos parï¿½metros(cuantï¿½a de ingresos
+	 *         anuales y nï¿½mero de familiares).
 	 */
 	public VentanaCalcula() {
 
@@ -45,7 +42,8 @@ public class VentanaCalcula extends JFrame {
 		fondo.setLayout(null);
 
 		JLabel Ingresos = new JLabel("Ingresos anuales");
-		Ingresos.setToolTipText("Introduz la suma de los ingresos durante los \u00FAltimos 12 meses de todos los componentes de su unidad familiar");
+		Ingresos.setToolTipText(
+				"Introduz la suma de los ingresos durante los \u00FAltimos 12 meses de todos los componentes de su unidad familiar");
 		Ingresos.setBounds(127, 51, 112, 23);
 		fondo.add(Ingresos);
 		Ingresos.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -78,33 +76,39 @@ public class VentanaCalcula extends JFrame {
 		JButton calcular = new JButton("Calcular");
 		calcular.setBounds(184, 249, 182, 23);
 		fondo.add(calcular);
-		
-		JLabel universitario = new JLabel("¿Eres universitario?");
+
+		JLabel universitario = new JLabel("ï¿½Eres universitario?");
 		universitario.setToolTipText("");
 		universitario.setBounds(172, 123, 142, 23);
 		fondo.add(universitario);
-		
+
 		JCheckBox univ = new JCheckBox("");
+		
+		/**
+		 * para verificar si tiene prima de universidad  en el checkbox
+		 */
 		univ.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				prima_universidad=true;
+				prima_universidad = true;
 			}
-			
+
 		});
-		
-		
+
 		univ.setBounds(320, 123, 21, 23);
 		fondo.add(univ);
 		calcular.setFont(new Font("Roboto", Font.PLAIN, 14));
+		/**
+		 * Accion del notÃ³n calcular, lanzara la informaciÃ³n segÃºn los criterios introducidos
+		 */
 		calcular.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				try {
-					
+
 					double euros = Double.valueOf(Dinero.getText());
 					Integer Nfamiliares = Integer.valueOf(Nfam.getText());
 					String umbral = Alumno.calUmbral(Nfamiliares, euros);

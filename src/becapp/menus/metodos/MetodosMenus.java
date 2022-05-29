@@ -12,7 +12,7 @@ import becapp.Conexion_BBDD;
 
 /**
  * 
- * @author edu
+ * @author Eduardo y Arturo
  *
  */
 
@@ -29,9 +29,9 @@ public class MetodosMenus extends JFrame {
 			JOptionPane.showMessageDialog(null, "Gracias, hasta pronto", "Gracias", JOptionPane.INFORMATION_MESSAGE);
 			System.exit(0);
 		}
-		
+
 	}
-	
+
 	/**
 	 * Este metodo se encarga de transformatar un arraylist de becas o
 	 * administradores en una matriz de objetos que contiene los capos que iran en
@@ -41,7 +41,7 @@ public class MetodosMenus extends JFrame {
 	 * @param tipoTabla string "beca" o "administrador" para navegar por el if
 	 * @return matriz de objetos para la tabla
 	 */
-	
+
 	public Object[][] arrayBidimensional(Conexion_BBDD conexion, String tipoTabla) {
 
 		Object[] array;
@@ -55,7 +55,7 @@ public class MetodosMenus extends JFrame {
 			array = d.toArray();
 
 			for (int i = 0; i < d.size(); i++) {
-				
+
 				datos[i][0] = d.get(i).getCod();
 				datos[i][1] = d.get(i).getNombre();
 				datos[i][2] = d.get(i).getCondiciones();
@@ -63,7 +63,7 @@ public class MetodosMenus extends JFrame {
 				datos[i][4] = d.get(i).getNombreProveedor();
 				datos[i][5] = d.get(i).getContacto();
 				datos[i][6] = d.get(i).getTipo_beca().toString();
-	
+
 			}
 
 		} else if (tipoTabla.equals("administrador")) {

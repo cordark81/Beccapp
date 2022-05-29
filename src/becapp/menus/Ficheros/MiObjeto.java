@@ -4,6 +4,14 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
+/**
+ *  @author Eduardo y Arturo
+ *
+ *	Personalizar objeto de según de escritura, asi solo creamos una cabecera 
+ *  
+ *  
+ */
+
 public class MiObjeto extends ObjectOutputStream{
 
 	public MiObjeto(OutputStream out) throws IOException{

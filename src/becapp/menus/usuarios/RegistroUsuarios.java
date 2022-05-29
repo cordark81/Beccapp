@@ -1,6 +1,5 @@
 package becapp.menus.usuarios;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -35,8 +34,9 @@ import javax.swing.ImageIcon;
 
 /**
  * 
- * @author amart y Eduardo
- *Clase que genera la ventana de registro
+ * @author Eduardo y Arturo
+ * 
+ *         Clase que genera la ventana de registro
  */
 public class RegistroUsuarios extends JFrame {
 
@@ -48,15 +48,13 @@ public class RegistroUsuarios extends JFrame {
 	private JTextField Fapellido;
 	private JTextField Fnacionalidad;
 
-
-	public RegistroUsuarios(){
+	public RegistroUsuarios() {
 
 		setTitle("REGISTRO");
 		setBounds(200, 100, 472, 522);
 		getContentPane().setLayout(null);
 
-		ImagenFondo fondo = 
-				new ImagenFondo("/imagenes/FondoRegistro.jpg");
+		ImagenFondo fondo = new ImagenFondo("/imagenes/FondoRegistro.jpg");
 		setContentPane(fondo);
 
 		getContentPane().setLayout(null);
@@ -131,7 +129,7 @@ public class RegistroUsuarios extends JFrame {
 		JButton resgistrarse = new JButton("Registrarse");
 		resgistrarse.setBounds(176, 408, 109, 30);
 		fondo.add(resgistrarse);
-		
+
 		JDateChooser jdc = new JDateChooser();
 		jdc.setDateFormatString("d/MM/y");
 		jdc.setBounds(255, 354, 144, 19);
@@ -160,6 +158,10 @@ public class RegistroUsuarios extends JFrame {
 		fondo.add(atras);
 		atras.setFont(new Font("Roboto", Font.PLAIN, 14));
 
+		/**
+		 * acción para el boton volver atras vuelve a la ventana de login
+		 */
+
 		atras.addActionListener(new ActionListener() {
 
 			@Override
@@ -169,42 +171,44 @@ public class RegistroUsuarios extends JFrame {
 				ventana.setVisible(true);
 				dispose();
 
-
 			}
 		});
 
-		resgistrarse.addActionListener(new ActionListener(){
+		/**
+		 * accion para el botón de registrar una vez estan todo los datos rellenos en
+		 * todos lo campos
+		 */
+		resgistrarse.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Date fechaCalendario = jdc.getDate();
 				DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
 				String Ffecha = f.format(fechaCalendario);
 
 				Conexion_BBDD connection = new Conexion_BBDD();
 				connection.conectar();
-				if( Fcontra.getText().length()==0 || Fdni.getText().length()==0|| Fnombre.getText().length()==0 ||  Fapellido.getText().length()==0
-						|| Fnacionalidad.getText().length()==0 || Femail.getText().length()==0){
-						
-					JOptionPane.showMessageDialog(null, "Debe comprobar que ha introducido todos los datos!", "Campos vacios",
-							JOptionPane.INFORMATION_MESSAGE);
-						
-				}
-				else {
-					Alumno nuevoUsuario = new Alumno( Fdni.getText(), Fcontra.getText(), Fnombre.getText(), Fapellido.getText(), 
-							Fnacionalidad.getText(), Femail.getText(), Integer.valueOf(Ftelf.getText()), Ffecha);
-					
+				// para comprobar que no hay campos vacios
+				if (Fcontra.getText().length() == 0 || Fdni.getText().length() == 0 || Fnombre.getText().length() == 0
+						|| Fapellido.getText().length() == 0 || Fnacionalidad.getText().length() == 0
+						|| Femail.getText().length() == 0) {
 
-					if(connection.registrarAlumno(nuevoUsuario)){
+					JOptionPane.showMessageDialog(null, "Debe comprobar que ha introducido todos los datos!",
+							"Campos vacios", JOptionPane.INFORMATION_MESSAGE);
+
+				} else {
+					Alumno nuevoUsuario = new Alumno(Fdni.getText(), Fcontra.getText(), Fnombre.getText(),
+							Fapellido.getText(), Fnacionalidad.getText(), Femail.getText(),
+							Integer.valueOf(Ftelf.getText()), Ffecha);
+					// metod de registro de alumnos
+					if (connection.registrarAlumno(nuevoUsuario)) {
 
 						JOptionPane.showMessageDialog(null, "Usuario registrado con exito!", "Registro finalizado",
 								JOptionPane.INFORMATION_MESSAGE);
-						MenuUsuario ventana = new MenuUsuario();         
+						MenuUsuario ventana = new MenuUsuario();
 						ventana.setVisible(true);
 						dispose();
-
-					
 
 						Log log = new Log();
 						try {
@@ -214,16 +218,14 @@ public class RegistroUsuarios extends JFrame {
 							e1.printStackTrace();
 						}
 
+					} else {
 
-					}else {
-
-						JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
-								+ "Por favor ingrese los datos correctamente", "Registro incompleto",
-								JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,
+								"Acceso denegado:\n" + "Por favor ingrese los datos correctamente",
+								"Registro incompleto", JOptionPane.ERROR_MESSAGE);
 
 					}
 				}
-
 
 			}
 		});
@@ -234,10 +236,6 @@ public class RegistroUsuarios extends JFrame {
 				mm.confirmarSalida();
 			}
 		});
-
-
-
-
 
 	}
 }

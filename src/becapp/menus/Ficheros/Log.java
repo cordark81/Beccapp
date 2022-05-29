@@ -12,9 +12,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 /**
  * 
- * @author edu
+ * @author Eduardo y Arturo
  *
  */
 public class Log {
@@ -34,10 +35,10 @@ public class Log {
 
 	/**
 	 * Con este metodo escribimos nuestro fichero log.txt en que vamos dejando
-	 * registrado las acciones que se realizan el programa
+	 * registrado las acciones que se realizan el programa con la hora y la fecha
+	 * del sistema
+	 * 
 	 * @param tipo Enum con lo tipo de movimientos
-	 * @param f fichero en el que se guarda la info
-	 * @param detalle aqui se pasa un string con todos los datos de la beca
 	 * 
 	 * @throws IOException subimos la excepcion para tratala mas tarde
 	 */
@@ -46,7 +47,7 @@ public class Log {
 		File log = new File("log.txt");
 		FileWriter fw = new FileWriter(log, true);
 		BufferedWriter bw = new BufferedWriter(fw);
-		
+
 		GregorianCalendar gc = new GregorianCalendar();
 		Date fecha_hora = gc.getTime();
 
@@ -59,34 +60,32 @@ public class Log {
 		fw.close();
 
 	}
+
 	/**
-	 * Metodo para lectura del archivo log.txt donde tenemos almacenado la informacion de los movimientos
+	 * Metodo para lectura del archivo log.txt donde tenemos almacenado la
+	 * informacion de los movimientos
 	 * 
 	 * @return String con los datos sacados del fichero para su sup
 	 * @throws IOException
 	 */
-	public String leerLog () throws IOException {
-		
+	public String leerLog() throws IOException {
+
 		File log = new File("log.txt");
-		FileReader fr= new FileReader(log);
+		FileReader fr = new FileReader(log);
 		BufferedReader br = new BufferedReader(fr);
-		
+
 		String registro;
-		String salida="";
-		
-		while ((registro=br.readLine()) != null) {
-			salida+=registro+"\n";
+		String salida = "";
+
+		while ((registro = br.readLine()) != null) {
+			salida += registro + "\n";
 		}
-		
+
 		br.close();
 		fr.close();
-		
-		
+
 		return salida;
 
-		
 	}
-	
-
 
 }

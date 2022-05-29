@@ -32,8 +32,9 @@ import becapp.menus.metodos.MetodosMenus;
  * 
  * @see https://www.juegosoftware.com/2018/10/hacer-un-jmenubar-en-una-ventana-en-java.html
  * 
- * @author edu
+ * @author Eduardo y Arturo
  *
+ * 
  */
 public class PrincipalGestion extends JFrame implements ActionListener {
 
@@ -54,7 +55,6 @@ public class PrincipalGestion extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setFont(new Font("Roboto", Font.PLAIN, 14));
 
-		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				MetodosMenus mm = new MetodosMenus();
