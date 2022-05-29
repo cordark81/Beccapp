@@ -22,6 +22,7 @@ import becapp.Conexion_BBDD;
 import becapp.menus.PrincipalGestion;
 import becapp.menus.Ficheros.Log;
 import becapp.menus.Ficheros.Tipo_movimiento;
+import becapp.menus.invitados.MenuInvitados;
 import becapp.menus.metodos.FondoLogin;
 import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.MetodosMenus;
@@ -170,6 +171,19 @@ public class Login extends JFrame{
 		getContentPane().add(invitados);
 		invitados.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
+		invitados.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MenuInvitados ventana = new MenuInvitados();
+				ventana.setVisible(true);
+				dispose();
+				
+				
+			}
+			
+		});
+		
 		registro.addActionListener(new ActionListener() {
 
 			@Override
@@ -195,6 +209,8 @@ public class Login extends JFrame{
 
 
 	}
+	
+	
 
 
 }

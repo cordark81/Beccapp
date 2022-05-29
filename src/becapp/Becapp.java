@@ -6,6 +6,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import becapp.menus.PrincipalGestion;
 import becapp.menus.usuarios.Login;
 import becapp.menus.usuarios.MenuUsuario;
+import becapp.menus.usuarios.RegistroUsuarios;
 import becapp.menus.usuarios.VentanaCalcula;
 
 public class Becapp {
@@ -33,8 +34,7 @@ public class Becapp {
 		
 		/*MenuUsuario pg = new MenuUsuario();
 		pg.setVisible(true);*/
-		
-		PrincipalGestion pg= new PrincipalGestion();
+		MenuUsuario pg= new MenuUsuario();
 		pg.setVisible(true);
 		
 		

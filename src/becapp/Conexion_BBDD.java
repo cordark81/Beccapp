@@ -450,8 +450,9 @@ public class Conexion_BBDD {
 			while (rs.next()) {
 
 				cod = rs.getInt(1) + 1;
-				a.setId_usuario(cod);
+				
 			}
+			a.setId_usuario(cod);
 			ps = connection.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
 
 			ps.setInt(1, cod);
@@ -551,7 +552,7 @@ public class Conexion_BBDD {
 
 		PreparedStatement ps;
 		try {
-			ps = connection.prepareStatement("select max(id_usuario)from alumnos");
+			ps = connection.prepareStatement("select max(id_usuario)from usuarios");
 			rs = ps.executeQuery();
 			// variar en un futuro para poder hacer la incorpoacion en una tabla vacia
 
@@ -559,26 +560,33 @@ public class Conexion_BBDD {
 
 				cod = rs.getInt(1) + 1;
 			}
+			
+			a.setId_usuario(cod);
 
-			ps = connection.prepareStatement("insert into alumnos values(?,?,?,?,?,?,?,sysdate,?,?,?,?,?");
+			ps = connection.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
 			ps.setInt(1, cod);
-			ps.setString(2, a.getDni());
-			ps.setString(3, a.getNombre());
-			ps.setString(4, a.getApellido());
-			ps.setString(5, a.getNacionalidad());
-			ps.setInt(6, a.getTelf());
-			ps.setString(7, a.getEmail());
-
-			// pendiente de ver al interaccion de este dato
-			// ps.setDate(8,"sysdate");
-			// ps.setString(8, "sysdate");
-			ps.setInt(9, a.getNumero_familiares());
-			ps.setDouble(10, a.getIngreso_anual());
-			ps.setInt(11, a.getNumero_familiares());
-			ps.setString(12, a.getEstudios_requisitos().toString());
-			ps.setString(13, a.getUmbral_ingresos().toString());
+			ps.setString(2, a.getFecha_nac());
+			ps.setString(3, a.getClave());
+			ps.setString(4, a.getEmail());
+			ps.setString(5, a.getNombre());
+			ps.setString(6, a.getApellido());
+			ps.setString(7, a.getDni());
+			ps.setString(8, a.getNacionalidad());
+			ps.setInt(9, a.getTelf());
+			
+			
 			ps.executeUpdate();
+			
+			ps = connection.prepareStatement("insert into alumnos values(?,?,?,?,?)");
+			
+			ps.setInt(1, cod);
+			ps.setInt(2, 0);
+			ps.setDouble(3, 0);
+			ps.setString(4, "");
+			ps.setInt(5,0);
 
+			ps.executeUpdate();
+			
 			alta = true;
 
 		} catch (SQLException e) {
@@ -667,45 +675,7 @@ public class Conexion_BBDD {
 		return resultado;
 	}
 
-	// pendiente gestionar el tema de la fecha
-	public boolean registrarUsuario(Usuario a) {
-
-		boolean alta = false;
-		int cod = 0;
-		PreparedStatement ps;
-
-		try {
-
-			ps = connection.prepareStatement("select max(id_usuario)from usuarios");
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				cod = rs.getInt(1) + 1;
-
-			}
-
-			ps = connection.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?)");
-
-			ps.setInt(1, cod);
-			ps.setString(2, a.getEmail());
-			ps.setString(3, a.getClave());
-			ps.setString(4, a.getNombre());
-			ps.setString(5, a.getApellido());
-			ps.setString(6, a.getDni());
-			ps.setString(7, a.getNacionalidad());
-			ps.setInt(8, a.getTelf());
-
-			ps.executeUpdate();
-			alta = true;
-
-		} catch (SQLException e) {
-			System.out.println("no se han podido insertar los datos");
-			e.printStackTrace();
-			alta = false;
-			return alta;
-		}
-		return alta;
-	}
+	
 
 	public ArrayList<Beca> recuperarBecas() {
 
@@ -732,13 +702,13 @@ public class Conexion_BBDD {
 		Beca beca = null;
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select nombre, descripcion, nombre_proveedor from becas where codigo=?");
+					.prepareStatement("select nombre, descripcion, nombre_proveedor, contacto from becas where codigo=?");
 			ps.setInt(1, cod);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
 
-				beca = new Beca(rs.getString("nombre"), rs.getString("descripcion"), rs.getString("nombre_proveedor"));
+				beca = new Beca(rs.getString("nombre"), rs.getString("descripcion"), rs.getString("nombre_proveedor"),rs.getString("contacto"));
 			}
 
 		} catch (SQLException e) {
