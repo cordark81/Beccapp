@@ -44,7 +44,17 @@ public class Beca {
 		this.tipo_beca = tipo_beca;
 
 	}
-
+	/**
+	 * Constuctor con código
+	 * 
+	 * @param cod
+	 * @param nombre
+	 * @param condiciones
+	 * @param descripcion
+	 * @param contacto
+	 * @param nombreProveedor
+	 * @param tipo_beca
+	 */
 	public Beca(int cod, String nombre, String condiciones, String descripcion, String contacto, String nombreProveedor,
 			becapp.tipo_beca tipo_beca) {
 		super();

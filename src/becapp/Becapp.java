@@ -9,6 +9,10 @@ import becapp.menus.usuarios.MenuUsuario;
 import becapp.menus.usuarios.RegistroUsuarios;
 import becapp.menus.usuarios.VentanaCalcula;
 
+/**
+ * La siguiente clase sirve para inicializar la ventana principal de nuestro programa.
+ * @author Arturo y Eduardo
+ */
 public class Becapp {
 
 	public static void main(String[] args) {

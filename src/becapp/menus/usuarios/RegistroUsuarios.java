@@ -154,7 +154,7 @@ public class RegistroUsuarios extends JFrame {
 		fondo.add(lblFechaNac);
 		lblFechaNac.setFont(new Font("Roboto", Font.PLAIN, 14));
 
-		JButton atras = new JButton();
+		JButton atras = new JButton("<-");
 		atras.setSelectedIcon(new ImageIcon("C:\\Users\\amart\\OneDrive\\Escritorio\\hacia-atras.png"));
 		atras.setBounds(29, 11, 40, 41);
 		fondo.add(atras);
