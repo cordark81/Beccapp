@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -51,6 +52,7 @@ public class Skills extends JFrame {
 		textoNombre.getText();
 		textoNombre.setEditable(false);
 		textoNombre.setFont(new Font("Roboto", Font.PLAIN, 14));
+		textoNombre.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 
 		JTextPane textoProveedor = new JTextPane();
 		textoProveedor.setText(beca.getNombreProveedor());
@@ -58,6 +60,7 @@ public class Skills extends JFrame {
 		textoProveedor.setBounds(99, 133, 188, 61);
 		fondo.add(textoProveedor);
 		textoProveedor.setFont(new Font("Roboto", Font.PLAIN, 14));
+		textoProveedor.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 
 		JTextPane textoDescripcion = new JTextPane();
 		textoDescripcion.setText(beca.getDescripcion());
@@ -65,6 +68,7 @@ public class Skills extends JFrame {
 		textoDescripcion.setBounds(67, 233, 563, 117);
 		fondo.add(textoDescripcion);
 		textoDescripcion.setFont(new Font("Roboto", Font.PLAIN, 14));
+		textoDescripcion.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 
 		JLabel imagen = new JLabel("");
 		imagen.setBounds(296, 44, 334, 178);
@@ -74,6 +78,7 @@ public class Skills extends JFrame {
 				nuevaImagen.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_SMOOTH));
 		imagen.setIcon(img);
 		fondo.add(imagen);
+		imagen.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 
 		JButton contacto = new JButton("Obtener contacto");
 		contacto.setBounds(262, 367, 154, 28);

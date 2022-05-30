@@ -118,7 +118,7 @@ public class MenuInvitados extends JFrame {
 	 */
 
 	public void construirTabla() {
-		String[] columnas = { "Nombre", "Descripcion", "Mï¿½s" };
+		String[] columnas = { "Nombre", "Descripcion", "Más" };
 		Object informacion[][] = obetenerMatriz();
 
 		System.out.println(informacion.length);
@@ -146,7 +146,7 @@ public class MenuInvitados extends JFrame {
 
 			}
 		}, columnas.length - 1);
-		buttonColumn.setText("Ver mï¿½s");
+		buttonColumn.setText("Ver más");
 	}
 
 	/**

@@ -194,7 +194,7 @@ public class FormularioAdministrador extends JFrame {
 		descripcion_puesto.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JTextPane ultimoAdminitradorC = new JTextPane();
-		ultimoAdminitradorC.setText("Ultimo Administrador a√±adido");
+		ultimoAdminitradorC.setText("Ultimo Administrador aÒadido");
 		ultimoAdminitradorC.setBounds(100, 350, 300, 19);
 		getContentPane().add(ultimoAdminitradorC);
 		ultimoAdminitradorC.setEditable(false);
@@ -292,7 +292,7 @@ public class FormularioAdministrador extends JFrame {
 
 					if (conexion.darAltaAdmin(admin)) {
 
-						JOptionPane.showMessageDialog(null, "Administrador a√±adido con exito");
+						JOptionPane.showMessageDialog(null, "Administrador aÒadido con exito");
 						ultimoAdministrador.setText(admin.toString());
 						// limpeza automatica
 						dni.setText("");
@@ -316,7 +316,7 @@ public class FormularioAdministrador extends JFrame {
 
 					} else {
 
-						JOptionPane.showMessageDialog(null, "Error: el administrador no se ha podido a√±adir");
+						JOptionPane.showMessageDialog(null, "Error: el administrador no se ha podido aÒadir");
 
 					}
 					// excepction para el numero de teleno
@@ -341,7 +341,7 @@ public class FormularioAdministrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// columnas de la tabla
 				String[] columnas = { "ID", "Estado", "Descripcion puesto", "Fecha inicio", "Fecha nacimiento", "Clave",
-						"Email", "Nombre", "Apellido", "Dni", "Nacionalidad", "Tel√©fono" };
+						"Email", "Nombre", "Apellido", "Dni", "Nacionalidad", "Telefono" };
 				// constructor que genera la tabla
 				Listado listado = new Listado(false, columnas, "administrador");
 				listado.setVisible(true);

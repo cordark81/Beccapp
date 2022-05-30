@@ -1,6 +1,9 @@
 package infoBecas;
 
 
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
 
@@ -27,6 +30,7 @@ public class Contacto extends JFrame {
 		contacto.setText(beca.getContacto());
 		contacto.getText();
 		contacto.setEditable(false);
+		contacto.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		fondo.add(contacto);
 	}
 

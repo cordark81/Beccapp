@@ -27,6 +27,7 @@ import becapp.menus.gestionBecas.ModificarBeca;
 import becapp.menus.metodos.ImagenFondo;
 import becapp.menus.metodos.Listado;
 import becapp.menus.metodos.MetodosMenus;
+import becapp.menus.usuarios.Login;
 
 /**
  * 
@@ -42,14 +43,15 @@ public class PrincipalGestion extends JFrame implements ActionListener {
 
 	private JMenuBar menuBar;// crea la barra de menús
 	private JMenu menuBecas, menuAdministrador, registro;// menús que añadiremos a la bara de menús
+
 	private JMenuItem anaidirBeca, borrarBeca, modiBeca, listadoBeca, anaidirAdmin, borrarAdmin, listaAdmin, verLog,
-			borrarLog;// los items que tienen los menús
+			borrarLog, sesion, cerrarSesion;// los items que tienen los menús
 
 	public PrincipalGestion() {
 
 		setBounds(300, 100, 1200, 820);
 		setTitle("MENU PRINCIPAL");
-		ImagenFondo fondo = new ImagenFondo("/imagenes/Logo.png");
+		ImagenFondo fondo = new ImagenFondo("/imagenes/Definitivo.png");
 		setContentPane(fondo);
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -69,12 +71,12 @@ public class PrincipalGestion extends JFrame implements ActionListener {
 		menuBar.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		// añadimos la opción menú
-		menuBecas = new JMenu("Gestion becas");
+		menuBecas = new JMenu("Gesti�n becas");
 		menuBar.add(menuBecas);
 		menuBecas.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		// añadimos un item
-		anaidirBeca = new JMenuItem("Añadir becas");
+		anaidirBeca = new JMenuItem("A�adir becas");
 		anaidirBeca.addActionListener(this);
 		menuBecas.add(anaidirBeca);
 		anaidirBeca.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -97,11 +99,11 @@ public class PrincipalGestion extends JFrame implements ActionListener {
 		listadoBeca.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		// añadimos otro menu a la barra de menús que en este caso no hace nada
-		menuAdministrador = new JMenu("Gestion administrador");
+		menuAdministrador = new JMenu("Gesti�n administrador");
 		menuBar.add(menuAdministrador);
 		menuAdministrador.setFont(new Font("Roboto", Font.PLAIN, 14));
 
-		anaidirAdmin = new JMenuItem("Añadir administrador");
+		anaidirAdmin = new JMenuItem("A�adir administrador");
 		anaidirAdmin.addActionListener(this);
 		menuAdministrador.add(anaidirAdmin);
 		anaidirAdmin.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -129,6 +131,21 @@ public class PrincipalGestion extends JFrame implements ActionListener {
 		borrarLog.addActionListener(this);
 		registro.add(borrarLog);
 		borrarLog.setFont(new Font("Roboto", Font.PLAIN, 14));
+		
+		sesion = new JMenu("Sesi�n");
+		sesion.addActionListener(this);
+		sesion.setFont(new Font("Roboto", Font.PLAIN, 14));
+		menuBar.add(sesion);
+		
+		cerrarSesion = new JMenuItem("Cerrar Sesion");
+		cerrarSesion.addActionListener(this);
+		sesion.add(cerrarSesion);
+		cerrarSesion.setFont(new Font("Roboto", Font.PLAIN, 14));
+		
+		
+		
+		
+		
 
 		JTextPane version = new JTextPane();
 		version.setText("VERSION 1.0");
@@ -218,6 +235,13 @@ public class PrincipalGestion extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Atencion: registro vacio");
 			}
 
+		}
+		
+		if(e.getSource() == cerrarSesion) {
+			
+			Login lo = new Login();
+			lo.setVisible(true);
+			dispose();
 		}
 	}
 

@@ -153,7 +153,7 @@ public class FormularioBeca extends JFrame {
 		grupo1.add(publica);
 
 		JTextPane informacionC = new JTextPane();
-		informacionC.setText("Ultima beca aÃ±adida");
+		informacionC.setText("Ultima beca añadida");
 		informacionC.setBounds(100, 240, 250, 30);
 		getContentPane().add(informacionC);
 		informacionC.setEditable(false);
@@ -250,7 +250,7 @@ public class FormularioBeca extends JFrame {
 					if (nombre.getText().isBlank() || condiciones.getText().isBlank() || descripcion.getText().isBlank()
 							|| contacto.getText().isBlank() || nombreProveedor.getText().isBlank()) {
 						// mostramos mensaje y cortamos la ejecucion del codigo
-						mensaje = "Atencion: Algun campo en blanco";
+						mensaje = "Atención: Algun campo en blanco";
 						throw new Exception();
 					}
 					// comprobamos que tipo esta seleccionado
@@ -264,7 +264,7 @@ public class FormularioBeca extends JFrame {
 
 					} else {
 						// en caso contrario levanto una expcecion y controlo la ejecucion del metodo
-						mensaje = "Atencion: obligatorio elegir beca publica o privada";
+						mensaje = "Atención: obligatorio elegir beca publica o privada";
 						throw new Exception();
 
 					}
@@ -277,7 +277,7 @@ public class FormularioBeca extends JFrame {
 					//
 					if (conexion.aniadirBeca(beca)) {
 
-						JOptionPane.showMessageDialog(null, "Beca aÃ±adida con exito");
+						JOptionPane.showMessageDialog(null, "Beca añadida con exito");
 						informacion.setText(beca.toString());
 
 						try {
@@ -290,7 +290,7 @@ public class FormularioBeca extends JFrame {
 						}
 
 					} else {
-						mensaje = "Atencion: problemas a la hora de cargar la beca";
+						mensaje = "Atención: problemas a la hora de cargar la beca";
 						throw new Exception();
 					}
 

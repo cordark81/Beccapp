@@ -96,7 +96,7 @@ public class MenuUsuario extends JFrame {
 		txtpnCalculaLaCuanta.setBackground(new Color(255, 255, 255));
 		txtpnCalculaLaCuanta.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtpnCalculaLaCuanta.setText(
-				"Calcula la cuant\u00EDa de tu beca. Introduce tus datos (ingresos y numero de familiares) y obten una aproximaci\u00F3n de la cuant\u00EDa fija que puedes percibir.");
+				"Calcula la cuantía de tu beca. Introduce tus datos (ingresos y numero de familiares) y obten una aproximación de la cantidad fija que puedes percibir.");
 		fondo.add(txtpnCalculaLaCuanta);
 		txtpnCalculaLaCuanta.setFont(new Font("Roboto", Font.PLAIN, 14));
 
@@ -143,7 +143,7 @@ public class MenuUsuario extends JFrame {
 	 */
 
 	public void construirTabla() {
-		String[] columnas = { "Nombre", "Descripcion", "Mï¿½s" };
+		String[] columnas = { "Nombre", "Descripción", "Más" };
 		Object informacion[][] = obetenerMatriz();
 
 		System.out.println(informacion.length);
@@ -171,7 +171,7 @@ public class MenuUsuario extends JFrame {
 
 			}
 		}, columnas.length - 1);
-		buttonColumn.setText("Ver mï¿½s");
+		buttonColumn.setText("Ver más");
 	}
 
 	/**

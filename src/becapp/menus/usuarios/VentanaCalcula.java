@@ -34,7 +34,7 @@ public class VentanaCalcula extends JFrame {
 	 */
 	public VentanaCalcula() {
 
-		setTitle("CALCULA LA CUANTï¿½A DE TU BECA");
+		setTitle("CALCULA LA CUANTÍA DE TU BECA");
 		setBounds(200, 100, 563, 342);
 
 		ImagenFondo fondo = new ImagenFondo("/imagenes/FondoCalcula.jpg");
@@ -43,7 +43,7 @@ public class VentanaCalcula extends JFrame {
 
 		JLabel Ingresos = new JLabel("Ingresos anuales");
 		Ingresos.setToolTipText(
-				"Introduz la suma de los ingresos durante los \u00FAltimos 12 meses de todos los componentes de su unidad familiar");
+				"Introduce la suma de los ingresos durante los últimos 12 meses de todos los componentes de su unidad familiar");
 		Ingresos.setBounds(127, 51, 112, 23);
 		fondo.add(Ingresos);
 		Ingresos.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -77,7 +77,7 @@ public class VentanaCalcula extends JFrame {
 		calcular.setBounds(184, 249, 182, 23);
 		fondo.add(calcular);
 
-		JLabel universitario = new JLabel("ï¿½Eres universitario?");
+		JLabel universitario = new JLabel("¿Eres universitario?");
 		universitario.setToolTipText("");
 		universitario.setBounds(172, 123, 142, 23);
 		fondo.add(universitario);
@@ -115,10 +115,10 @@ public class VentanaCalcula extends JFrame {
 					Double cantidad = Alumno.calBeca(umbral, prima_universidad);
 					if (cantidad == 0) {
 						panel.setVisible(true);
-						panel.setText("No tiene derecho a recibir una beca pï¿½blica debido a sus ingresos anuales");
+						panel.setText("No tiene derecho a recibir una beca pública debido a sus ingresos anuales");
 					} else {
 						panel.setVisible(true);
-						panel.setText("La cuantï¿½a de su beca es de: " + cantidad);
+						panel.setText("La cuantía de su beca es de: " + cantidad);
 					}
 				} catch (NumberFormatException a) {
 					panel.setText("Introduzca unos parametros correctos");

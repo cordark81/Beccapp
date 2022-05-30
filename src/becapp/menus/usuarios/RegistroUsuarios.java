@@ -70,7 +70,7 @@ public class RegistroUsuarios extends JFrame {
 		fondo.add(apellido);
 		apellido.setFont(new Font("Roboto", Font.PLAIN, 14));
 
-		JLabel telf = new JLabel("Tel\u00E9fono");
+		JLabel telf = new JLabel("Teléfono");
 		telf.setBounds(115, 125, 65, 41);
 		fondo.add(telf);
 		telf.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -85,7 +85,7 @@ public class RegistroUsuarios extends JFrame {
 		fondo.add(correo);
 		correo.setFont(new Font("Roboto", Font.PLAIN, 14));
 
-		JLabel contrasena = new JLabel("Contrase\u00F1a");
+		JLabel contrasena = new JLabel("Contraseña");
 		contrasena.setBounds(285, 216, 76, 41);
 		contrasena.setFont(new Font("Roboto", Font.PLAIN, 14));
 		fondo.add(contrasena);
@@ -132,9 +132,8 @@ public class RegistroUsuarios extends JFrame {
 
 		JDateChooser jdc = new JDateChooser();
 		jdc.setDateFormatString("d/MM/y");
-		jdc.setBounds(255, 354, 144, 19);
+		jdc.setBounds(255, 354, 166, 19);
 		fondo.add(jdc);
-		jdc.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.orange));
 		resgistrarse.setFont(new Font("Roboto", Font.PLAIN, 14));
 		Fnacionalidad = new JTextField();
 		Fnacionalidad.setColumns(10);
@@ -148,13 +147,12 @@ public class RegistroUsuarios extends JFrame {
 		lblNacionalidad.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		JLabel lblFechaNac = new JLabel("Fecha de nacimiento");
-		lblFechaNac.setBounds(265, 308, 128, 41);
+		lblFechaNac.setBounds(271, 308, 128, 41);
 		fondo.add(lblFechaNac);
 		lblFechaNac.setFont(new Font("Roboto", Font.PLAIN, 14));
 
-		JButton atras = new JButton("<-");
-		atras.setSelectedIcon(new ImageIcon("C:\\Users\\amart\\OneDrive\\Escritorio\\hacia-atras.png"));
-		atras.setBounds(29, 11, 40, 41);
+		JButton atras = new JButton("Atrás");
+		atras.setBounds(29, 11, 76, 20);
 		fondo.add(atras);
 		atras.setFont(new Font("Roboto", Font.PLAIN, 14));
 
@@ -175,8 +173,8 @@ public class RegistroUsuarios extends JFrame {
 		});
 
 		/**
-		 * accion para el botÃ³n de registrar una vez estan todo los datos rellenos en
-		 * todos lo campos
+		 * accion para el botón de registrar una vez estan todo los datos rellenos en
+		 *  los campos
 		 */
 		resgistrarse.addActionListener(new ActionListener() {
 
@@ -190,6 +188,7 @@ public class RegistroUsuarios extends JFrame {
 				Conexion_BBDD connection = new Conexion_BBDD();
 				connection.conectar();
 				// para comprobar que no hay campos vacios
+				try {
 				if (Fcontra.getText().length() == 0 || Fdni.getText().length() == 0 || Fnombre.getText().length() == 0
 						|| Fapellido.getText().length() == 0 || Fnacionalidad.getText().length() == 0
 						|| Femail.getText().length() == 0) {
@@ -226,9 +225,14 @@ public class RegistroUsuarios extends JFrame {
 
 					}
 				}
-
+				}catch(NumberFormatException exnumero){
+					
+					JOptionPane.showMessageDialog(null, "Atencion: letras en el numero de teléfono");
+					
+				}
 			}
 		});
+		
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

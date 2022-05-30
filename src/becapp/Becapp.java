@@ -8,6 +8,7 @@ import becapp.menus.usuarios.Login;
 import becapp.menus.usuarios.MenuUsuario;
 import becapp.menus.usuarios.RegistroUsuarios;
 import becapp.menus.usuarios.VentanaCalcula;
+import infoBecas.Skills;
 
 /**
  * La siguiente clase sirve para inicializar la ventana principal de nuestro programa.
@@ -38,7 +39,7 @@ public class Becapp {
 		Conexion_BBDD conexion=new Conexion_BBDD();
 		conexion.conectar();
 		
-		Login pg = new Login();
+		PrincipalGestion pg = new PrincipalGestion();
 		pg.setVisible(true);
 		/*MenuUsuario pg= new MenuUsuario();
 		pg.setVisible(true);*/
