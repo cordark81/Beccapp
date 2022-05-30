@@ -559,7 +559,7 @@ public class Conexion_BBDD {
 		return borrado;
 	}
 
-	// pendiente gestionar el tema de la fecha
+	
 
 	/**
 	 * 

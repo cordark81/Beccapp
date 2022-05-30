@@ -38,7 +38,7 @@ public class Becapp {
 		Conexion_BBDD conexion=new Conexion_BBDD();
 		conexion.conectar();
 		
-		PrincipalGestion pg = new PrincipalGestion();
+		Login pg = new Login();
 		pg.setVisible(true);
 		/*MenuUsuario pg= new MenuUsuario();
 		pg.setVisible(true);*/

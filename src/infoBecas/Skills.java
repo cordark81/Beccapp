@@ -26,11 +26,6 @@ public class Skills extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * * @author Eduardo y Arturo
-	 * 
-	 * Launch the application.
-	 */
 
 	/**
 	 * Create the frame.

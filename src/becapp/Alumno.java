@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-<<<<<<< HEAD
+
 
 /**
  * 
@@ -12,14 +12,9 @@ import java.util.List;
  *La siguiente clase contiene los métodos necesarios para crear objetos de tipo "Alumno",
  *un objeto que hereda de la clase padre "Usuario"
  */
-=======
-/**
- * 
- * @author Eduardo y Arturo
- *
- */
 
->>>>>>> 625401306d5765be4aa777f8e18ad633a696a5a3
+
+
 public class Alumno extends Usuario {
 
 	private Integer numero_familiares;
@@ -41,7 +36,6 @@ public class Alumno extends Usuario {
 		becasFavoritas = new ArrayList<Beca>();
 		this.umbral_ingresos = umbral_ingresos;
 	}
-<<<<<<< HEAD
 	/**
 	 * Constructor sin código (para generarlo de forma correlativa)
 	 * que nos permite crear objetos Alumno a partir de varios parámetros de entrada
@@ -53,25 +47,6 @@ public class Alumno extends Usuario {
 	 * @param email
 	 * @param telf
 	 * @param fecha_nac
-=======
-
-	/**
-	 * 
-	 * 
-	 * Constructor sin id_usuario para generarlo de menera auntomatica segÃºn la
-	 * tabla usuarios
-	 * 
-	 * datos del alumno que damos de alta *
-	 * 
-	 * @param dni          dni
-	 * @param clave        clave de acceso
-	 * @param nombre       nombre
-	 * @param apellido     apellido
-	 * @param nacionalidad nacionalidad
-	 * @param email        email para el acceso
-	 * @param telf         telefono
-	 * @param fecha_nac    fecha de nacimiento
->>>>>>> 625401306d5765be4aa777f8e18ad633a696a5a3
 	 */
 	public Alumno(String dni, String clave, String nombre, String apellido, String nacionalidad, String email, int telf,
 			String fecha_nac) {
@@ -130,12 +105,6 @@ public class Alumno extends Usuario {
 	 * usuario que introduce los datos. Posteriormente esta variable umbral se utiliza para 
 	 * calcular la cuantía monetaria de la beca.
 	 * @author Eduardo y Arturo
-	 * 
-	 *         El siguiente mï¿½todo nos permite calcular el umbral econï¿½mico en el
-	 *         que se encuentra el usuario que introduce los datos. Posteriormente
-	 *         esta variable umbral se utiliza para calcular la cuantï¿½a monetaria de
-	 *         la beca.
-	 * 
 	 * @param numFamilia
 	 * @param dinero
 	 * @return umbral
@@ -168,16 +137,6 @@ public class Alumno extends Usuario {
 	 * @param umbral
 	 * @param universitario
 	 * @return total de la beca
-=======
-	 * 
-	 * 
-	 * El siguiente mï¿½todo nos sirve para calcular la cuantï¿½a de la beca.
-	 * 
-	 * @param umbral
-	 * @param universitario
-	 * @return total de la beca
-	 * 
->>>>>>> 625401306d5765be4aa777f8e18ad633a696a5a3
 	 */
 	public static Double calBeca(String umbral, boolean universitario) {
 		Double total = 0.0;
